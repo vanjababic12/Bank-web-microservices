@@ -9,7 +9,7 @@
     }
   },
     "profiles": {
-        "ProductApi": {
+        "ExchangeRateApi": {
             "commandName": "Project",
             "dotnetRunMessages": "true",
             "launchBrowser": true,

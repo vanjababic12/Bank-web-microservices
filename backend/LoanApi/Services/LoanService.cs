@@ -16,7 +16,24 @@ namespace LoanApi.Services
         {
             _dbContext = dbContext;
         }
+        public List<LoanType> SearchAndSortLoanTypes(string searchTerm, string sortField, bool ascending)
+        {
+            var query = _dbContext.LoanTypes.AsQueryable();
 
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(lt => lt.Name.Contains(searchTerm) || lt.Description.Contains(searchTerm));
+            }
+
+            query = sortField switch
+            {
+                "name" => ascending ? query.OrderBy(lt => lt.Name) : query.OrderByDescending(lt => lt.Name),
+                "interestRate" => ascending ? query.OrderBy(lt => lt.InterestRate) : query.OrderByDescending(lt => lt.InterestRate),
+                _ => query
+            };
+
+            return query.ToList();
+        }
         public List<LoanType> GetAllLoanTypes()
         {
             return _dbContext.LoanTypes.Where(lt => !lt.IsDeleted).ToList();

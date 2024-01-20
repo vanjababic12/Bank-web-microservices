@@ -9,6 +9,7 @@ using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace IdentityApi.Controllers
 {
@@ -61,7 +62,40 @@ namespace IdentityApi.Controllers
 
             return Ok();
         }
-        [HttpPost]
+
+        [HttpPut]
+        [Authorize]
+        public ActionResult UpdateUser([FromBody] UpdateUserDto dto)
+        {
+            var userEmail = GetUserEmail();
+            try
+            {
+                _userService.UpdateUser(userEmail, dto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+            return Ok();
+        }
+
+        [HttpGet("workers")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult<List<UserDto>> GetAllWorkers()
+        {
+            try
+            {
+                var workers = _userService.GetAllWorkers();
+                return Ok(workers);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("workers")]
         [Authorize(Roles = "Admin")]
 
         public ActionResult AddWorker([FromBody] RegisterDto dto)
@@ -78,80 +112,21 @@ namespace IdentityApi.Controllers
 
             return Ok();
         }
-        [HttpPut]
-        [Authorize]
-        public ActionResult UpdateUser([FromBody] UpdateUserDto dto)
+
+        [HttpDelete("worker/{username}")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult DeleteWorker(string username)
         {
-            var userEmail = GetUserEmail();
             try
             {
-                _userService.UpdateUser(userEmail, dto);
+                _userService.DeleteWorker(username);
+                return Ok("Worker successfully deleted.");
             }
             catch (Exception ex)
             {
-                return BadRequest(new {message = ex.Message});
+                return NotFound(ex.Message);
             }
-
-            return Ok();
         }
-
-        [HttpPost("image")]
-        [Authorize]
-        public async Task<IActionResult> OnPostUploadAsync()
-        {
-            var email = GetUserEmail();
-
-            var files = Request.Form.Files;
-
-            if (files.Count != 1)
-                return BadRequest();
-
-            foreach (var formFile in files)
-            {
-                if (formFile.Length > 0)
-                {
-                    var filePath = Path.Combine(_config["StoredFilesPath"], email);
-
-                    using (var stream = System.IO.File.Create(filePath))
-                    {
-                        await formFile.CopyToAsync(stream);
-                    }
-                }
-            }
-
-            return Ok();
-        }
-        [HttpGet("image/me")]
-        [Authorize]
-        public async Task<IActionResult> DownloadImage(string filename)
-        {
-            var email = GetUserEmail();
-
-            var path = Path.Combine(_config["StoredFilesPath"], email);
-            MemoryStream memory = new MemoryStream();
-            using (FileStream stream = new FileStream(path, FileMode.Open))
-            {
-                await stream.CopyToAsync(memory);
-            }
-            memory.Position = 0;
-            return File(memory, "image/png", Path.GetFileName(path));
-        }
-        [HttpGet("image")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DownloadImageByEmail(string email)
-        {
-
-            var path = Path.Combine(_config["StoredFilesPath"], email);
-            MemoryStream memory = new MemoryStream();
-            using (FileStream stream = new FileStream(path, FileMode.Open))
-            {
-                await stream.CopyToAsync(memory);
-            }
-            memory.Position = 0;
-            return File(memory, "image/png", Path.GetFileName(path));
-        }
-        [HttpPost("login-google")]
-        public ActionResult LoginGoogle([FromBody] GoogleLoginDto dto) => Ok(_userService.LoginGoogle(dto));
 
         [NonAction]
         private string GetUserEmail()

@@ -48,7 +48,24 @@ namespace IdentityApi.Services
 
             return retVal;
         }
+        public List<UserDto> GetAllWorkers()
+        {
+            var workers = _dbContext.Users
+                .Where(u => u.Role == EUserRole.WORKER)
+                .ToList();
+            return _mapper.Map<List<UserDto>>(workers);
+        }
+        public void DeleteWorker(string username)
+        {
+            var worker = _dbContext.Users.FirstOrDefault(u => u.Username == username && u.Role == EUserRole.WORKER);
+            if (worker == null)
+            {
+                throw new Exception("Worker not found");
+            }
 
+            _dbContext.Users.Remove(worker);
+            _dbContext.SaveChanges();
+        }
         public UserDto GetUserByEmail(string email)
         {
             return _mapper.Map<UserDto>(_dbContext.Users.Find(email));
@@ -101,38 +118,6 @@ namespace IdentityApi.Services
             );
             string tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
             return tokenString;
-        }
-        public SuccessLoginDto LoginGoogle(GoogleLoginDto user)
-        {
-            var users = _dbContext.Users.FirstOrDefault(s => s.Email == user.Email);
-            User u;
-            if (users == null)
-            {
-                using (WebClient client = new WebClient())
-                {
-                    client.DownloadFile(new Uri(user.PhotoUrl),
-                        Path.Combine(_imagePath.Value, user.Email));
-                }
-
-                u = _mapper.Map<User>(user);
-                // radnom password
-                u.Password = BCrypt.Net.BCrypt.HashPassword(System.Guid.NewGuid().ToString());
-                u.Role = EUserRole.USER;
-                u.Address = "No address";
-                u.Username = user.Email.Remove(user.Email.Length - 10);
-                _dbContext.Users.Add(u);
-                _dbContext.SaveChanges();
-                return new SuccessLoginDto()
-                {
-                    Token = GenerateToken(u),
-                    Role = u.Role.ToString()
-                };
-            }
-            return new SuccessLoginDto()
-            {
-                Token = GenerateToken(users),
-                Role = users.Role.ToString()
-            };
         }
 
         public UserDto UpdateUser(string email, UpdateUserDto dto)

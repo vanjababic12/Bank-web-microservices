@@ -32,6 +32,13 @@ namespace LoanApi.Controllers
             return Ok(_loanService.GetAllLoanTypes());
         }
 
+        [HttpGet("types/search")]
+        public ActionResult<List<LoanType>> SearchLoanTypes(string searchTerm, string sortField = "name", bool ascending = true)
+        {
+            var loanTypes = _loanService.SearchAndSortLoanTypes(searchTerm, sortField, ascending);
+            return Ok(loanTypes);
+        }
+
         [HttpPost("types")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<LoanType>> CreateLoanType([FromBody] LoanTypeDto loanTypeDto)
