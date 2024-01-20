@@ -26,12 +26,6 @@ namespace BankAccountApi.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet("types")]
-        public ActionResult<List<AccountType>> GetAllAccountTypes()
-        {
-            return Ok(_accountService.GetAllAccountTypes());
-        }
-
         [HttpGet("types/search")]
         public ActionResult<List<AccountType>> SearchAccountTypes(string searchTerm, string sortField = "name", bool ascending = true)
         {
@@ -44,7 +38,7 @@ namespace BankAccountApi.Controllers
         public async Task<ActionResult<AccountType>> CreateAccountType([FromBody] AccountTypeDto accountTypeDto)
         {
             var accountType = await _accountService.CreateAccountType(accountTypeDto);
-            return CreatedAtAction(nameof(GetAllAccountTypes), new { id = accountType.Id }, accountType);
+            return CreatedAtAction(nameof(SearchAccountTypes), new { id = accountType.Id }, accountType);
         }
 
         [HttpGet("requests")]
@@ -106,6 +100,10 @@ namespace BankAccountApi.Controllers
         [Authorize] // Samo registrovani korisnici mogu zatvoriti račun
         public async Task<ActionResult> CloseAccount(int accountId)
         {
+            var customerUsername = GetUserEmail();
+            if (_accountService.GetCustomerAccounts(customerUsername).Find(i => i.Id == accountId) == null) {
+                return NotFound("Account with given id doesn't exist");
+            }
             var success = await _accountService.CloseAccount(accountId);
             if (!success) return NotFound("Račun nije pronađen ili je već zatvoren.");
             return Ok();

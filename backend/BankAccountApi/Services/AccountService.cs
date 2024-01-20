@@ -24,13 +24,6 @@ namespace BankAccountApi.Services
             _dbContext = dbContext;
         }
 
-        public List<AccountType> GetAllAccountTypes()
-        {
-            return _dbContext.AccountTypes
-                .Where(at => !at.IsDeleted)
-                .ToList();
-        }
-
         public List<AccountType> SearchAndSortAccountTypes(string searchTerm, string sortField, bool ascending)
         {
             var query = _dbContext.AccountTypes.AsQueryable();

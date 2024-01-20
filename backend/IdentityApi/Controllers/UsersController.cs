@@ -27,6 +27,7 @@ namespace IdentityApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult GetUser()
         {
             var userEmail = GetUserEmail();
