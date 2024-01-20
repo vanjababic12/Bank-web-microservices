@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ProductImages\**" />
-    <Content Remove="ProductImages\**" />
-    <EmbeddedResource Remove="ProductImages\**" />
-    <None Remove="ProductImages\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="LiteDB" Version="5.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />

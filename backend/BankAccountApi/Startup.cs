@@ -7,12 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using BranchApi.Infrastructure;
-using BranchApi.Interfaces;
-using BranchApi.Services;
+using BankAccountApi.Infrastructure;
+using BankAccountApi.Interfaces;
+using BankAccountApi.Services;
 using System.Text;
 
-namespace BranchApi
+namespace BankAccountApi
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace BranchApi
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BranchApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BankAccountApi", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
@@ -55,7 +55,7 @@ namespace BranchApi
                     }
                 });
             });
-            services.AddDbContext<BranchDbContext>(options =>
+            services.AddDbContext<BankAccountDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
 
             //Dodajemo semu autentifikacije i podesavamo da se radi o JWT beareru
@@ -75,7 +75,7 @@ namespace BranchApi
                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecretKey"]))//navodimo privatni kljuc kojim su potpisani nasi tokeni
                };
            });
-            services.AddScoped<IBranchService, BranchService>();
+            services.AddScoped<IAccountService, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,7 +85,7 @@ namespace BranchApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BranchApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BankAccountApi v1"));
             }
 
             app.UseHttpsRedirection();

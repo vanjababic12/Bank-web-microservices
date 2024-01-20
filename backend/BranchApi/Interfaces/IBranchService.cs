@@ -16,7 +16,6 @@ namespace BranchApi.Interfaces
         List<Appointment> GetAvailableAppointments(int branchId, DateTime date);
         Task<BookAppointmentResult> BookAppointment(int appointmentId, String clientUsername);
         Task<bool> CancelAppointment(int appointmentId);
-        List<Appointment> GetUserAppointments(string username);
 
     }
 }
