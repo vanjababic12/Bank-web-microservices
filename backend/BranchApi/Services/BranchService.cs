@@ -111,7 +111,12 @@ namespace BranchApi.Services
             await _dbContext.SaveChangesAsync();
             return true;
         }
+
+        public List<Appointment> GetUserAppointments(string username)
+        {
+            return _dbContext.Appointments
+                .Where(a => a.CustomerUsername == username)
+                .ToList();
+        }
     }
-
-
 }

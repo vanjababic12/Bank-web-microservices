@@ -101,6 +101,7 @@ namespace BranchApi.Controllers
             }
         }
         [HttpGet("appointments")]
+        [Authorize]
         public ActionResult<List<Appointment>> GetAvailableAppointments(int branchId, DateTime date)
         {
             try
@@ -135,7 +136,7 @@ namespace BranchApi.Controllers
         }
 
         [HttpDelete("appointments/{appointmentId}")]
-        [Authorize(Roles = "Worker")] // Samo radnici mogu otkazati termin
+        [Authorize(Roles = "Worker")] // Only workers can cancel appointments
         public async Task<ActionResult> CancelAppointment(int appointmentId)
         {
             try
@@ -143,14 +144,23 @@ namespace BranchApi.Controllers
                 var success = await _branchService.CancelAppointment(appointmentId);
                 if (!success)
                 {
-                    return NotFound("Termin nije pronađen ili već otkazan.");
+                    return NotFound("Appointment not found or already canceled.");
                 }
-                return Ok("Termin je uspešno otkazan.");
+                return Ok("Appointment has been successfully canceled.");
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("myappointments")]
+        [Authorize(Roles = "Worker")] // Only workers can cancel appointments
+        public ActionResult<List<Appointment>> GetUserAppointments()
+        {
+            var username = GetUserEmail();
+            var appointments = _branchService.GetUserAppointments(username);
+            return Ok(appointments);
         }
 
         [NonAction]
