@@ -78,7 +78,7 @@ namespace IdentityApi.Services
 
         public SuccessLoginDto LoginUser(LoginDto loginDto)
         {
-            User user = _dbContext.Users.ToList().Find(x => x.Username == loginDto.Username);
+            User user = _dbContext.Users.ToList().Find(x => x.Username.ToLower() == loginDto.Username.ToLower());
 
             if (user == null)
                 return null;

@@ -1,6 +1,18 @@
 {
     "Routes": [
         {
+            "DownstreamPathTemplate": "/api/users",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5001
+                }
+            ],
+            "UpstreamPathTemplate": "/users",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
             "DownstreamPathTemplate": "/api/users/login",
             "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
@@ -9,7 +21,7 @@
                     "Port": 5001
                 }
             ],
-            "UpstreamPathTemplate": "/login",
+            "UpstreamPathTemplate": "/users/login",
             "UpstreamHttpMethod": [ "Post" ]
         },
         {
@@ -21,7 +33,7 @@
                     "Port": 5001
                 }
             ],
-            "UpstreamPathTemplate": "/register",
+            "UpstreamPathTemplate": "/users",
             "UpstreamHttpMethod": [ "Post" ]
         },
         {
@@ -37,7 +49,7 @@
             "UpstreamHttpMethod": [ "Put" ]
         },
         {
-            "DownstreamPathTemplate": "/api/users",
+            "DownstreamPathTemplate": "/api/users/workers",
             "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
@@ -45,11 +57,11 @@
                     "Port": 5001
                 }
             ],
-            "UpstreamPathTemplate": "/users",
+            "UpstreamPathTemplate": "/users/workers",
             "UpstreamHttpMethod": [ "Get" ]
         },
         {
-            "DownstreamPathTemplate": "/api/users/image/me",
+            "DownstreamPathTemplate": "/api/users/workers",
             "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
@@ -57,35 +69,23 @@
                     "Port": 5001
                 }
             ],
-            "UpstreamPathTemplate": "/users/image/me",
-            "UpstreamHttpMethod": [ "Get" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/users/image",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5001
-                }
-            ],
-            "UpstreamPathTemplate": "/users/image",
-            "UpstreamHttpMethod": [ "Get" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/users/image",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5001
-                }
-            ],
-            "UpstreamPathTemplate": "/users/image",
+            "UpstreamPathTemplate": "/users/workers",
             "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/users/worker/{username}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5001
+                }
+            ],
+            "UpstreamPathTemplate": "/users/worker/{username}",
+            "UpstreamHttpMethod": [ "Delete" ]
         }
     ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
-  }
+    "GlobalConfiguration": {
+        "BaseUrl": "http://localhost:5000"
+    }
 }
