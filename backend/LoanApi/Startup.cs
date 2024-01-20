@@ -1,6 +1,3 @@
-using ExchangeRateApi.Infrastructure;
-using ExchangeRateApi.Interfaces;
-using ExchangeRateApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using LoanApi.Infrastructure;
+using LoanApi.Interfaces;
+using LoanApi.Services;
 using System.Text;
 
 namespace LoanApi
@@ -30,7 +30,7 @@ namespace LoanApi
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExchangeRateApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "LoanApi", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
@@ -55,7 +55,7 @@ namespace LoanApi
                     }
                 });
             });
-            services.AddDbContext<ExchangeRateDbContext>(options =>
+            services.AddDbContext<LoanDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
 
             //Dodajemo semu autentifikacije i podesavamo da se radi o JWT beareru
@@ -75,8 +75,7 @@ namespace LoanApi
                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecretKey"]))//navodimo privatni kljuc kojim su potpisani nasi tokeni
                };
            });
-
-            services.AddScoped<IExchangeRateService, ExchangeRateService>();
+            services.AddScoped<ILoanService, LoanService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,7 +85,7 @@ namespace LoanApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExchangeRateApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProductApi v1"));
             }
 
             app.UseHttpsRedirection();

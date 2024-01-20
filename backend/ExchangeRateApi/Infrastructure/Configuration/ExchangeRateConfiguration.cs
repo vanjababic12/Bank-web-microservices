@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ProductApi.Infrastructure.Configuration
+namespace LoanApi.Infrastructure.Configuration
 {
     public class ExchangeRateConfiguration : IEntityTypeConfiguration<ExchangeRate>
     {
