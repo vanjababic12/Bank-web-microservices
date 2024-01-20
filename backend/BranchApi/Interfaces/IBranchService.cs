@@ -10,6 +10,7 @@ namespace BranchApi.Interfaces
     {
         List<Branch> GetAllBranches();
         Branch GetBranch(int id);
+        List<Branch> SearchAndSortBranches(string searchTerm, string sortField, bool ascending);
         Task<Branch> CreateBranch(BranchDto branchDto);
         Task<Branch> UpdateBranch(int id, BranchDto branchDto);
         void DeleteBranch(int id);

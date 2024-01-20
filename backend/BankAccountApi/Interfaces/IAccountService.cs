@@ -10,7 +10,6 @@ namespace BankAccountApi.Interfaces
         List<AccountType> GetAllAccountTypes();
         List<AccountType> SearchAndSortAccountTypes(string searchTerm, string sortField, bool ascending);
         Task<bool> DeleteAccountType(int accountTypeId);
-
         Task<AccountType> CreateAccountType(AccountTypeDto accountTypeDto);
         List<AccountRequest> GetAllAccountRequests();
         Task<AccountRequest> CreateAccountRequest(string customerUsername, AccountRequestDto accountRequestDto);
