@@ -32,6 +32,13 @@ namespace BankAccountApi.Controllers
             return Ok(_accountService.GetAllAccountTypes());
         }
 
+        [HttpGet("types/search")]
+        public ActionResult<List<AccountType>> SearchAccountTypes(string searchTerm, string sortField = "name", bool ascending = true)
+        {
+            var accountTypes = _accountService.SearchAndSortAccountTypes(searchTerm, sortField, ascending);
+            return Ok(accountTypes);
+        }
+
         [HttpPost("types")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<AccountType>> CreateAccountType([FromBody] AccountTypeDto accountTypeDto)

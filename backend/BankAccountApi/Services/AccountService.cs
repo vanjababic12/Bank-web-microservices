@@ -31,6 +31,25 @@ namespace BankAccountApi.Services
                 .ToList();
         }
 
+        public List<AccountType> SearchAndSortAccountTypes(string searchTerm, string sortField, bool ascending)
+        {
+            var query = _dbContext.AccountTypes.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(at => at.Name.Contains(searchTerm) || at.Description.Contains(searchTerm));
+            }
+
+            query = sortField switch
+            {
+                "name" => ascending ? query.OrderBy(at => at.Name) : query.OrderByDescending(at => at.Name),
+                "description" => ascending ? query.OrderBy(at => at.Description) : query.OrderByDescending(at => at.Description),
+                _ => query
+            };
+
+            return query.ToList();
+        }
+
         public async Task<AccountType> CreateAccountType(AccountTypeDto accountTypeDto)
         {
             var accountType = new AccountType

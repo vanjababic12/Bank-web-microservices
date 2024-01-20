@@ -34,6 +34,25 @@ namespace BranchApi.Services
             return _dbContext.Branches.Find(id) ?? throw new NotFoundException("Branch not found");
         }
 
+        public List<Branch> SearchAndSortBranches(string searchTerm, string sortField, bool ascending)
+        {
+            var query = _dbContext.Branches.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(b => b.Name.Contains(searchTerm) || b.Address.Contains(searchTerm));
+            }
+
+            query = sortField switch
+            {
+                "name" => ascending ? query.OrderBy(b => b.Name) : query.OrderByDescending(b => b.Name),
+                "address" => ascending ? query.OrderBy(b => b.Address) : query.OrderByDescending(b => b.Address),
+                _ => query
+            };
+
+            return query.ToList();
+        }
+
         public async Task<Branch> CreateBranch(BranchDto branchDto)
         {
             var branch = new Branch

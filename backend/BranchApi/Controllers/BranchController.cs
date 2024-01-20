@@ -48,6 +48,13 @@ namespace BranchApi.Controllers
             }
         }
 
+        [HttpGet("search")]
+        public ActionResult<List<Branch>> SearchBranches(string searchTerm, string sortField = "name", bool ascending = true)
+        {
+            var branches = _branchService.SearchAndSortBranches(searchTerm, sortField, ascending);
+            return Ok(branches);
+        }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Branch>> CreateBranch([FromBody] BranchDto branchDto)
