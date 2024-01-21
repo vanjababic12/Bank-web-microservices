@@ -1,0 +1,32 @@
+<div class="nav-bar" *ngIf="isLoggedIn">
+    <div>
+        <button *ngIf="role == 'USER'" [routerLink]="'/loans'" pButton pRipple type="button" label="Loans"
+            class="p-button-outlined p-button-info"></button>
+        <button *ngIf="role == 'USER'" [routerLink]="'/accounts'" pButton pRipple type="button" label="Accounts"
+            class="p-button-outlined p-button-info"></button>
+        <button *ngIf="role == 'WORKER'" [routerLink]="'/requests/loan'" pButton pRipple type="button"
+            label="Loans Requests" class="p-button-outlined p-button-info"></button>
+        <button *ngIf="role == 'WORKER'" [routerLink]="'/requests/account'" pButton pRipple type="button"
+            label="Accounts Requests" class="p-button-outlined p-button-info"></button>
+        <button [routerLink]="'/profile'" pButton pRipple type="button" icon="pi pi-user"
+            class="p-button-rounded p-button-info p-button-outlined"></button>
+        <button pButton pRipple type="button" icon="pi pi-sign-out"
+            class="p-button-rounded p-button-info p-button-outlined" (click)="logout()"></button>
+    </div>
+    <div>
+        <button [routerLink]="'/home'" pButton pRipple type="button" icon="pi pi-home"
+            class="p-button-rounded p-button-info p-button-outlined"></button>
+        <button [routerLink]="'/exchange'" pButton pRipple type="button" icon="pi pi-money-bill" label="Exchange"
+            class="p-button-outlined p-button-info"></button>
+        <p-button *ngIf="role == 'ADMIN'" [routerLink]="'/workers'" label="Workers" icon="pi pi-users"
+            styleClass="p-button-outlined" badgeClass="p-badge-danger"></p-button>
+    </div>
+</div>
+<div class="nav-bar" *ngIf="!isLoggedIn">
+    <div>
+        <button [routerLink]="'/register'" pButton pRipple type="button" icon="pi pi-user-plus"
+            class="p-button-rounded p-button-info p-button-outlined"></button>
+        <button [routerLink]="'/login'" pButton pRipple type="button" icon="pi pi-sign-in"
+            class="p-button-rounded p-button-info p-button-outlined"></button>
+    </div>
+</div>
