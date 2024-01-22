@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { UserService } from '../shared/user.service';
 import { RegisterDto } from 'src/app/Shared/models/user.models';
+import { UserService } from '../../shared/user.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'app-add-worker',
+  templateUrl: './add-worker.component.html',
+  styleUrls: ['./add-worker.component.scss'],
   providers: [MessageService]
 })
-export class RegisterComponent implements OnInit {
+export class AddWorkerComponent implements OnInit {
 
   isLoading = false;
-  registerForm = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+  addWorkerForm = new FormGroup({
+    username: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
     email: new FormControl('', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(30)]),
     password: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
-    firstname: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]),
-    lastname: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]),
+    firstname: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
+    lastname: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
     birthdayDate: new FormControl('', Validators.required),
-    address: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+    address: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
   });
 
   constructor(private userService: UserService, private messageService: MessageService, private router: Router) { }
@@ -29,11 +29,8 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // Funkcija za mapiranje forme na DTO
   mapFormToRegisterDto(): RegisterDto {
-    const formValue = this.registerForm.value;
-
-    // Pretvaranje datuma rođenja u timestamp
+    const formValue = this.addWorkerForm.value;
     const birthdayTimestamp = new Date(formValue.birthdayDate).getTime();
 
     return {
@@ -47,18 +44,25 @@ export class RegisterComponent implements OnInit {
     };
   }
 
-  register() {
-    if (this.registerForm.valid) {
+  addWorker() {
+    if (this.addWorkerForm.valid) {
       const registerDto: RegisterDto = this.mapFormToRegisterDto();
-      this.userService.addUser(registerDto).subscribe(
+      this.userService.addWorker(registerDto).subscribe(
         data => {
+          if (data) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'New worker added successfully' });
+            this.router.navigateByUrl("/home");
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Bad request' });
+          }
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successfull' });
           this.router.navigateByUrl("/login")
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message });
         }
-      );
+      )
     }
   }
+
 }

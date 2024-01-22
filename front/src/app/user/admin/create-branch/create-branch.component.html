@@ -1,0 +1,26 @@
+<p-toast></p-toast>
+<p-card class="center-div margin-4em" header="Create New Branch" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+    <form [formGroup]="branchForm" class="center-div" style="flex-direction:column;">
+        <span class="p-float-label">
+            <input id="float-input" type="text" pInputText formControlName="name"> 
+            <label for="float-input">Name</label>
+        </span>
+        <span class="p-float-label">
+            <input id="float-input" type="text" pInputText formControlName="address"> 
+            <label for="float-input">Address</label>
+        </span>
+        <span class="p-float-label">
+            <input id="float-input" type="text" pInputText formControlName="phoneNumber"> 
+            <label for="float-input">Phone Number</label>
+        </span>
+        <span class="p-float-label">
+            <p-calendar formControlName="openingTime" [timeOnly]="true"></p-calendar>
+            <label for="float-input">Opening Time</label>
+        </span>
+        <span class="p-float-label">
+            <p-calendar formControlName="closingTime" [timeOnly]="true"></p-calendar>
+            <label for="float-input">Closing Time</label>
+        </span>
+        <button pButton type="button" label="Create" [loading]="isLoading" (click)="createBranch()"></button>
+    </form>
+</p-card>

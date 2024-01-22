@@ -35,6 +35,8 @@ import { CountdownConfig, CountdownGlobalConfig, CountdownModule } from 'ngx-cou
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { CreateBranchComponent } from './user/admin/create-branch/create-branch.component';
+import { AddWorkerComponent } from './user/admin/add-worker/add-worker.component';
 
 export function roleGetter() {
   return localStorage.getItem('role');
@@ -54,6 +56,8 @@ export function tokenGetter() {
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
+    CreateBranchComponent,
+    AddWorkerComponent,
   ],
   imports: [
     BrowserModule,

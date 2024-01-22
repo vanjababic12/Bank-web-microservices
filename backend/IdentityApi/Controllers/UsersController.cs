@@ -1,19 +1,15 @@
 ﻿using IdentityApi.Dto;
 using IdentityApi.Interfaces;
-using IdentityApi.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace IdentityApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -103,7 +99,6 @@ namespace IdentityApi.Controllers
         {
             try
             {
-
                 _userService.AddUser(dto, isWorker: true);
             }
             catch (Exception ex)

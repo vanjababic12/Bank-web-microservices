@@ -1,22 +1,17 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using BranchApi.Dto;
-using BranchApi.Infrastructure;
+﻿using BranchApi.Dto;
 using BranchApi.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using BranchApi.Models;
 using Common.Exceptions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace BranchApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/branches")]
     [ApiController]
     public class BranchController : ControllerBase
     {
@@ -55,7 +50,7 @@ namespace BranchApi.Controllers
             return Ok(branches);
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Branch>> CreateBranch([FromBody] BranchDto branchDto)
         {
