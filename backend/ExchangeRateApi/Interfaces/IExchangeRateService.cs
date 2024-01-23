@@ -7,7 +7,7 @@ namespace ExchangeRateApi.Interfaces
 {
     public interface IExchangeRateService
     {
-        Task CreateExchangeRateList(ExchangeRateListDto exchangeRateListDto);
+        Task<ExchangeRateListDto> CreateExchangeRateList(ExchangeRateListDto exchangeRateListDto);
         List<ExchangeRate> GetLatestExchangeRates();
         List<ExchangeRate> GetExchangeRatesByDate(string date);
     }

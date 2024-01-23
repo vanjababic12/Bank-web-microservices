@@ -14,15 +14,15 @@ export class ExchangeRatesService {
 
   constructor(private http: HttpClient) { }
 
-  createExchangeRateList(exchangeRateListDto: ExchangeRateListDto): Observable<any> {
-    return this.http.post(`${this.apiUrl}/exchangeRates`, exchangeRateListDto);
+  createExchangeRateList(exchangeRateListDto: ExchangeRateListDto): Observable<ExchangeRateListDto> {
+    return this.http.post<ExchangeRateListDto>(`${this.apiUrl}/exchange-rates`, exchangeRateListDto);
   }
 
   getLatestExchangeRates(): Observable<ExchangeRate[]> {
-    return this.http.get<ExchangeRate[]>(`${this.apiUrl}/exchangeRates/latest`);
+    return this.http.get<ExchangeRate[]>(`${this.apiUrl}/exchange-rates/latest`);
   }
 
   getExchangeRatesByDate(date: string): Observable<ExchangeRate[]> {
-    return this.http.get<ExchangeRate[]>(`${this.apiUrl}/exchangeRates`, { params: { date } });
+    return this.http.get<ExchangeRate[]>(`${this.apiUrl}/exchange-rates`, { params: { date } });
   }
 }

@@ -15,7 +15,7 @@ using BankAccountApi.Models;
 
 namespace BankAccountApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/types")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -26,14 +26,14 @@ namespace BankAccountApi.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet("types/search")]
+        [HttpGet("search")]
         public ActionResult<List<AccountType>> SearchAccountTypes(string searchTerm, string sortField = "name", bool ascending = true)
         {
             var accountTypes = _accountService.SearchAndSortAccountTypes(searchTerm, sortField, ascending);
             return Ok(accountTypes);
         }
 
-        [HttpPost("types")]
+        [HttpPost()]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<AccountType>> CreateAccountType([FromBody] AccountTypeDto accountTypeDto)
         {

@@ -1,0 +1,13 @@
+<p-toast></p-toast>
+<div>
+    <ul>
+      <li *ngFor="let user of displayedUsers">
+        {{ user.firstName }} {{ user.lastName }} - {{ user.email }}
+        <button (click)="confirmDeletion(user)">
+          <i class="pi pi-trash"></i>
+        </button>
+      </li>
+    </ul>
+    <p-confirmDialog></p-confirmDialog>
+    <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>
+</div>

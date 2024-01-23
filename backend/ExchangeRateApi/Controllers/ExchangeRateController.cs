@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExchangeRateApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/exchange-rates")]
     [ApiController]
     public class ExchangeRateController : ControllerBase
     {
@@ -23,8 +23,7 @@ namespace ExchangeRateApi.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> CreateExchangeRateList([FromBody] ExchangeRateListDto exchangeRateListDto)
         {
-            await _exchangeRateService.CreateExchangeRateList(exchangeRateListDto);
-            return Ok();
+            return Ok(await _exchangeRateService.CreateExchangeRateList(exchangeRateListDto));
         }
 
         [HttpGet("latest")]

@@ -1,3 +1,5 @@
+import { FormControl } from "@angular/forms";
+
 export class BranchDto {
     name: string;
     address: string;
@@ -57,3 +59,5 @@ export class Appointment {
         this.isBooked = !!(customerUsername && customerUsername.trim().length > 0);
     }
 }
+
+export type SelectFormControl = FormControl & { value: string };

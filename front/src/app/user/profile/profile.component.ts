@@ -11,8 +11,7 @@ import { UpdateUserDto } from 'src/app/Shared/models/user.models';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
-  providers: [MessageService]
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
   user: User;

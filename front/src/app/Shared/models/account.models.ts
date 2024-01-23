@@ -1,5 +1,6 @@
 export interface AccountTypeDto {
     name: string;
+    description: string;
 }
 
 export interface AccountRequestDto {

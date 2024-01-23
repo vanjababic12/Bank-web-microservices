@@ -42,6 +42,10 @@ export class BranchService {
     return this.http.get<Appointment[]>(`${this.apiUrl}/branches/appointments`, { params: { branchId, dateString } });
   }
 
+  // createAppointment():Observable<> {
+  //   return this.http.post<BookAppointmentResult>(`${this.apiUrl}/branches/appointments`, appointmentDto);
+  // }
+
   bookAppointment(appointmentDto: AppointmentDto): Observable<BookAppointmentResult> {
     return this.http.post<BookAppointmentResult>(`${this.apiUrl}/branches/appointments`, appointmentDto);
   }

@@ -8,8 +8,7 @@ import { RegisterDto } from 'src/app/Shared/models/user.models';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
-  providers: [MessageService]
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 

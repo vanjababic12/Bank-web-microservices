@@ -15,7 +15,7 @@ using LoanApi.Models;
 
 namespace LoanApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/loans")]
     [ApiController]
     public class LoanController : ControllerBase
     {

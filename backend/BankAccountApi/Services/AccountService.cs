@@ -48,7 +48,9 @@ namespace BankAccountApi.Services
             var accountType = new AccountType
             {
                 Name = accountTypeDto.Name,
-                Description = accountTypeDto.Description
+                Description = accountTypeDto.Description,
+                Currency = "markedolarieuri", // izmeniti kasnije da dolazi iz accountdto
+                IsDeleted = false
             };
             _dbContext.AccountTypes.Add(accountType);
             await _dbContext.SaveChangesAsync();

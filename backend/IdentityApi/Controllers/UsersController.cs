@@ -49,7 +49,6 @@ namespace IdentityApi.Controllers
         {
             try
             {
-                
                 _userService.AddUser(dto, isWorker: false);
             }
             catch (Exception ex)

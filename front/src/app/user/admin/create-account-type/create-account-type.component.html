@@ -1,0 +1,14 @@
+<p-toast></p-toast>
+<p-card class="center-div margin-4em" header="Create Account Type" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+    <form [formGroup]="accountTypeForm" class="center-div" style="flex-direction:column;">
+        <span class="p-float-label">
+            <input id="float-input" type="name" pInputText formControlName="name"> 
+            <label for="float-input">Name</label>
+        </span>
+        <span class="p-float-label">
+            <input id="float-input" type="text" pInputText formControlName="description"> 
+            <label for="float-input">Description</label>
+        </span>
+        <button pButton type="button" label="Create" [loading]="isLoading" (click)="createAccountType()"></button>
+    </form>
+</p-card>

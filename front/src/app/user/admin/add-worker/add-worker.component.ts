@@ -8,9 +8,9 @@ import { UserService } from '../../shared/user.service';
 @Component({
   selector: 'app-add-worker',
   templateUrl: './add-worker.component.html',
-  styleUrls: ['./add-worker.component.scss'],
-  providers: [MessageService]
+  styleUrls: ['./add-worker.component.scss']
 })
+
 export class AddWorkerComponent implements OnInit {
 
   isLoading = false;
@@ -61,7 +61,7 @@ export class AddWorkerComponent implements OnInit {
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message });
         }
-      )
+      );
     }
   }
 

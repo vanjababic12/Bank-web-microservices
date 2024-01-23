@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,22 +27,26 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { FileUploadModule } from 'primeng/fileupload';
 import { TabViewModule } from 'primeng/tabview';
-import { CountdownConfig, CountdownGlobalConfig, CountdownModule } from 'ngx-countdown';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { CreateBranchComponent } from './user/admin/create-branch/create-branch.component';
 import { AddWorkerComponent } from './user/admin/add-worker/add-worker.component';
+import { CreateAppointmentComponent } from './user/admin/create-appointment/create-appointment.component';
+import { CreateAccountTypeComponent } from './user/admin/create-account-type/create-account-type.component';
+import { CreateLoanTypeComponent } from './user/admin/create-loan-type/create-loan-type.component';
+import { CreateExchangeRatesComponent } from './user/admin/create-exchange-rates/create-exchange-rates.component';
+import { TableModule } from 'primeng/table';
+import { WorkerListComponent } from './user/admin/worker-list/worker-list.component';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PaginatorModule } from 'primeng/paginator';
 
 export function roleGetter() {
   return localStorage.getItem('role');
 }
 
-function countdownConfigFactory(): CountdownConfig {
-  return { format: `mm:ss` };
-}
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
@@ -58,8 +60,14 @@ export function tokenGetter() {
     ProfileComponent,
     CreateBranchComponent,
     AddWorkerComponent,
+    CreateAppointmentComponent,
+    CreateAccountTypeComponent,
+    CreateLoanTypeComponent,
+    CreateExchangeRatesComponent,
+    WorkerListComponent,
   ],
   imports: [
+    PaginatorModule,
     BrowserModule,
     ToastModule,
     InputNumberModule,
@@ -84,10 +92,10 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     CalendarModule,
     InputTextareaModule,
-    FileUploadModule,
     TabViewModule,
-    CountdownModule,
     ProgressSpinnerModule,
+    ConfirmDialogModule,
+    TableModule,
     JwtModule.forRoot(
       {
         config: {
@@ -98,12 +106,12 @@ export function tokenGetter() {
     )
   ],
   providers: [
+    ConfirmationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-    },
-    { provide: CountdownGlobalConfig, useFactory: countdownConfigFactory }
+    }
   ],
   bootstrap: [AppComponent]
 })

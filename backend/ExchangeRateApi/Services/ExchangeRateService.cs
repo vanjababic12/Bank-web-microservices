@@ -17,7 +17,7 @@ namespace ExchangeRateApi.Services
             _dbContext = dbContext;
         }
 
-        public async Task CreateExchangeRateList(ExchangeRateListDto exchangeRateListDto)
+        public async Task<ExchangeRateListDto> CreateExchangeRateList(ExchangeRateListDto exchangeRateListDto)
         {
             foreach (var rateDto in exchangeRateListDto.Rates)
             {
@@ -30,6 +30,8 @@ namespace ExchangeRateApi.Services
                 _dbContext.ExchangeRates.Add(exchangeRate);
             }
             await _dbContext.SaveChangesAsync();
+
+            return exchangeRateListDto;
         }
 
         public List<ExchangeRate> GetLatestExchangeRates()

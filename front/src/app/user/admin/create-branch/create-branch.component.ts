@@ -8,8 +8,7 @@ import { BranchService } from 'src/app/Shared/services/branch/branch.service';
 @Component({
   selector: 'app-create-branch',
   templateUrl: './create-branch.component.html',
-  styleUrls: ['./create-branch.component.scss'],
-  providers: [MessageService]
+  styleUrls: ['./create-branch.component.scss']
 })
 
 export class CreateBranchComponent implements OnInit {

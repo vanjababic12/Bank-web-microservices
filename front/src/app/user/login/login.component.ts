@@ -10,8 +10,7 @@ import { LoginDto } from 'src/app/Shared/models/user.models';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  providers: [MessageService]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
