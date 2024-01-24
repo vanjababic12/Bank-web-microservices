@@ -1,0 +1,29 @@
+.search-sort-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+.search-sort-container>*:not(input) {
+    /* Ovo primenjuje stilove na sve elemente osim na input */
+    flex-shrink: 0;
+    /* Sprečava smanjivanje ostalih elemenata */
+    margin-right: 10px;
+}
+
+.search-sort-container>input[type="text"] {
+    flex-grow: 1;
+    /* Omogućava inputu da raste i popuni dostupan prostor */
+    margin-right: 10px;
+    /* Dodaje malo razmaka između inputa i sledećeg elementa */
+}
+
+p-card {
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+p-paginator {
+    margin-top: 20px;
+}

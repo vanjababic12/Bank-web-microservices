@@ -1,0 +1,27 @@
+<div>
+    <!-- Kontejner za Pretragu, Sortiranje i Dropdown -->
+    <div class="search-sort-container">
+        <!-- Pretraga -->
+        <input type="text" pInputText placeholder="Pretraži..." (input)="searchTerm=$event.target.value; search()">
+
+        <!-- Dropdown meni za izbor polja za sortiranje -->
+        <p-dropdown [options]="sortOptions" [(ngModel)]="sortField" placeholder="Sortiraj po"
+            (onChange)="sortAccountTypes()"></p-dropdown>
+
+        <!-- Ikonice za uzlazni i silazni redosled -->
+        <button pButton (click)="toggleSortOrder()">
+            <i class="pi" [ngClass]="{'pi-sort-amount-up-alt': ascending, 'pi-sort-amount-down': !ascending}"></i>
+        </button>
+    </div>
+
+
+    <!-- Lista Account Types -->
+    <div *ngFor="let loanType of displayedLoanTypes" class="account-type-item">
+        <p-card [header]="loanType.name" [subheader]="loanType.interestRate + '%'">
+            <p>{{ loanType.description }}</p>
+        </p-card>
+    </div>
+
+    <!-- Paginator -->
+    <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>
+</div>

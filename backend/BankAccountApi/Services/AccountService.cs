@@ -30,7 +30,7 @@ namespace BankAccountApi.Services
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                query = query.Where(at => at.Name.Contains(searchTerm) || at.Description.Contains(searchTerm));
+                query = query.Where(at => at.Name.Contains(searchTerm) || at.Description.Contains(searchTerm)).Where(i => !i.IsDeleted);
             }
 
             query = sortField switch

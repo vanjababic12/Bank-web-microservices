@@ -116,8 +116,21 @@ namespace BranchApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpPost("appointments")]
+        [Authorize(Roles = "Admin")] // Pretpostavljamo da samo admin može da doda termin
+        public async Task<ActionResult<Appointment>> AddAppointment([FromBody] CreateAppointmentDto appointment)
+        {
+            try
+            {
+                var createdAppointment = await _branchService.AddAppointment(appointment);
+                return CreatedAtAction(nameof(GetAvailableAppointments), new { id = createdAppointment.Id }, createdAppointment);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut("appointments")]
         [Authorize] // Samo registrovani korisnici mogu zakazati termin
         public async Task<ActionResult<BookAppointmentResult>> BookAppointment([FromBody] AppointmentDto appointmentDto)
         {

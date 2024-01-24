@@ -14,10 +14,16 @@ import { CreateAccountTypeComponent } from './user/admin/create-account-type/cre
 import { CreateLoanTypeComponent } from './user/admin/create-loan-type/create-loan-type.component';
 import { CreateExchangeRatesComponent } from './user/admin/create-exchange-rates/create-exchange-rates.component';
 import { WorkerListComponent } from './user/admin/worker-list/worker-list.component';
+import { AccountTypeComponent } from './app/home/account-type/account-type.component';
+import { BranchesComponent } from './app/home/branches/branches.component';
+import { LoansComponent } from './app/home/loans/loans.component';
 
 const routes: Routes = [
   { path: '', pathMatch: "full", redirectTo: 'home' },
-  { path: 'home', component: ProfileComponent },
+  { path: 'home', component: AccountTypeComponent },
+  { path: 'accountTypes', component: AccountTypeComponent },
+  { path: 'loanTypes', component: LoansComponent },
+  { path: 'branches', component: BranchesComponent },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [LoginGuard] },
   { path: 'workers', component: WorkerListComponent, canActivate: [AdminGuard] },
@@ -28,6 +34,8 @@ const routes: Routes = [
   { path: 'types/create-account-type', component: CreateAccountTypeComponent, canActivate: [AdminGuard]},
   { path: 'loans/create-loan-type', component: CreateLoanTypeComponent, canActivate: [AdminGuard]},
   { path: 'exchange/create-exchange-rates', component: CreateExchangeRatesComponent, canActivate: [AdminGuard]},
+  { path: 'branches/create-branch', component: CreateBranchComponent, canActivate: [AdminGuard] },
+  { path: 'users/add-worker', component: AddWorkerComponent, canActivate: [AdminGuard] }
 ];
 
 @NgModule({

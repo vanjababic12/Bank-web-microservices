@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  serverUrl:"https://localhost:44315",
-  allowedDomains:['localhost:44315'],
+  serverUrl: "http://localhost:5000",
+  allowedDomains: ['localhost:5000'],
 };
 
 /*

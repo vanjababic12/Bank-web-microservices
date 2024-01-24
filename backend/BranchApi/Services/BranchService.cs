@@ -95,6 +95,31 @@ namespace BranchApi.Services
             _dbContext.SaveChanges();
         }
 
+        public async Task<Appointment> AddAppointment(CreateAppointmentDto appointmentDto)
+        {
+            bool appointmentExists = _dbContext.Appointments.Any(a =>
+                a.BranchId == appointmentDto.BranchId &&
+                a.AppointmentDate == appointmentDto.AppointmentDate &&
+                a.AppointmentTime == appointmentDto.AppointmentTime);
+
+            if (appointmentExists)
+            {
+                throw new InvalidOperationException("Termin u izabrano vreme već postoji u filijali.");
+            }
+
+            var newAppointment = new Appointment
+            {
+                BranchId = appointmentDto.BranchId,
+                AppointmentDate = appointmentDto.AppointmentDate,
+                AppointmentTime = appointmentDto.AppointmentTime,
+                CustomerUsername = appointmentDto.CustomerUsername
+            };
+
+            _dbContext.Appointments.Add(newAppointment);
+            await _dbContext.SaveChangesAsync();
+            return newAppointment;
+        }
+
         public List<Appointment> GetAvailableAppointments(int branchId, DateTime date)
         {
             return _dbContext.Appointments

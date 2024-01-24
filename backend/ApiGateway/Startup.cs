@@ -23,6 +23,10 @@ namespace ApiGateway
             builder.SetBasePath(env.ContentRootPath)
                    //add configuration.json  
                    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
+                   //.AddJsonFile("ocelot.identity.json", optional: false, reloadOnChange: true)
+                   //.AddJsonFile("ocelot.bankaccount.json", optional: false, reloadOnChange: true)
+                   //.AddJsonFile("ocelot.identity.json", optional: false, reloadOnChange: true)
+                   //.AddJsonFile("ocelot.bankaccount.json", optional: false, reloadOnChange: true)
                    .AddEnvironmentVariables();
 
             OcelotConfiguration = builder.Build();
@@ -40,7 +44,7 @@ namespace ApiGateway
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiGateway", Version = "v1" });
             });
             services.AddOcelot(OcelotConfiguration);
-
+            
             services.AddCors(options =>
             {
                 options.AddPolicy(name: _cors, builder => {

@@ -1,0 +1,41 @@
+.search-sort-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+.search-sort-container>*:not(input) {
+    /* Ovo primenjuje stilove na sve elemente osim na input */
+    flex-shrink: 0;
+    /* Sprečava smanjivanje ostalih elemenata */
+    margin-right: 10px;
+}
+
+.search-sort-container>input[type="text"] {
+    flex-grow: 1;
+    /* Omogućava inputu da raste i popuni dostupan prostor */
+    margin-right: 10px;
+    /* Dodaje malo razmaka između inputa i sledećeg elementa */
+}
+
+.branch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 kartice u redu */
+    grid-gap: 20px;
+    /* Razmak između kartica */
+}
+
+.branch-card {
+    /* Dodatni stilovi po potrebi */
+}
+
+.branch-details {
+    padding: 10px;
+}
+
+p-paginator {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

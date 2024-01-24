@@ -75,6 +75,13 @@ namespace BankAccountApi
                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecretKey"]))//navodimo privatni kljuc kojim su potpisani nasi tokeni
                };
            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:4200")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod());
+            });
             services.AddScoped<IAccountService, AccountService>();
         }
 
@@ -89,7 +96,7 @@ namespace BankAccountApi
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors("AllowSpecificOrigin");
             app.UseRouting();
 
             app.UseAuthentication();

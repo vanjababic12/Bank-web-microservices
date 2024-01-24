@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AccountDto, AccountRequestDto, AccountTypeDto } from '../../models/account.models';
+import { AccountDto, AccountRequestDto, AccountTypeDto as AccountTypeDto, CreateAccountTypeDto } from '../../models/account.models';
 import { Observable } from 'rxjs';
 import { AccountRequestResponse, AccountResponse, AccountTypeResponse } from '../../models/account-response.models';
 
@@ -13,16 +13,16 @@ export class BackAccountService {
 
   constructor(private http: HttpClient) { }
 
-  searchAccountTypes(searchTerm?: string, sortField?: string, ascending?: boolean): Observable<AccountTypeResponse[]> {
+  searchAccountTypes(searchTerm?: string, sortField?: string, ascending?: boolean): Observable<AccountTypeDto[]> {
     let params = new HttpParams();
     if (searchTerm) params = params.append('searchTerm', searchTerm);
     if (sortField) params = params.append('sortField', sortField);
     if (ascending !== undefined) params = params.append('ascending', ascending.toString());
 
-    return this.http.get<AccountTypeResponse[]>(`${this.apiUrl}/types/search`, { params });
+    return this.http.get<AccountTypeDto[]>(`${this.apiUrl}/types/search`, { params });
   }
 
-  createAccountType(accountTypeDto: AccountTypeDto): Observable<AccountTypeResponse> {
+  createAccountType(accountTypeDto: CreateAccountTypeDto): Observable<AccountTypeResponse> {
     return this.http.post<AccountTypeResponse>(`${this.apiUrl}/types`, accountTypeDto);
   }
 

@@ -1,0 +1,34 @@
+<div>
+    <!-- Kontejner za Pretragu, Sortiranje i Dropdown -->
+    <div class="search-sort-container">
+        <!-- Pretraga -->
+        <input type="text" pInputText placeholder="Pretraži..." (input)="searchTerm=$event.target.value; search()">
+
+        <!-- Dropdown meni za izbor polja za sortiranje -->
+        <p-dropdown [options]="sortOptions" [(ngModel)]="sortField" placeholder="Sortiraj po"
+            (onChange)="sort()"></p-dropdown>
+
+        <!-- Ikonice za uzlazni i silazni redosled -->
+        <button pButton (click)="toggleSortOrder()">
+            <i class="pi" [ngClass]="{'pi-sort-amount-up-alt': ascending, 'pi-sort-amount-down': !ascending}"></i>
+        </button>
+    </div>
+
+    <!-- Lista Branches prikazana kao kartice -->
+    <div class="branch-grid">
+        <div *ngFor="let branch of displayedBranches" class="branch-card">
+            <p-card>
+                <div class="branch-details">
+                    <h3>{{ branch.name }}</h3>
+                    <p>Adresa: {{ branch.address }}</p>
+                    <p>Telefon: {{ branch.phoneNumber }}</p>
+                    <p>Radno vreme: {{ branch.openingTime }} - {{ branch.closingTime }}</p>
+                </div>
+            </p-card>
+        </div>
+    </div>
+
+
+    <!-- Paginator -->
+    <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>
+</div>

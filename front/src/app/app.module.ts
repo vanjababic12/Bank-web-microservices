@@ -42,6 +42,10 @@ import { WorkerListComponent } from './user/admin/worker-list/worker-list.compon
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { PaginatorModule } from 'primeng/paginator';
+import { HomeComponent } from './app/home/home.component';
+import { AccountTypeComponent } from './app/home/account-type/account-type.component';
+import { BranchesComponent } from './app/home/branches/branches.component';
+import { LoansComponent } from './app/home/loans/loans.component';
 
 export function roleGetter() {
   return localStorage.getItem('role');
@@ -65,6 +69,10 @@ export function tokenGetter() {
     CreateLoanTypeComponent,
     CreateExchangeRatesComponent,
     WorkerListComponent,
+    HomeComponent,
+    AccountTypeComponent,
+    BranchesComponent,
+    LoansComponent,
   ],
   imports: [
     PaginatorModule,
@@ -96,6 +104,7 @@ export function tokenGetter() {
     ProgressSpinnerModule,
     ConfirmDialogModule,
     TableModule,
+    PaginatorModule,
     JwtModule.forRoot(
       {
         config: {

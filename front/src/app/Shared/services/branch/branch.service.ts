@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -21,8 +21,13 @@ export class BranchService {
     return this.http.get<Branch>(`${this.apiUrl}/branches/${id}`);
   }
 
-  searchBranches(searchTerm: string, sortField = 'name', ascending = true): Observable<Branch[]> {
-    return this.http.get<Branch[]>(`${this.apiUrl}/branches/search`, { params: { searchTerm, sortField, ascending } });
+  searchBranches(searchTerm?: string, sortField?: string, ascending?: boolean): Observable<Branch[]> {
+    let params = new HttpParams();
+    if (searchTerm) params = params.append('searchTerm', searchTerm);
+    if (sortField) params = params.append('sortField', sortField);
+    if (ascending !== undefined) params = params.append('ascending', ascending.toString());
+
+    return this.http.get<Branch[]>(`${this.apiUrl}/branches/search`, { params });
   }
 
   createBranch(branchDto: BranchDto): Observable<Branch> {

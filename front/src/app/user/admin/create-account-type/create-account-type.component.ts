@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AccountTypeDto } from 'src/app/Shared/models/account.models';
+import { AccountTypeDto, CreateAccountTypeDto } from 'src/app/Shared/models/account.models';
 import { BackAccountService } from 'src/app/Shared/services/bankaccount/back-account.service';
 
 @Component({
@@ -22,18 +22,18 @@ export class CreateAccountTypeComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  mapFormToAccountTypeDto(): AccountTypeDto {
+  mapFormToAccountTypeDto(): CreateAccountTypeDto {
     const formValue = this.accountTypeForm.value;
 
     return {
       name: formValue.name,
-      description: formValue.description
+      description: formValue.description,
     };
   }
 
   createAccountType() {
     if (this.accountTypeForm.valid) {
-      const accountTypeDto: AccountTypeDto = this.mapFormToAccountTypeDto();
+      const accountTypeDto: CreateAccountTypeDto = this.mapFormToAccountTypeDto();
 
       this.backAccountService.createAccountType(accountTypeDto).subscribe(
         data => {
