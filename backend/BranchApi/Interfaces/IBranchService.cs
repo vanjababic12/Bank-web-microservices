@@ -14,7 +14,7 @@ namespace BranchApi.Interfaces
         Task<Branch> CreateBranch(BranchDto branchDto);
         Task<Branch> UpdateBranch(int id, BranchDto branchDto);
         void DeleteBranch(int id);
-        async Task<Appointment> AddAppointment(CreateAppointmentDto newAppointment);
+        Task<Appointment> AddAppointment(CreateAppointmentDto newAppointment);
         List<Appointment> GetAvailableAppointments(int branchId, DateTime date);
         Task<BookAppointmentResult> BookAppointment(int appointmentId, String clientUsername);
         Task<bool> CancelAppointment(int appointmentId);

@@ -97,6 +97,30 @@
             "UpstreamHttpMethod": [ "Post" ]
         },
         {
+            "DownstreamPathTemplate": "/api/branches/appointments",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/appointments",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/branches/appointments",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/appointments",
+            "UpstreamHttpMethod": [ "Put" ]
+        },
+        {
             "DownstreamPathTemplate": "/api/types",
             "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
