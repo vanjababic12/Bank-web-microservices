@@ -99,8 +99,7 @@ namespace BranchApi.Services
         {
             bool appointmentExists = _dbContext.Appointments.Any(a =>
                 a.BranchId == appointmentDto.BranchId &&
-                a.AppointmentDate == appointmentDto.AppointmentDate &&
-                a.AppointmentTime == appointmentDto.AppointmentTime);
+                a.AppointmentDate == appointmentDto.AppointmentDate);
 
             if (appointmentExists)
             {
@@ -111,8 +110,7 @@ namespace BranchApi.Services
             {
                 BranchId = appointmentDto.BranchId,
                 AppointmentDate = appointmentDto.AppointmentDate,
-                AppointmentTime = appointmentDto.AppointmentTime,
-                CustomerUsername = appointmentDto.CustomerUsername
+                CustomerUsername = null,
             };
 
             _dbContext.Appointments.Add(newAppointment);

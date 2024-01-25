@@ -60,4 +60,17 @@ export class Appointment {
     }
 }
 
+export class CreateAppointmentDto {
+    branchId: number;
+    appointmentDate: String; // Datum termina
+    customerUsername?: string; // Korisničko ime umesto imena kupca, opcionalno
+
+    constructor(branchId: number, appointmentDate: String, customerUsername?: string) {
+        this.branchId = branchId;
+        this.appointmentDate = appointmentDate;
+        this.customerUsername = customerUsername;
+    }
+}
+
+
 export type SelectFormControl = FormControl & { value: string };

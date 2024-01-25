@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountTypeDto } from 'src/app/Shared/models/account.models';
 import { BackAccountService } from 'src/app/Shared/services/bankaccount/back-account.service';
-import { SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
+import { roleGetter } from 'src/app/app.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-type',
@@ -13,6 +15,7 @@ export class AccountTypeComponent implements OnInit {
   displayedAccountTypes: AccountTypeDto[] = [];
   searchTerm: string = '';
   sortField: string = 'name';
+  role = roleGetter();
   ascending: boolean = true;
   sortOptions: SelectItem[]; // Za dropdown meni
 
@@ -21,11 +24,12 @@ export class AccountTypeComponent implements OnInit {
   totalRecords = 0;
   currentPage = 1;
 
-  constructor(private accountTypeService: BackAccountService) {
+  constructor(private router: Router, private accountTypeService: BackAccountService,
+    private confirmationService: ConfirmationService, private messageService: MessageService,) {
     this.sortOptions = [
       { label: 'Ime', value: 'name' },
       { label: 'Opis', value: 'description' },
-      // Dodajte ostale opcije po potrebi
+      { label: 'Valuta', value: 'currency' },
     ];
   }
 
@@ -62,6 +66,26 @@ export class AccountTypeComponent implements OnInit {
     this.currentPage = event.page + 1; // PrimeNG paginator počinje od 0
     this.rowsPerPage = event.rows;
     this.updateDisplayedAccountTypes();
+  }
+
+  confirmDelete(accountTypeId: number): void {
+    var accountType = this.accountTypes.find(i => i.id == accountTypeId);
+    this.confirmationService.confirm({
+      message: `Da li ste sigurni da želite da obrišete tip racuna <b>${accountType.name}</b>?`,
+      accept: () => {
+        this.deleteAccountType(accountTypeId);
+        this.search();
+      }
+    });
+  }
+
+  deleteAccountType(accountTypeId: number): void {
+    this.accountTypeService.deleteAccountType(accountTypeId).subscribe(() => {
+      this.messageService.add({ severity: 'success', summary: 'Uspešno!', detail: 'AccountType je obrisan.' });
+      this.search(); // Ponovo učitajte listu AccountType-ova
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Greška!', detail: 'Došlo je do greške pri brisanju.' });
+    });
   }
 
 }

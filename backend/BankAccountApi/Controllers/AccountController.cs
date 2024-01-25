@@ -35,7 +35,7 @@ namespace BankAccountApi.Controllers
 
         [HttpPost()]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<AccountType>> CreateAccountType([FromBody] AccountTypeDto accountTypeDto)
+        public async Task<ActionResult<AccountType>> CreateAccountType([FromBody] CreateAccountTypeDto accountTypeDto)
         {
             var accountType = await _accountService.CreateAccountType(accountTypeDto);
             return CreatedAtAction(nameof(SearchAccountTypes), new { id = accountType.Id }, accountType);

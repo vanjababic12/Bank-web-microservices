@@ -28,6 +28,7 @@ namespace LoanApi.Services
             query = sortField switch
             {
                 "name" => ascending ? query.OrderBy(lt => lt.Name) : query.OrderByDescending(lt => lt.Name),
+                "description" => ascending ? query.OrderBy(lt => lt.Description) : query.OrderByDescending(lt => lt.Description),
                 "interestRate" => ascending ? query.OrderBy(lt => lt.InterestRate) : query.OrderByDescending(lt => lt.InterestRate),
                 _ => query
             };

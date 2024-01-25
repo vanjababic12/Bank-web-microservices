@@ -13,7 +13,6 @@ namespace BranchApi.Infrastructure.Configuration
 
             builder.Property(a => a.BranchId).IsRequired();
             builder.Property(a => a.AppointmentDate).IsRequired();
-            builder.Property(a => a.AppointmentTime).IsRequired();
             builder.Property(a => a.CustomerUsername).IsRequired(false); // Ovo polje može biti null
 
             builder.HasOne<Branch>() // Ako postoji veza sa Branch entitetom

@@ -6,20 +6,14 @@
             class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'WORKER'" [routerLink]="'/requests/loan'" pButton pRipple type="button"
             label="Loans Requests" class="p-button-outlined p-button-info"></button>
-        <button *ngIf="role == 'WORKER'" [routerLink]="'/requests/account'" pButton pRipple type="button"
-            label="Accounts Requests" class="p-button-outlined p-button-info"></button>
-        <button *ngIf="role == 'ADMIN'" [routerLink]="'types/create-account-type'" pButton pRipple type="button" label="Create Account Type"
-            class="p-button-outlined p-button-info"></button>
-        <button *ngIf="role == 'ADMIN'" [routerLink]="'loans/create-loan-type'" pButton pRipple type="button" label="Create Loan Type"
-            class="p-button-outlined p-button-info"></button>
-        <button *ngIf="role == 'ADMIN'" [routerLink]="'exchange/create-exchange-rates'" pButton pRipple type="button" label="Create Exchange Rates"
-            class="p-button-outlined p-button-info"></button>
-        <button *ngIf="role == 'ADMIN'" [routerLink]="'appointments/create-appointment'" pButton pRipple type="button" label="Create New Appointment"
-            class="p-button-outlined p-button-info"></button>
-        <button *ngIf="role == 'ADMIN'" [routerLink]="'users/add-worker'" pButton pRipple type="button" label="Add New Worker"
-            class="p-button-outlined p-button-info"></button>
-        <button *ngIf="role == 'ADMIN'" [routerLink]="'branches/create-branch'" pButton pRipple type="button" label="Create New Branch"
-            class="p-button-outlined p-button-info"></button>
+        <button *ngIf="role == 'ADMIN'" [routerLink]="'exchange/create-exchange-rates'" pButton pRipple type="button"
+            label="Create Exchange Rates" class="p-button-outlined p-button-info"></button>
+        <button *ngIf="role == 'ADMIN'" [routerLink]="'appointments/create-appointment'" pButton pRipple type="button"
+            label="Create New Appointment" class="p-button-outlined p-button-info"></button>
+        <button *ngIf="role == 'ADMIN'" [routerLink]="'users/add-worker'" pButton pRipple type="button"
+            label="Add New Worker" class="p-button-outlined p-button-info"></button>
+        <!-- <button *ngIf="role == 'ADMIN'" [routerLink]="'branches/create-branch'" pButton pRipple type="button"
+            label="Create New Branch" class="p-button-outlined p-button-info"></button> -->
         <button *ngIf="role == 'ADMIN'" [routerLink]="'users/add-worker'" pButton pRipple type="button"
             label="Add New Worker" class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'ADMIN'" [routerLink]="'branches/create-branch'" pButton pRipple type="button"

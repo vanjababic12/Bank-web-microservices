@@ -12,6 +12,8 @@
         <button pButton (click)="toggleSortOrder()">
             <i class="pi" [ngClass]="{'pi-sort-amount-up-alt': ascending, 'pi-sort-amount-down': !ascending}"></i>
         </button>
+        <button *ngIf="role == 'ADMIN'" [routerLink]="'/loans/create-loan-type'" pButton pRipple type="button"
+            icon="pi pi-plus" label="Create Loan Type" class="p-button-outlined p-button-info"></button>
     </div>
 
 

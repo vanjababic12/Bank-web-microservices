@@ -12,15 +12,29 @@
         <button pButton (click)="toggleSortOrder()">
             <i class="pi" [ngClass]="{'pi-sort-amount-up-alt': ascending, 'pi-sort-amount-down': !ascending}"></i>
         </button>
+        <button *ngIf="role == 'ADMIN'" [routerLink]="'/types/create-account-type'" pButton pRipple type="button"
+            icon="pi pi-plus" label="Create Account Type" class="p-button-outlined p-button-info"></button>
     </div>
 
+    <p-confirmDialog></p-confirmDialog>
 
     <!-- Lista Account Types -->
     <div *ngFor="let accountType of displayedAccountTypes" class="account-type-item">
-        <p-card [header]="accountType.name" [subheader]="accountType.currency">
-            <p>{{ accountType.description }}</p>
+        <p-card>
+            <div class="card-content">
+                <div class="card-details">
+                    <h3>{{ accountType.name }}</h3>
+                    <p class="sub-text">{{ accountType.currency }}</p>
+                    <p>{{ accountType.description }}</p>
+                </div>
+                <div *ngIf="role === 'ADMIN'" class="card-actions">
+                    <button pButton type="button" icon="pi pi-trash" class="p-button-danger" label="Delete"
+                        (click)="confirmDelete(accountType.id)"></button>
+                </div>
+            </div>
         </p-card>
     </div>
+
 
     <!-- Paginator -->
     <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>

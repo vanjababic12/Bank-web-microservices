@@ -1,16 +1,17 @@
 <p-toast></p-toast>
-<p-card class="center-div margin-4em" header="Create New Appointment" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+<p-card class="center-div margin-4em" header="Create New Appointment"
+    [style]="{'width': '25rem', 'margin-bottom': '2em'}">
     <form [formGroup]="appointmentForm" class="center-div" style="flex-direction:column;">
         <span class="p-float-label">
             <p-dropdown [options]="branchOptions" formControlName="branch"></p-dropdown>
             <label for="float-input">Select Branch</label>
-        </span>                 
+        </span>
         <span class="p-float-label">
-            <p-calendar formControlName="date"></p-calendar>
+            <p-calendar formControlName="date" dateFormat="dd.mm.yy"></p-calendar>
             <label for="float-input">Date</label>
         </span>
         <span class="p-float-label">
-            <p-calendar formControlName="time" [timeOnly]="true"></p-calendar>
+            <p-calendar formControlName="time" [timeOnly]="true" [minDate]="minTime" [maxDate]="maxTime"></p-calendar>
             <label for="float-input">Time</label>
         </span>
         <button pButton type="button" label="Create" [loading]="isLoading" (click)="createAppointment()"></button>

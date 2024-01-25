@@ -30,26 +30,27 @@ namespace BankAccountApi.Services
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                query = query.Where(at => at.Name.Contains(searchTerm) || at.Description.Contains(searchTerm)).Where(i => !i.IsDeleted);
+                query = query.Where(at => at.Name.Contains(searchTerm) || at.Description.Contains(searchTerm));
             }
 
             query = sortField switch
             {
                 "name" => ascending ? query.OrderBy(at => at.Name) : query.OrderByDescending(at => at.Name),
                 "description" => ascending ? query.OrderBy(at => at.Description) : query.OrderByDescending(at => at.Description),
+                "currency" => ascending ? query.OrderBy(at => at.Currency) : query.OrderByDescending(at => at.Currency),
                 _ => query
             };
 
-            return query.ToList();
+            return query.Where(i => !i.IsDeleted).ToList();
         }
 
-        public async Task<AccountType> CreateAccountType(AccountTypeDto accountTypeDto)
+        public async Task<AccountType> CreateAccountType(CreateAccountTypeDto accountTypeDto)
         {
             var accountType = new AccountType
             {
                 Name = accountTypeDto.Name,
                 Description = accountTypeDto.Description,
-                Currency = "markedolarieuri", // izmeniti kasnije da dolazi iz accountdto
+                Currency = accountTypeDto.Currency,
                 IsDeleted = false
             };
             _dbContext.AccountTypes.Add(accountType);

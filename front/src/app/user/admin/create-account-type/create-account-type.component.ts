@@ -16,11 +16,17 @@ export class CreateAccountTypeComponent implements OnInit {
   accountTypeForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
     description: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+    currency: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]),
   });
 
   constructor(private backAccountService: BackAccountService, private messageService: MessageService, private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // Listen for changes in the currency field and transform them to uppercase
+    this.accountTypeForm.get('currency')?.valueChanges.subscribe(value => {
+      this.accountTypeForm.get('currency')?.setValue(value.toUpperCase(), { emitEvent: false });
+    });
+  }
 
   mapFormToAccountTypeDto(): CreateAccountTypeDto {
     const formValue = this.accountTypeForm.value;
@@ -28,6 +34,7 @@ export class CreateAccountTypeComponent implements OnInit {
     return {
       name: formValue.name,
       description: formValue.description,
+      currency: formValue.currency,
     };
   }
 
@@ -39,7 +46,7 @@ export class CreateAccountTypeComponent implements OnInit {
         data => {
           if (data) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'New account type added successfully' });
-            this.router.navigateByUrl("/home");
+            this.router.navigateByUrl("/accountTypes");
           } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Bad request' });
           }

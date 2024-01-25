@@ -1,7 +1,9 @@
 export interface CreateAccountTypeDto {
     name: string;
     description: string;
+    currency: string;
 }
+
 
 export interface AccountRequestDto {
     loanTypeId: number;

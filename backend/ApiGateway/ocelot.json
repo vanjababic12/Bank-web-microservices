@@ -97,30 +97,6 @@
             "UpstreamHttpMethod": [ "Post" ]
         },
         {
-            "DownstreamPathTemplate": "/api/branches/appointments",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5011
-                }
-            ],
-            "UpstreamPathTemplate": "/branches/appointments",
-            "UpstreamHttpMethod": [ "Post" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/branches/appointments",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5011
-                }
-            ],
-            "UpstreamPathTemplate": "/branches/appointments",
-            "UpstreamHttpMethod": [ "Put" ]
-        },
-        {
             "DownstreamPathTemplate": "/api/types",
             "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
@@ -131,6 +107,18 @@
             ],
             "UpstreamPathTemplate": "/types",
             "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/types/types/{accountTypeId}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/types/{accountTypeId}",
+            "UpstreamHttpMethod": [ "Delete" ]
         },
         {
             "DownstreamPathTemplate": "/api/loans/types",

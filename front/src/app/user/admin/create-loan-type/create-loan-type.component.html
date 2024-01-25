@@ -1,18 +1,30 @@
-<p-toast></p-toast>
-<p-card class="center-div margin-4em" header="Create New Loan Type" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+<p-card class="center-div margin-4em" header="Create New Loan Type"
+    [style]="{'width': '25rem', 'margin-bottom': '2em'}">
     <form [formGroup]="loanTypeForm" class="center-div" style="flex-direction:column;">
-        <span class="p-float-label">
-            <input id="float-input" type="text" pInputText formControlName="name"> 
-            <label for="float-input">Name</label>
+        <span class="p-float-label full-width">
+            <input id="name-input" type="text" pInputText formControlName="name" class="full-width">
+            <label for="name-input">Name</label>
         </span>
-        <span class="p-float-label">
-            <input id="float-input" type="number" pInputText formControlName="interestRate"> 
-            <label for="float-input">Interest Rate</label>
+        <small *ngIf="loanTypeForm.get('name').invalid && loanTypeForm.get('name').touched" class="p-error block">Name
+            is required and must be 5-50 characters long.</small>
+
+        <span class="p-float-label full-width">
+            <textarea id="description-input" pInputTextarea formControlName="description" rows="5"
+                class="full-width"></textarea>
+            <label for="description-input">Description</label>
         </span>
-        <span class="p-float-label">
-            <input id="float-input" type="text" pInputText formControlName="description"> 
-            <label for="float-input">Description</label>
+        <small *ngIf="loanTypeForm.get('description').invalid && loanTypeForm.get('description').touched"
+            class="p-error block">Description is required and must be 5-50 characters long.</small>
+
+        <span class="p-float-label full-width">
+            <input id="interestRate-input" type="number" pInputText formControlName="interestRate" class="full-width"
+                (input)="onInterestRateChange($event)">
+            <label for="interestRate-input">Interest Rate</label>
         </span>
-        <button pButton type="button" label="Create" [loading]="isLoading" (click)="createLoanType()"></button>
+        <small *ngIf="loanTypeForm.get('interestRate').invalid && loanTypeForm.get('interestRate').touched"
+            class="p-error block">Interest rate must be a positive number.</small>
+
+        <button pButton type="button" label="Create" [disabled]="!loanTypeForm.valid" [loading]="isLoading"
+            (click)="createLoanType()"></button>
     </form>
 </p-card>

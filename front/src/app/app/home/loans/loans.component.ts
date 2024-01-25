@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { LoanTypeDto } from 'src/app/Shared/models/loan.models';
 import { LoanService } from 'src/app/Shared/services/loan/loan.service';
+import { roleGetter } from 'src/app/app.module';
 
 @Component({
   selector: 'app-loans',
@@ -13,6 +14,7 @@ export class LoansComponent implements OnInit {
   loanTypes: LoanTypeDto[] = [];
   displayedLoanTypes: LoanTypeDto[] = [];
   searchTerm: string = '';
+  role = roleGetter();
   sortField: string = 'name';
   ascending: boolean = true;
   sortOptions: SelectItem[]; // Za dropdown meni
@@ -26,6 +28,7 @@ export class LoansComponent implements OnInit {
     this.sortOptions = [
       { label: 'Ime', value: 'name' },
       { label: 'Opis', value: 'description' },
+      { label: 'Kamata', value: 'interestRate' },
       // Dodajte ostale opcije po potrebi
     ];
   }

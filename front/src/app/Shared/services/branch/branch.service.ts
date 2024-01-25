@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Appointment, AppointmentDto, Branch, BranchDto } from '../../models/branch.models';
+import { Appointment, AppointmentDto, Branch, BranchDto, CreateAppointmentDto } from '../../models/branch.models';
 import { BookAppointmentResult } from '../../models/branch-response.models';
 
 @Injectable({
@@ -47,9 +47,9 @@ export class BranchService {
     return this.http.get<Appointment[]>(`${this.apiUrl}/branches/appointments`, { params: { branchId, dateString } });
   }
 
-  // createAppointment():Observable<> {
-  //   return this.http.post<BookAppointmentResult>(`${this.apiUrl}/branches/appointments`, appointmentDto);
-  // }
+  addAppointment(appointmentDto: CreateAppointmentDto): Observable<any> {
+    return this.http.post(`${this.apiUrl}/branches/appointments`, appointmentDto);
+  }
 
   bookAppointment(appointmentDto: AppointmentDto): Observable<BookAppointmentResult> {
     return this.http.post<BookAppointmentResult>(`${this.apiUrl}/branches/appointments`, appointmentDto);

@@ -1,14 +1,30 @@
-<p-toast></p-toast>
 <p-card class="center-div margin-4em" header="Create Account Type" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
     <form [formGroup]="accountTypeForm" class="center-div" style="flex-direction:column;">
-        <span class="p-float-label">
-            <input id="float-input" type="name" pInputText formControlName="name"> 
-            <label for="float-input">Name</label>
+        <span class="p-float-label full-width">
+            <input id="name-input" type="text" pInputText formControlName="name" class="full-width">
+            <label for="name-input">Name</label>
         </span>
-        <span class="p-float-label">
-            <input id="float-input" type="text" pInputText formControlName="description"> 
-            <label for="float-input">Description</label>
+        <small *ngIf="accountTypeForm.get('name').invalid && accountTypeForm.get('name').touched"
+            class="p-error block">Name is required and must be between 5 and 50 characters.</small>
+
+        <span class="p-float-label full-width">
+            <textarea id="description-input" rows="5" pInputTextarea formControlName="description"
+                class="full-width"></textarea>
+            <label for="description-input">Description</label>
         </span>
-        <button pButton type="button" label="Create" [loading]="isLoading" (click)="createAccountType()"></button>
+        <small *ngIf="accountTypeForm.get('description').invalid && accountTypeForm.get('description').touched"
+            class="p-error block">Description is required and must be between 5 and 50 characters.</small>
+
+
+        <span class="p-float-label full-width">
+            <input id="currency-input" type="text" pInputText formControlName="currency" class="full-width"
+                maxlength="3">
+            <label for="currency-input">Currency</label>
+        </span>
+        <small *ngIf="accountTypeForm.get('currency').invalid && accountTypeForm.get('currency').touched"
+            class="p-error block">Currency should be a 3-letter code (e.g., USD, EUR).</small>
+
+        <button pButton type="button" label="Create" [disabled]="!accountTypeForm.valid" [loading]="isLoading"
+            (click)="createAccountType()"></button>
     </form>
 </p-card>
