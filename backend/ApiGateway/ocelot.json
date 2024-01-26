@@ -97,30 +97,6 @@
             "UpstreamHttpMethod": [ "Post" ]
         },
         {
-            "DownstreamPathTemplate": "/api/types",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5010
-                }
-            ],
-            "UpstreamPathTemplate": "/types",
-            "UpstreamHttpMethod": [ "Post" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/types/types/{accountTypeId}",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5010
-                }
-            ],
-            "UpstreamPathTemplate": "/types/{accountTypeId}",
-            "UpstreamHttpMethod": [ "Delete" ]
-        },
-        {
             "DownstreamPathTemplate": "/api/loans/types",
             "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
@@ -144,8 +120,9 @@
             "UpstreamPathTemplate": "/exchange-rates",
             "UpstreamHttpMethod": [ "Post" ]
         },
+        // #region Account Type Controller
         {
-            "DownstreamPathTemplate": "/api/types/search",
+            "DownstreamPathTemplate": "/api/accountType/search",
             "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
@@ -153,9 +130,98 @@
                     "Port": 5010
                 }
             ],
-            "UpstreamPathTemplate": "/types/search",
+            "UpstreamPathTemplate": "/accountType/search",
             "UpstreamHttpMethod": [ "Get" ]
         },
+        {
+            "DownstreamPathTemplate": "/api/accountType",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/accountType",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/accountType/{accountTypeId}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/accountType/{accountTypeId}",
+            "UpstreamHttpMethod": [ "Delete" ]
+        },
+        // #endregion
+        // #region Account Request Controller
+        {
+            "DownstreamPathTemplate": "/api/accounts/requests",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/accounts/requests",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/accounts/requests",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/accounts/requests",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/accounts/requests/{requestId}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/accounts/requests/{requestId}",
+            "UpstreamHttpMethod": [ "Put" ]
+        },
+        // #endregion
+        // #region Account Controller
+        {
+            "DownstreamPathTemplate": "/api/accounts/my",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/accounts/my",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/accounts/{accountId}/close",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/accounts/{accountId}/close",
+            "UpstreamHttpMethod": [ "Put" ]
+        },
+        //#endregion
         {
             "DownstreamPathTemplate": "/api/branches/search",
             "DownstreamScheme": "https",

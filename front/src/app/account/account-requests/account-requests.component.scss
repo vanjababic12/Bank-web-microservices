@@ -1,0 +1,54 @@
+/* Stilovi za opšti kontejner */
+.request-container {
+    padding: 15px;
+    background-color: #f5f5f5;
+    /* svetlo siva pozadina */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* lagani senki efekat */
+    margin: 20px 0;
+}
+
+/* Stilovi za svaki zahtev (karticu) */
+.request-item {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    /* lagani border oko svake kartice */
+    border-radius: 4px;
+}
+
+/* Stilovi za detalje kartice */
+.card-content {
+    padding: 10px;
+}
+
+/* Stilovi za akcione dugmiće */
+.card-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.card-details h3 {
+    margin-top: 0;
+    color: #333;
+    /* tamnija boja teksta */
+}
+
+.card-details p {
+    margin: 5px 0;
+}
+
+/* Specifični stilovi za prihvatanje i odbijanje */
+.p-button-success {
+    margin-right: 5px;
+}
+
+.p-button-danger {
+    margin-left: 5px;
+}
+
+/* Stilovi za paginator */
+p-paginator {
+    margin-top: 15px;
+}

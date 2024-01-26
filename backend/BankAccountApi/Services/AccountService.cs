@@ -65,6 +65,10 @@ namespace BankAccountApi.Services
 
         public async Task<AccountRequest> CreateAccountRequest(string customerUsername, AccountRequestDto accountRequestDto)
         {
+            if (_dbContext.AccountRequests.Where(i => i.CustomerUsername == customerUsername && !i.IsReviewed).ToList().Count >= 2)
+            {
+                throw new InvalidOperationException("Vec imate dva zahteva koja jos uvek nisu obrađena. Pokušajte opet nakon što se obrade.");
+            }
             var accountRequest = new AccountRequest
             {
                 CustomerUsername = customerUsername,
@@ -81,15 +85,23 @@ namespace BankAccountApi.Services
         {
             var request = _dbContext.AccountRequests.Find(requestId);
             if (request == null) return false;
+            if (request.IsReviewed)
+            {
+                throw new InvalidOperationException("Ovaj zahtev je vec obrađen.");
+            }
 
             request.IsReviewed = true;
             request.IsApproved = isApproved;
+            if (isApproved)
+            {
+                await CreateAccount(request.CustomerUsername, request.AccountTypeId);
+            }
             await _dbContext.SaveChangesAsync();
             return true;
         }
-        public async Task<Account> CreateAccount(string customerUsername, AccountDto accountDto)
+        public async Task<Account> CreateAccount(string customerUsername, int accountTypeId)
         {
-            var accountType = _dbContext.AccountTypes.FirstOrDefault(at => at.Id == accountDto.AccountTypeId);
+            var accountType = _dbContext.AccountTypes.FirstOrDefault(at => at.Id == accountTypeId);
             if (accountType == null)
             {
                 throw new NotFoundException("Tip računa nije pronađen.");
@@ -97,9 +109,9 @@ namespace BankAccountApi.Services
 
             var account = new Account
             {
-                AccountTypeId = accountDto.AccountTypeId,
+                AccountTypeId = accountType.Id,
                 CustomerUsername = customerUsername,
-                Currency = accountType.Currency, // Dohvata valutu iz AccountType
+                Currency = accountType.Currency,
                 IsClosed = false
             };
             _dbContext.Accounts.Add(account);
@@ -120,7 +132,13 @@ namespace BankAccountApi.Services
         public List<Account> GetCustomerAccounts(string customerUsername)
         {
             return _dbContext.Accounts
-                .Where(a => a.CustomerUsername == customerUsername && !a.IsClosed)
+                .Where(a => a.CustomerUsername == customerUsername)
+                .ToList()
+                .Select(i =>
+                {
+                    i.AccountType = _dbContext.AccountTypes.Find(i.AccountTypeId);
+                    return i;
+                })
                 .ToList();
         }
 

@@ -17,6 +17,9 @@ import { WorkerListComponent } from './user/admin/worker-list/worker-list.compon
 import { AccountTypeComponent } from './app/home/account-type/account-type.component';
 import { BranchesComponent } from './app/home/branches/branches.component';
 import { LoansComponent } from './app/home/loans/loans.component';
+import { WorkerGuard } from './core/guard/worker.guard';
+import { AccountRequestsComponent } from './account/account-requests/account-requests.component';
+import { MyAccountsComponent } from './account/my-accounts/my-accounts.component';
 
 const routes: Routes = [
   { path: '', pathMatch: "full", redirectTo: 'home' },
@@ -28,12 +31,14 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [LoginGuard] },
   { path: 'workers', component: WorkerListComponent, canActivate: [AdminGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard] },
-  { path: 'branches/create-branch', component: CreateBranchComponent, canActivate: [AdminGuard]},
-  { path: 'users/add-worker', component: AddWorkerComponent, canActivate: [AdminGuard]},
-  { path: 'appointments/create-appointment', component: CreateAppointmentComponent, canActivate: [AdminGuard]},
-  { path: 'types/create-account-type', component: CreateAccountTypeComponent, canActivate: [AdminGuard]},
-  { path: 'loans/create-loan-type', component: CreateLoanTypeComponent, canActivate: [AdminGuard]},
-  { path: 'exchange/create-exchange-rates', component: CreateExchangeRatesComponent, canActivate: [AdminGuard]},
+  { path: 'accounts/requests', component: AccountRequestsComponent, canActivate: [LoggedInGuard] },
+  { path: 'accounts', component: MyAccountsComponent, canActivate: [CustomerGuard] },
+  { path: 'branches/create-branch', component: CreateBranchComponent, canActivate: [AdminGuard] },
+  { path: 'users/add-worker', component: AddWorkerComponent, canActivate: [AdminGuard] },
+  { path: 'appointments/create-appointment', component: CreateAppointmentComponent, canActivate: [AdminGuard] },
+  { path: 'types/create-account-type', component: CreateAccountTypeComponent, canActivate: [AdminGuard] },
+  { path: 'loans/create-loan-type', component: CreateLoanTypeComponent, canActivate: [AdminGuard] },
+  { path: 'exchange/create-exchange-rates', component: CreateExchangeRatesComponent, canActivate: [AdminGuard] },
   { path: 'branches/create-branch', component: CreateBranchComponent, canActivate: [AdminGuard] },
   { path: 'users/add-worker', component: AddWorkerComponent, canActivate: [AdminGuard] }
 ];

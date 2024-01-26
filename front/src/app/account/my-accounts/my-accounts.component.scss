@@ -1,0 +1,55 @@
+.account-container {
+    padding: 15px;
+    margin: 20px 0;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.account-item {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.card-content {
+    padding: 10px;
+}
+
+.card-details h3,
+.card-details p,
+.card-details h5 {
+    margin: 5px 0;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.my-requests-button {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+/* Paginator stilovi */
+p-paginator {
+    margin-top: 15px;
+}
+
+.account-container,
+.no-accounts-message,
+.error-message {
+    padding: 15px;
+    margin: 20px 0;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.error-message p,
+.no-accounts-message p {
+    margin: 10px 0;
+}

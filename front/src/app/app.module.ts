@@ -46,6 +46,8 @@ import { HomeComponent } from './app/home/home.component';
 import { AccountTypeComponent } from './app/home/account-type/account-type.component';
 import { BranchesComponent } from './app/home/branches/branches.component';
 import { LoansComponent } from './app/home/loans/loans.component';
+import { AccountRequestsComponent } from './account/account-requests/account-requests.component';
+import { MyAccountsComponent } from './account/my-accounts/my-accounts.component';
 
 export function roleGetter() {
   return localStorage.getItem('role');
@@ -73,6 +75,8 @@ export function tokenGetter() {
     AccountTypeComponent,
     BranchesComponent,
     LoansComponent,
+    AccountRequestsComponent,
+    MyAccountsComponent,
   ],
   imports: [
     PaginatorModule,

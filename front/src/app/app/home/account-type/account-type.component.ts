@@ -88,4 +88,24 @@ export class AccountTypeComponent implements OnInit {
     });
   }
 
+  confirmAccountRequest(accountType: AccountTypeDto): void {
+    this.confirmationService.confirm({
+      message: `Da li ste sigurni da želite da podnesete zahtev za tip racuna <b>${accountType.name}</b>?`,
+      accept: () => {
+        this.createAccountRequest(accountType);
+      }
+    });
+  }
+
+  createAccountRequest(accountType: AccountTypeDto): void {
+    const createAccountRequestDto = { accountTypeId: accountType.id };
+    this.accountTypeService.createAccountRequest(createAccountRequestDto).subscribe(response => {
+      this.messageService.add({ severity: 'success', summary: 'Zahtev poslat!', detail: 'Zahtev za izdavanje računa je uspešno poslat.' });
+      // Opcionalno: Osvežite podatke ili preduzmite dodatne akcije
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Greška!', detail: 'Došlo je do greške pri podnošenju zahteva.' });
+    });
+  }
+
+
 }

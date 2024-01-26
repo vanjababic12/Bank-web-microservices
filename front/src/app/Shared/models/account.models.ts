@@ -6,13 +6,25 @@ export interface CreateAccountTypeDto {
 
 
 export interface AccountRequestDto {
-    loanTypeId: number;
-    amount: number;
-    numberOfInstallments: number;
+    accountTypeId: number;
 }
 
-export interface AccountDto {
+export class AccountDto {
+    id: number;
     accountTypeId: number;
+    customerUsername: string;
+    currency: string;
+    isClosed: boolean;
+    accountType: AccountTypeDto;
+
+    constructor(id: number, accountTypeId: number, customerUsername: string, currency: string, isClosed: boolean, accountType: AccountTypeDto) {
+        this.id = id;
+        this.accountTypeId = accountTypeId;
+        this.customerUsername = customerUsername;
+        this.currency = currency;
+        this.isClosed = isClosed;
+        this.accountType = accountType;
+    }
 }
 
 export interface AccountTypeDto {

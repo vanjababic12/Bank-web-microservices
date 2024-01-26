@@ -12,10 +12,12 @@ using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using BankAccountApi.Models;
+using System.Data;
+using System.Linq;
 
 namespace BankAccountApi.Controllers
 {
-    [Route("api/types")]
+    [Route("api/accounts")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -26,60 +28,8 @@ namespace BankAccountApi.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet("search")]
-        public ActionResult<List<AccountType>> SearchAccountTypes(string searchTerm, string sortField = "name", bool ascending = true)
-        {
-            var accountTypes = _accountService.SearchAndSortAccountTypes(searchTerm, sortField, ascending);
-            return Ok(accountTypes);
-        }
-
-        [HttpPost()]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<AccountType>> CreateAccountType([FromBody] CreateAccountTypeDto accountTypeDto)
-        {
-            var accountType = await _accountService.CreateAccountType(accountTypeDto);
-            return CreatedAtAction(nameof(SearchAccountTypes), new { id = accountType.Id }, accountType);
-        }
-
-        [HttpGet("requests")]
-        [Authorize(Roles = "Worker")]
-        public ActionResult<List<AccountRequest>> GetAllAccountRequests()
-        {
-            return Ok(_accountService.GetAllAccountRequests());
-        }
-
-        [HttpDelete("types/{accountTypeId}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> DeleteAccountType(int accountTypeId)
-        {
-            var success = await _accountService.DeleteAccountType(accountTypeId);
-            if (!success)
-            {
-                return NotFound("Tip računa nije pronađen ili je već obrisan.");
-            }
-            return Ok();
-        }
-
-        [HttpPost("requests")]
-        [Authorize]
-        public async Task<ActionResult<AccountRequest>> CreateAccountRequest([FromBody] AccountRequestDto accountRequestDto)
-        {
-            var customerUsername = GetUserEmail(); // Implementirajte metodu za dobijanje korisničkog imena iz tokena
-            var accountRequest = await _accountService.CreateAccountRequest(customerUsername, accountRequestDto);
-            return CreatedAtAction(nameof(GetAllAccountRequests), new { id = accountRequest.Id }, accountRequest);
-        }
-
-        [HttpPut("requests/{requestId}")]
-        [Authorize(Roles = "Worker")]
-        public async Task<ActionResult> ReviewAccountRequest(int requestId, [FromBody] bool isApproved)
-        {
-            var success = await _accountService.ReviewAccountRequest(requestId, isApproved);
-            if (!success) return NotFound("Zahtev za račun nije pronađen.");
-            return Ok();
-        }
-
-        [HttpGet("customer/accounts")]
-        [Authorize] // Samo registrovani korisnici mogu pregledati svoje račune
+        [HttpGet("my")]
+        [Authorize(Roles = "User")] // Samo registrovani korisnici mogu pregledati svoje račune
         public ActionResult<List<Account>> GetCustomerAccounts()
         {
             var customerUsername = GetUserEmail();
@@ -87,16 +37,7 @@ namespace BankAccountApi.Controllers
             return Ok(accounts);
         }
 
-        [HttpPost("create")]
-        [Authorize] // Samo registrovani korisnici mogu kreirati račun
-        public async Task<ActionResult<Account>> CreateAccount([FromBody] AccountDto accountDto)
-        {
-            var customerUsername = GetUserEmail();
-            var account = await _accountService.CreateAccount(customerUsername, accountDto);
-            return CreatedAtAction(nameof(GetCustomerAccounts), new { id = account.Id }, account);
-        }
-
-        [HttpPut("close/{accountId}")]
+        [HttpPut("{accountId}/close")]
         [Authorize] // Samo registrovani korisnici mogu zatvoriti račun
         public async Task<ActionResult> CloseAccount(int accountId)
         {
@@ -115,6 +56,8 @@ namespace BankAccountApi.Controllers
             var claimsIdentity = this.User.Identity as ClaimsIdentity;
             return claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
         }
+
+        
 
     }
 }

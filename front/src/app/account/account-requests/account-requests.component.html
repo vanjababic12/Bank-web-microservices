@@ -1,0 +1,28 @@
+<div class="request-container">
+    <p-confirmDialog></p-confirmDialog>
+    <!-- Lista zahteva za izdavanje računa -->
+    <div *ngFor="let request of displayedRequests" class="request-item">
+        <p-card>
+            <div class="card-content">
+                <div class="card-details">
+                    <h3>Korisnik: {{ request.customerUsername }}</h3>
+                    <p>Tip racuna: {{ 'Tip računa: ' + request.accountTypeId }}</p>
+                    <br />
+                    <h5 *ngIf="!request.isReviewed">Status: U Obradi</h5>
+                    <h5 *ngIf="request.isApproved && request.isReviewed">Status: Prihvaćen</h5>
+                    <h5 *ngIf="!request.isApproved && request.isReviewed">Status: Odbijen</h5>
+                </div>
+                <div *ngIf="!request.isReviewed && role == 'WORKER'">
+                    <button pButton type="button" icon="pi pi-check" class="p-button-success" label="Prihvati"
+                        (click)="confirmReviewRequest(request.id, true)"></button>
+                    <button pButton type="button" icon="pi pi-times" class="p-button-danger" label="Odbij"
+                        (click)="confirmReviewRequest(request.id, false)"></button>
+                </div>
+            </div>
+        </p-card>
+    </div>
+
+    <!-- Paginator -->
+    <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRequests"
+        (onPageChange)="onPageChange($event)"></p-paginator>
+</div>

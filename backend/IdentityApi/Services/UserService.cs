@@ -102,7 +102,7 @@ namespace IdentityApi.Services
             List<Claim> claims = new List<Claim>();
             var userRole = "User";
             if (user.Role == EUserRole.ADMIN) userRole = "Admin";
-            if (user.Role == EUserRole.WORKER) userRole = "Seller";
+            if (user.Role == EUserRole.WORKER) userRole = "Worker";
 
             claims.Add(new Claim(ClaimTypes.Role, userRole)); //Add user type to claim
             claims.Add(new Claim(ClaimTypes.Name, user.Email));

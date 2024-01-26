@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AccountDto, AccountRequestDto, AccountTypeDto as AccountTypeDto, CreateAccountTypeDto } from '../../models/account.models';
+import { AccountDto, AccountTypeDto as AccountTypeDto, CreateAccountTypeDto } from '../../models/account.models';
 import { Observable } from 'rxjs';
-import { AccountRequestResponse, AccountResponse, AccountTypeResponse } from '../../models/account-response.models';
+import { AccountRequestDto, AccountResponse, AccountTypeResponse, CreateAccountRequestDto } from '../../models/account-response.models';
 
 @Injectable({
   providedIn: 'root'
@@ -19,38 +19,34 @@ export class BackAccountService {
     if (sortField) params = params.append('sortField', sortField);
     if (ascending !== undefined) params = params.append('ascending', ascending.toString());
 
-    return this.http.get<AccountTypeDto[]>(`${this.apiUrl}/types/search`, { params });
+    return this.http.get<AccountTypeDto[]>(`${this.apiUrl}/accountType/search`, { params });
   }
 
   createAccountType(accountTypeDto: CreateAccountTypeDto): Observable<AccountTypeResponse> {
-    return this.http.post<AccountTypeResponse>(`${this.apiUrl}/types`, accountTypeDto);
+    return this.http.post<AccountTypeResponse>(`${this.apiUrl}/accountType`, accountTypeDto);
   }
 
-  getAllAccountRequests(): Observable<AccountRequestResponse[]> {
-    return this.http.get<AccountRequestResponse[]>(`${this.apiUrl}/requests`);
+  getAllAccountRequests(): Observable<AccountRequestDto[]> {
+    return this.http.get<AccountRequestDto[]>(`${this.apiUrl}/accounts/requests`);
   }
 
   deleteAccountType(accountTypeId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/types/${accountTypeId}`);
+    return this.http.delete(`${this.apiUrl}/accountType/${accountTypeId}`);
   }
 
-  createAccountRequest(accountRequestDto: AccountRequestDto): Observable<AccountRequestResponse> {
-    return this.http.post<AccountRequestResponse>(`${this.apiUrl}/requests`, accountRequestDto);
+  createAccountRequest(accountRequestDto: CreateAccountRequestDto): Observable<AccountRequestDto> {
+    return this.http.post<AccountRequestDto>(`${this.apiUrl}/accounts/requests`, accountRequestDto);
   }
 
   reviewAccountRequest(requestId: number, isApproved: boolean): Observable<any> {
-    return this.http.put(`${this.apiUrl}/requests/${requestId}`, { isApproved });
+    return this.http.put(`${this.apiUrl}/accounts/requests/${requestId}`, isApproved);
   }
 
-  getCustomerAccounts(): Observable<AccountResponse[]> {
-    return this.http.get<AccountResponse[]>(`${this.apiUrl}/customer`);
-  }
-
-  createAccount(accountDto: AccountDto): Observable<AccountResponse> {
-    return this.http.post<AccountResponse>(`${this.apiUrl}/create`, accountDto);
+  getAccounts(): Observable<AccountDto[]> {
+    return this.http.get<AccountDto[]>(`${this.apiUrl}/accounts/my`);
   }
 
   closeAccount(accountId: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/close/${accountId}`, {});
+    return this.http.put(`${this.apiUrl}/accounts/${accountId}/close`, {});
   }
 }

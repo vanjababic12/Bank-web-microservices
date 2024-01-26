@@ -31,6 +31,11 @@
                     <button pButton type="button" icon="pi pi-trash" class="p-button-danger" label="Delete"
                         (click)="confirmDelete(accountType.id)"></button>
                 </div>
+                <!-- Dugme za podnošenje zahteva -->
+                <div *ngIf="role === 'USER'" class="card-actions">
+                    <button pButton type="button" icon="pi pi-check-square" class="p-button-success"
+                        label="Podnesi Zahtev" (click)="confirmAccountRequest(accountType)"></button>
+                </div>
             </div>
         </p-card>
     </div>

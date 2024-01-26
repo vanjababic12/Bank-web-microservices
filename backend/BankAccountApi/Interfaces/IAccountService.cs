@@ -13,7 +13,7 @@ namespace BankAccountApi.Interfaces
         List<AccountRequest> GetAllAccountRequests();
         Task<AccountRequest> CreateAccountRequest(string customerUsername, AccountRequestDto accountRequestDto);
         Task<bool> ReviewAccountRequest(int requestId, bool isApproved);
-        Task<Account> CreateAccount(string customerUsername, AccountDto accountDto);
+        Task<Account> CreateAccount(string customerUsername, int accountTypeId);
         Task<bool> CloseAccount(int accountId);
         List<Account> GetCustomerAccounts(string customerUsername);
     }

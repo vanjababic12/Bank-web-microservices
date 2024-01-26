@@ -6,6 +6,8 @@
             class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'WORKER'" [routerLink]="'/requests/loan'" pButton pRipple type="button"
             label="Loans Requests" class="p-button-outlined p-button-info"></button>
+        <button *ngIf="role == 'WORKER'" [routerLink]="'/accounts/requests'" pButton pRipple type="button"
+            label="Account Requests" class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'ADMIN'" [routerLink]="'exchange/create-exchange-rates'" pButton pRipple type="button"
             label="Create Exchange Rates" class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'ADMIN'" [routerLink]="'appointments/create-appointment'" pButton pRipple type="button"

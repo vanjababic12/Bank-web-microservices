@@ -14,7 +14,7 @@ namespace BankAccountApi.Models
         public bool IsClosed { get; set; }
 
         // Veza sa AccountType
-        public AccountType AccountType { get; set; }
+        public virtual AccountType AccountType { get; set; }
     }
 
 }
