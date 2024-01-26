@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoanRequest, LoanType } from '../../models/loan-response.models';
-import { LoanRequestDto, LoanTypeDto } from '../../models/loan.models';
+import { CreateLoanRequestDto, LoanTypeDto } from '../../models/loan.models';
 
 @Injectable({
   providedIn: 'root'
@@ -38,15 +38,11 @@ export class LoanService {
     return this.http.get<LoanRequest[]>(`${this.apiUrl}/loans/requests`);
   }
 
-  createLoanRequest(loanRequestDto: LoanRequestDto): Observable<LoanRequest> {
+  createLoanRequest(loanRequestDto: CreateLoanRequestDto): Observable<LoanRequest> {
     return this.http.post<LoanRequest>(`${this.apiUrl}/loans/requests`, loanRequestDto);
   }
 
   reviewLoanRequest(requestId: number, isApproved: boolean): Observable<any> {
-    return this.http.put(`${this.apiUrl}/loans/requests/${requestId}`, { isApproved });
-  }
-
-  getUserLoanRequests(): Observable<LoanRequest[]> {
-    return this.http.get<LoanRequest[]>(`${this.apiUrl}/loans/user/requests`);
+    return this.http.put(`${this.apiUrl}/loans/requests/${requestId}`, isApproved);
   }
 }

@@ -1,0 +1,21 @@
+<div class="loan-application-page">
+    <h2>Podnesi Zahtev za Kredit: {{ loanType?.name }}</h2>
+    <div class="loan-details">
+        <p>Kamata: {{ loanType?.interestRate }}%</p>
+        <p>Opis: {{ loanType?.description }}</p>
+    </div>
+    <div class="loan-request-form">
+        <label for="installments">Broj rata:</label>
+        <p-dropdown [options]="installmentOptions" [(ngModel)]="selectedInstallments"
+            (onChange)="calculateMonthlyPayment()"></p-dropdown>
+        <br />
+        <label for="amount">Iznos kredita:</label>
+        <br />
+        <p-slider [(ngModel)]="loanAmount" [min]="500" [max]="20000" [step]="100"
+            (onChange)="calculateMonthlyPayment()"></p-slider>
+        <br />
+        <p>{{ loanAmount | currency:'EUR' }}</p>
+        <p class="monthly-payment">Mesečna rata: {{ monthlyPayment | currency:'EUR' }}</p>
+        <button pButton type="button" label="Podnesi Zahtev" (click)="submitLoanRequest()"></button>
+    </div>
+</div>

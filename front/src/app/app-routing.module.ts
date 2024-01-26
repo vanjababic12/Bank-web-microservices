@@ -20,6 +20,8 @@ import { LoansComponent } from './app/home/loans/loans.component';
 import { WorkerGuard } from './core/guard/worker.guard';
 import { AccountRequestsComponent } from './account/account-requests/account-requests.component';
 import { MyAccountsComponent } from './account/my-accounts/my-accounts.component';
+import { LoanRequestsComponent } from './loan/loan-requests/loan-requests.component';
+import { LoanRequestComponent } from './app/home/create-loan-request/create-loan-request.component';
 
 const routes: Routes = [
   { path: '', pathMatch: "full", redirectTo: 'home' },
@@ -32,7 +34,9 @@ const routes: Routes = [
   { path: 'workers', component: WorkerListComponent, canActivate: [AdminGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard] },
   { path: 'accounts/requests', component: AccountRequestsComponent, canActivate: [LoggedInGuard] },
+  { path: 'loans/requests', component: LoanRequestsComponent, canActivate: [LoggedInGuard] },
   { path: 'accounts', component: MyAccountsComponent, canActivate: [CustomerGuard] },
+  { path: 'loans/create-request/:id', component: LoanRequestComponent, canActivate: [CustomerGuard] },
   { path: 'branches/create-branch', component: CreateBranchComponent, canActivate: [AdminGuard] },
   { path: 'users/add-worker', component: AddWorkerComponent, canActivate: [AdminGuard] },
   { path: 'appointments/create-appointment', component: CreateAppointmentComponent, canActivate: [AdminGuard] },

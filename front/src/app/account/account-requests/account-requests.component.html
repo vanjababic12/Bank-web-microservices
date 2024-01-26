@@ -6,7 +6,7 @@
             <div class="card-content">
                 <div class="card-details">
                     <h3>Korisnik: {{ request.customerUsername }}</h3>
-                    <p>Tip racuna: {{ 'Tip računa: ' + request.accountTypeId }}</p>
+                    <p>Tip racuna: {{ request.accountTypeId }}</p>
                     <br />
                     <h5 *ngIf="!request.isReviewed">Status: U Obradi</h5>
                     <h5 *ngIf="request.isApproved && request.isReviewed">Status: Prihvaćen</h5>

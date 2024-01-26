@@ -1,4 +1,4 @@
-.nav-bar{
+.nav-bar {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
@@ -9,4 +9,52 @@
 
 button p-button {
     margin: 1em;
+}
+
+.loan-request-container {
+    padding: 30px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 40px auto;
+    /* Centriranje sa većim razmakom */
+    max-width: 800px;
+    /* Možete prilagoditi maksimalnu širinu prema potrebi */
+    text-align: center;
+    /* Centriranje teksta */
+}
+
+.loading-container,
+.no-requests-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    /* Visina kontejnera za poruku/loading */
+}
+
+.loan-request-item {
+    margin-bottom: 20px;
+    /* Veći razmak između stavki */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.card-content {
+    padding: 20px;
+    /* Veći unutrašnji razmak */
+}
+
+.card-details h3,
+.card-details p {
+    margin-bottom: 10px;
+    /* Veći razmak između elemenata teksta */
+}
+
+.card-actions {
+    display: flex;
+    justify-content: center;
+    /* Centriranje dugmadi */
+    margin-top: 20px;
+    /* Razmak iznad dugmadi */
 }

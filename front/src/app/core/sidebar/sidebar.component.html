@@ -1,10 +1,10 @@
 <div class="nav-bar" *ngIf="isLoggedIn">
     <div>
-        <button *ngIf="role == 'USER'" [routerLink]="'/loans'" pButton pRipple type="button" label="Loans"
+        <button *ngIf="role == 'USER'" [routerLink]="'/loans/requests'" pButton pRipple type="button" label="Loans"
             class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'USER'" [routerLink]="'/accounts'" pButton pRipple type="button" label="Accounts"
             class="p-button-outlined p-button-info"></button>
-        <button *ngIf="role == 'WORKER'" [routerLink]="'/requests/loan'" pButton pRipple type="button"
+        <button *ngIf="role == 'WORKER'" [routerLink]="'/loans/requests'" pButton pRipple type="button"
             label="Loans Requests" class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'WORKER'" [routerLink]="'/accounts/requests'" pButton pRipple type="button"
             label="Account Requests" class="p-button-outlined p-button-info"></button>

@@ -48,6 +48,9 @@ import { BranchesComponent } from './app/home/branches/branches.component';
 import { LoansComponent } from './app/home/loans/loans.component';
 import { AccountRequestsComponent } from './account/account-requests/account-requests.component';
 import { MyAccountsComponent } from './account/my-accounts/my-accounts.component';
+import { LoanRequestsComponent } from './loan/loan-requests/loan-requests.component';
+import { LoanRequestComponent } from './app/home/create-loan-request/create-loan-request.component';
+import { SliderModule } from 'primeng/slider';
 
 export function roleGetter() {
   return localStorage.getItem('role');
@@ -77,6 +80,8 @@ export function tokenGetter() {
     LoansComponent,
     AccountRequestsComponent,
     MyAccountsComponent,
+    LoanRequestsComponent,
+    LoanRequestComponent,
   ],
   imports: [
     PaginatorModule,
@@ -109,6 +114,7 @@ export function tokenGetter() {
     ConfirmDialogModule,
     TableModule,
     PaginatorModule,
+    SliderModule,
     JwtModule.forRoot(
       {
         config: {

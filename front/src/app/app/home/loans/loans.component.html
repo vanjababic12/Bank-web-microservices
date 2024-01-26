@@ -17,13 +17,14 @@
     </div>
 
 
-    <!-- Lista Account Types -->
-    <div *ngFor="let loanType of displayedLoanTypes" class="account-type-item">
+    <!-- Lista Loan Types -->
+    <div *ngFor="let loanType of displayedLoanTypes" class="loan-type-item">
         <p-card [header]="loanType.name" [subheader]="loanType.interestRate + '%'">
             <p>{{ loanType.description }}</p>
+            <button pButton type="button" icon="pi pi-check-square" class="p-button-success" label="Podnesi Zahtev"
+                (click)="openLoanRequestDialog(loanType)"></button>
         </p-card>
     </div>
-
     <!-- Paginator -->
     <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>
 </div>

@@ -1,0 +1,40 @@
+<div class="loan-requests-container">
+    <p-confirmDialog></p-confirmDialog>
+
+    <div class="centered-content" *ngIf="isLoading">
+        <p-progressSpinner></p-progressSpinner>
+    </div>
+
+    <div class="centered-content" *ngIf="!isLoading && loanRequests.length === 0">
+        <p>Trenutno nema zahteva za kredit.</p>
+    </div>
+
+    <div *ngIf="!isLoading">
+        <div *ngFor="let request of displayedLoanRequests" class="loan-request-card">
+            <p-card>
+                <div class="card-body">
+                    <div class="request-details">
+                        <h3>Korisnik: {{ request.customerUsername }}</h3>
+                        <p>Tip kredita: {{ request.loanType.name }}</p>
+                        <p>Iznos: {{ request.amount }}</p>
+                        <p>Broj rata: {{ request.numberOfInstallments }}</p>
+                        <p>Status:
+                            <span *ngIf="!request.isReviewed">Nije pregledano</span>
+                            <span *ngIf="request.isReviewed && request.isApproved">Prihvaćeno</span>
+                            <span *ngIf="request.isReviewed && !request.isApproved">Odbijeno</span>
+                        </p>
+                    </div>
+                    <div *ngIf="!request.isReviewed && role == 'WORKER'" class="action-buttons">
+                        <button pButton type="button" icon="pi pi-check" class="p-button-success" label="Prihvati"
+                            (click)="confirmReviewLoanRequest(request.id, true)"></button>
+                        <button pButton type="button" icon="pi pi-times" class="p-button-danger" label="Odbij"
+                            (click)="confirmReviewLoanRequest(request.id, false)"></button>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+    </div>
+
+    <p-paginator [rows]="rowsPerPage" [totalRecords]="totalLoanRequests" (onPageChange)="onPageChange($event)"
+        class="paginator"></p-paginator>
+</div>

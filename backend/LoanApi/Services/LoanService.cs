@@ -2,6 +2,7 @@
 using LoanApi.Infrastructure;
 using LoanApi.Interfaces;
 using LoanApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,11 +67,20 @@ namespace LoanApi.Services
 
         public List<LoanRequest> GetAllLoanRequests()
         {
-            return _dbContext.LoanRequests.ToList();
+            return _dbContext.LoanRequests.ToList()
+                .Select(i =>
+                {
+                    i.LoanType = _dbContext.LoanTypes.Find(i.LoanTypeId);
+                    return i;
+                }).ToList();
         }
 
         public async Task<LoanRequest> CreateLoanRequest(string customerUsername, LoanRequestDto loanRequestDto)
         {
+            if (_dbContext.LoanRequests.Where(i => !i.IsReviewed).Count() > 0)
+            {
+                throw new InvalidOperationException("Vec imate zahteve za kredit na cekanju.");
+            }
             var loanRequest = new LoanRequest
             {
                 CustomerUsername = customerUsername,
@@ -89,6 +99,7 @@ namespace LoanApi.Services
         {
             var loanRequest = _dbContext.LoanRequests.Find(requestId);
             if (loanRequest == null) return false;
+            if (loanRequest.IsReviewed) throw new InvalidOperationException("Zahtev za kredit je vec obrađen.");
 
             loanRequest.IsReviewed = true;
             loanRequest.IsApproved = isApproved;
@@ -100,6 +111,12 @@ namespace LoanApi.Services
         {
             return _dbContext.LoanRequests
                 .Where(lr => lr.CustomerUsername == customerUsername)
+                .ToList()
+                .Select(i =>
+                {
+                    i.LoanType = _dbContext.LoanTypes.Find(i.LoanTypeId);
+                    return i;
+                })
                 .ToList();
         }
     }

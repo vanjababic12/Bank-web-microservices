@@ -97,18 +97,6 @@
             "UpstreamHttpMethod": [ "Post" ]
         },
         {
-            "DownstreamPathTemplate": "/api/loans/types",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5013
-                }
-            ],
-            "UpstreamPathTemplate": "/loans/types",
-            "UpstreamHttpMethod": [ "Post" ]
-        },
-        {
             "DownstreamPathTemplate": "/api/exchange-rates",
             "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
@@ -222,18 +210,7 @@
             "UpstreamHttpMethod": [ "Put" ]
         },
         //#endregion
-        {
-            "DownstreamPathTemplate": "/api/branches/search",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5011
-                }
-            ],
-            "UpstreamPathTemplate": "/branches/search",
-            "UpstreamHttpMethod": [ "Get" ]
-        },
+        // #region Loan Types Controller
         {
             "DownstreamPathTemplate": "/api/loans/types/search",
             "DownstreamScheme": "https",
@@ -244,6 +221,81 @@
                 }
             ],
             "UpstreamPathTemplate": "/loans/types/search",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/loans/types",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5013
+                }
+            ],
+            "UpstreamPathTemplate": "/loans/types",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/loans/types/{loanTypeId}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5013
+                }
+            ],
+            "UpstreamPathTemplate": "/loans/types/{loanTypeId}",
+            "UpstreamHttpMethod": [ "Delete" ]
+        },
+        // #endregion
+        // #region Loan Requests Controller
+        {
+            "DownstreamPathTemplate": "/api/loans/requests",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5013
+                }
+            ],
+            "UpstreamPathTemplate": "/loans/requests",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/loans/requests",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5013
+                }
+            ],
+            "UpstreamPathTemplate": "/loans/requests",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/loans/requests/{requestId}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5013
+                }
+            ],
+            "UpstreamPathTemplate": "/loans/requests/{requestId}",
+            "UpstreamHttpMethod": [ "Put" ]
+        },
+        // #endregion
+        {
+            "DownstreamPathTemplate": "/api/branches/search",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/search",
             "UpstreamHttpMethod": [ "Get" ]
         }
     ],

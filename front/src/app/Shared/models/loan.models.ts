@@ -1,4 +1,4 @@
-export class LoanRequestDto {
+export class CreateLoanRequestDto {
     loanTypeId: number;
     amount: number;
     numberOfInstallments: number;

@@ -1,0 +1,54 @@
+.loan-application-page {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .loan-details {
+        margin-bottom: 20px;
+
+        p {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+    }
+
+    .loan-request-form {
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .p-slider {
+            margin-bottom: 15px;
+        }
+
+        .p-dropdown,
+        input[type="number"] {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .monthly-payment {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4caf50;
+            /* Naglašavanje mesečne rate */
+            margin: 10px 0 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+        }
+    }
+}
