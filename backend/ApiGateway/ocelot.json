@@ -85,18 +85,6 @@
             "UpstreamHttpMethod": [ "Delete" ]
         },
         {
-            "DownstreamPathTemplate": "/api/branches/create",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5011
-                }
-            ],
-            "UpstreamPathTemplate": "/branches/create",
-            "UpstreamHttpMethod": [ "Post" ]
-        },
-        {
             "DownstreamPathTemplate": "/api/exchange-rates",
             "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
@@ -286,6 +274,55 @@
             "UpstreamHttpMethod": [ "Put" ]
         },
         // #endregion
+        // #region Branch Controller
+        {
+            "DownstreamPathTemplate": "/api/branches",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/branches/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/{id}",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/branches/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/{id}",
+            "UpstreamHttpMethod": [ "Put" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/branches/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/{id}",
+            "UpstreamHttpMethod": [ "Delete" ]
+        },
         {
             "DownstreamPathTemplate": "/api/branches/search",
             "DownstreamScheme": "https",
@@ -297,7 +334,82 @@
             ],
             "UpstreamPathTemplate": "/branches/search",
             "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/branches/create",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/create",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        // #endregion
+        // #region Branch Appointments Controller
+        {
+            "DownstreamPathTemplate": "/api/branches/appointments",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/appointments",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/branches/appointments",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/appointments",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/branches/appointments",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/appointments",
+            "UpstreamHttpMethod": [ "Put" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/branches/appointments/{appointmentId}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/appointments/{appointmentId}",
+            "UpstreamHttpMethod": [ "Delete" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/branches/myappointments",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/myappointments",
+            "UpstreamHttpMethod": [ "Get" ]
         }
+        // #endregion
     ],
     "GlobalConfiguration": {
         "BaseUrl": "http://localhost:5000"
