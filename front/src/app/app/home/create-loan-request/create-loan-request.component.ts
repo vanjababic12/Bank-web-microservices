@@ -16,10 +16,13 @@ export class LoanRequestComponent implements OnInit {
   loanAmount: number = 500;
   monthlyPayment: number;
   installmentOptions: SelectItem[] = [
-    { label: '3 rate', value: 3 },
-    { label: '6 rata', value: 6 },
-    { label: '9 rata', value: 9 },
-    { label: '12 rata', value: 12 }
+    { label: '3', value: 3 },
+    { label: '6', value: 6 },
+    { label: '9', value: 9 },
+    { label: '12', value: 12 },
+    { label: '24', value: 24 },
+    { label: '48', value: 48 },
+    { label: '96', value: 96 }
   ];
   constructor(private route: ActivatedRoute, private loanService: LoanService,
     private messageService: MessageService,

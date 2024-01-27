@@ -1,7 +1,7 @@
 <div class="user-appointments-container">
     <h2>Scheduled Appointments</h2>
 
-    <div *ngFor="let appointment of appointments" class="appointment-card">
+    <div *ngFor="let appointment of displayedappointments" class="appointment-card">
         <p-card>
             <div class="appointment-date">
                 Date: {{ appointment.appointmentDate | date:'fullDate' }}
@@ -12,4 +12,6 @@
             <!-- Dodajte ostale informacije o filijali ili terminu ako je potrebno -->
         </p-card>
     </div>
+
+    <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>
 </div>

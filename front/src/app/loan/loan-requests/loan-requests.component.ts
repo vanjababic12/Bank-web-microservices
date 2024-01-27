@@ -15,7 +15,7 @@ export class LoanRequestsComponent implements OnInit {
   loanRequests: LoanRequest[] = [];
   displayedLoanRequests: LoanRequest[] = [];
   isLoading: boolean = false;
-  rowsPerPage = 10;
+  rowsPerPage = 2;
   totalLoanRequests = 0;
   currentPage = 1;
 
@@ -39,7 +39,7 @@ export class LoanRequestsComponent implements OnInit {
         this.isLoading = false;
       },
       error => {
-        this.messageService.add({ severity: 'error', summary: 'Greška', detail: 'Učitavanje nije uspelo, pokušajte ponovo.' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Loading failed, please try again later.' });
         this.isLoading = false;
       }
     );
@@ -52,9 +52,9 @@ export class LoanRequestsComponent implements OnInit {
   }
 
   confirmReviewLoanRequest(loanRequestId: number, isApproved: boolean): void {
-    const action = isApproved ? 'prihvatanje' : 'odbijanje';
+    const action = isApproved ? 'aprove' : 'reject';
     this.confirmationService.confirm({
-      message: `Da li ste sigurni da želite da izvršite ${action} zahteva?`,
+      message: `Are you sure that you want to ${action} this request?`,
       accept: () => {
         this.reviewLoanRequest(loanRequestId, isApproved);
       }
@@ -64,11 +64,11 @@ export class LoanRequestsComponent implements OnInit {
   reviewLoanRequest(loanRequestId: number, isApproved: boolean): void {
     // Pretpostavka: loanRequestService ima metodu 'reviewLoanRequest'
     this.loanRequestService.reviewLoanRequest(loanRequestId, isApproved).subscribe(() => {
-      const resultMessage = isApproved ? 'Zahtev je prihvaćen.' : 'Zahtev je odbijen.';
-      this.messageService.add({ severity: 'success', summary: 'Uspešno izvršeno!', detail: resultMessage });
+      const resultMessage = isApproved ? 'Request Approved.' : 'Request Rejected.';
+      this.messageService.add({ severity: 'success', summary: 'Successfuly done!', detail: resultMessage });
       this.loadLoanRequests();
     }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Greška!', detail: 'Došlo je do greške.' });
+      this.messageService.add({ severity: 'error', summary: 'Error!', detail: 'There was an error. Please try again later.' });
     });
   }
 

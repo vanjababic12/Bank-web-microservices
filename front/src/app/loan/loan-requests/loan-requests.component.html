@@ -25,9 +25,9 @@
                         </p>
                     </div>
                     <div *ngIf="!request.isReviewed && role == 'WORKER'" class="action-buttons">
-                        <button pButton type="button" icon="pi pi-check" class="p-button-success" label="Prihvati"
+                        <button pButton type="button" icon="pi pi-check" class="p-button-success" label="Approve"
                             (click)="confirmReviewLoanRequest(request.id, true)"></button>
-                        <button pButton type="button" icon="pi pi-times" class="p-button-danger" label="Odbij"
+                        <button pButton type="button" icon="pi pi-times" class="p-button-danger" label="Reject"
                             (click)="confirmReviewLoanRequest(request.id, false)"></button>
                     </div>
                 </div>

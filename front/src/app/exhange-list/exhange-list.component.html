@@ -1,14 +1,18 @@
-<div>
-    <p-table [value]="displayExchangeRates" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem', 'margin-top': '50px' }">
+<div style="margin-top: 20px;">
+    <p-table [value]="displayedExchangeRates" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem'}">
         <ng-template pTemplate="caption">
-            <div class="flex align-items-right justify-content-between">
-                DATE: {{currentDate}}
-            </div>
-            <div class="flex align-items-right justify-content-between">
-                <button pButton pRipple type="button" icon="pi pi-refresh"
-                class="p-button-rounded p-button-info p-button-outlined" (click)="refresh()"></button>
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    DATE: {{currentDate}}
+                </div>
+                <div>
+                    <button pButton pRipple type="button" icon="pi pi-refresh"
+                        class="p-button-rounded p-button-info p-button-outlined" (click)="refresh()">
+                    </button>
+                </div>
             </div>
         </ng-template>
+        
         <ng-template pTemplate="header">
             <tr>
                 <th>#</th>
@@ -26,4 +30,6 @@
             </tr>
         </ng-template>
     </p-table>
+
+    <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>
 </div>

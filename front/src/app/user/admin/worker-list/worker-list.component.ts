@@ -20,7 +20,7 @@ export class WorkerListComponent implements OnInit {
   ascending: boolean = true;
   sortOptions: SelectItem[]; // Za dropdown meni
 
-  rowsPerPage = 10;
+  rowsPerPage = 2;
   totalRecords = 0;
   currentPage = 1;
 

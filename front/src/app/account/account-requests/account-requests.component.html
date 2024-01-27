@@ -13,9 +13,9 @@
                     <h5 *ngIf="!request.isApproved && request.isReviewed">Status: Rejected</h5>
                 </div>
                 <div *ngIf="!request.isReviewed && role == 'WORKER'">
-                    <button pButton type="button" icon="pi pi-check" class="p-button-success" label="Prihvati"
+                    <button pButton type="button" icon="pi pi-check" class="p-button-success" label="Approve"
                         (click)="confirmReviewRequest(request.id, true)"></button>
-                    <button pButton type="button" icon="pi pi-times" class="p-button-danger" label="Odbij"
+                    <button pButton type="button" icon="pi pi-times" class="p-button-danger" label="Reject"
                         (click)="confirmReviewRequest(request.id, false)"></button>
                 </div>
             </div>

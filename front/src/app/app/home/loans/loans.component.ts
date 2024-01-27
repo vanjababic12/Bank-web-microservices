@@ -24,7 +24,7 @@ export class LoansComponent implements OnInit {
   showLoanRequestDialog: boolean = false;
 
   // Dodato za paginaciju
-  rowsPerPage = 5;
+  rowsPerPage = 2;
   totalRecords = 0;
   currentPage = 1;
 

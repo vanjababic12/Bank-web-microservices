@@ -22,7 +22,7 @@ export class BranchesComponent implements OnInit {
   sortOptions: SelectItem[]; // Za dropdown meni
 
   // Dodato za paginaciju
-  rowsPerPage = 10;
+  rowsPerPage = 6;
   totalRecords = 0;
   currentPage = 1;
 

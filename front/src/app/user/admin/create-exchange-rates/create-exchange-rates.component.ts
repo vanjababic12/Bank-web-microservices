@@ -37,7 +37,7 @@ export class CreateExchangeRatesComponent implements OnInit {
       response => {
         if (response) {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'New exchange rate list added successfully' });
-          this.router.navigateByUrl("/home");
+          this.router.navigateByUrl("/exchange-list");
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Bad request' });
         }

@@ -81,7 +81,7 @@ export class BranchAppointmentsComponent implements OnInit {
       this.branchService.bookAppointment(appointmentDto).subscribe(result => {
         this.bookingInProgress = false;
         this.messageService.add({ severity: 'success', summary: 'Success!', detail: 'Appointment made!' });
-        this.router.navigate(['/path-to-booked-appointments']); // Putanja do liste zakazanih termina
+        this.router.navigateByUrl('/appointments/my'); // Putanja do liste zakazanih termina
       }, error => {
         this.bookingInProgress = false;
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'There was an error duting the making of your request.' });

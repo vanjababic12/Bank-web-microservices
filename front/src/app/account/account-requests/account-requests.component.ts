@@ -14,7 +14,7 @@ export class AccountRequestsComponent implements OnInit {
   role = roleGetter();
   requests: AccountRequestDto[] = [];
   displayedRequests: AccountRequestDto[] = [];
-  rowsPerPage = 10;
+  rowsPerPage = 2;
   totalRequests = 0;
   currentPage = 1;
 
@@ -41,9 +41,9 @@ export class AccountRequestsComponent implements OnInit {
   }
 
   confirmReviewRequest(requestId: number, isApproved: boolean): void {
-    const action = isApproved ? 'prihvatanje' : 'odbijanje';
+    const action = isApproved ? 'aprove' : 'reject';
     this.confirmationService.confirm({
-      message: `Da li ste sigurni da želite da izvršite ${action} zahteva?`,
+      message: `Are you sure that you want to ${action} this request?`,
       accept: () => {
         this.reviewAccountRequest(requestId, isApproved);
       }
@@ -52,11 +52,11 @@ export class AccountRequestsComponent implements OnInit {
 
   reviewAccountRequest(requestId: number, isApproved: boolean): void {
     this.accountService.reviewAccountRequest(requestId, isApproved).subscribe(() => {
-      const resultMessage = isApproved ? 'Zahtev je prihvaćen.' : 'Zahtev je odbijen.';
-      this.messageService.add({ severity: 'success', summary: 'Uspešno izvršeno!', detail: resultMessage });
+      const resultMessage = isApproved ? 'Request Approved.' : 'Request Rejected.';
+      this.messageService.add({ severity: 'success', summary: 'Successfuly done!', detail: resultMessage });
       this.loadRequests(); // Ponovo učitajte zahteve
     }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Greška!', detail: 'Došlo je do greške.' });
+      this.messageService.add({ severity: 'error', summary: 'Error!', detail: 'There was an error. Please try again later.' });
     });
   }
 

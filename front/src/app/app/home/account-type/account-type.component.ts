@@ -20,7 +20,7 @@ export class AccountTypeComponent implements OnInit {
   sortOptions: SelectItem[]; // Za dropdown meni
 
   // Dodato za paginaciju
-  rowsPerPage = 10;
+  rowsPerPage = 2;
   totalRecords = 0;
   currentPage = 1;
 
