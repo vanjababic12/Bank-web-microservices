@@ -23,6 +23,8 @@
                     <p>Adresa: {{ branch.address }}</p>
                     <p>Telefon: {{ branch.phoneNumber }}</p>
                     <p>Radno vreme: {{ branch.openingTime }} - {{ branch.closingTime }}</p>
+                    <button pButton type="button" label="Pregled Termina" (click)="viewAppointments(branch.id)"
+                        class="p-button-success view-appointments-button"></button>
                 </div>
             </p-card>
         </div>

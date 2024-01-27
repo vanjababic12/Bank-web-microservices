@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -102,13 +103,28 @@ namespace BranchApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("appointments")]
+        [HttpGet("appointments/available")]
         [Authorize]
-        public ActionResult<List<Appointment>> GetAvailableAppointments(int branchId, DateTime date)
+        public ActionResult<List<DateTime>> GetAvailableAppointmentDates(int branchId)
         {
             try
             {
-                var appointments = _branchService.GetAvailableAppointments(branchId, date);
+                var dates = _branchService.GetAvailableAppointmentDates(branchId);
+                return Ok(dates);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("appointments")]
+        [Authorize]
+        public ActionResult<List<Appointment>> GetAvailableAppointments([FromQuery] int branchId, [FromQuery] String date)
+        {
+            try
+            {
+                var dateTime = DateTime.Parse(date, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal).Date;
+                var appointments = _branchService.GetAvailableAppointments(branchId, dateTime);
                 return Ok(appointments);
             }
             catch (Exception ex)

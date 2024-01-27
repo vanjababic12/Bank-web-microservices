@@ -43,8 +43,14 @@ export class BranchService {
   }
 
   getAvailableAppointments(branchId: number, date: Date): Observable<Appointment[]> {
-    let dateString = date.toISOString();
-    return this.http.get<Appointment[]>(`${this.apiUrl}/branches/appointments`, { params: { branchId, dateString } });
+    // Prilagođavanje datuma na početak dana i konverzija u ISO string
+    const adjustedDate = new Date(date);
+    adjustedDate.setHours(0, 0, 0, 0);
+    const dateString = adjustedDate.toISOString();
+    return this.http.get<Appointment[]>(`${this.apiUrl}/branches/appointments`, { params: { branchId, date: dateString } });
+  }
+  getAvailableAppointmentDates(branchId: number): Observable<Date[]> {
+    return this.http.get<Date[]>(`${this.apiUrl}/branches/appointments/available`, { params: { branchId } });
   }
 
   addAppointment(appointmentDto: CreateAppointmentDto): Observable<any> {
@@ -52,7 +58,7 @@ export class BranchService {
   }
 
   bookAppointment(appointmentDto: AppointmentDto): Observable<BookAppointmentResult> {
-    return this.http.post<BookAppointmentResult>(`${this.apiUrl}/branches/appointments`, appointmentDto);
+    return this.http.put<BookAppointmentResult>(`${this.apiUrl}/branches/appointments`, appointmentDto);
   }
 
   cancelAppointment(appointmentId: number): Observable<any> {

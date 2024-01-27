@@ -350,6 +350,18 @@
         // #endregion
         // #region Branch Appointments Controller
         {
+            "DownstreamPathTemplate": "/api/branches/appointments/available",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/branches/appointments/available",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
             "DownstreamPathTemplate": "/api/branches/appointments",
             "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [

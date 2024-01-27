@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SelectItem } from 'primeng/api';
 import { Branch } from 'src/app/Shared/models/branch.models';
 import { BranchService } from 'src/app/Shared/services/branch/branch.service';
@@ -22,7 +23,7 @@ export class BranchesComponent implements OnInit {
   totalRecords = 0;
   currentPage = 1;
 
-  constructor(private accountTypeService: BranchService) {
+  constructor(private accountTypeService: BranchService, private router: Router) {
     this.sortOptions = [
       { label: 'Ime', value: 'name' },
       { label: 'Adresa', value: 'address' },
@@ -63,6 +64,10 @@ export class BranchesComponent implements OnInit {
     this.currentPage = event.page + 1; // PrimeNG paginator počinje od 0
     this.rowsPerPage = event.rows;
     this.updateDisplayedAccountTypes();
+  }
+  viewAppointments(branchId: number): void {
+    console.log('Pregled termina za filijalu ID:', branchId);
+    this.router.navigate(['/appointments', branchId]);
   }
 
 }

@@ -120,8 +120,21 @@ namespace BranchApi.Services
 
         public List<Appointment> GetAvailableAppointments(int branchId, DateTime date)
         {
+            var apps = _dbContext.Appointments
+                .Where(a => a.BranchId == branchId && a.AppointmentDate.Date == date.Date)
+                .ToList();
+            return apps
+                .Where(a => !a.IsBooked)
+                .ToList();
+        }
+        public List<DateTime> GetAvailableAppointmentDates(int branchId)
+        {
+            var today = DateTime.Now.Date;
             return _dbContext.Appointments
-                .Where(a => a.BranchId == branchId && a.AppointmentDate.Date == date.Date && !a.IsBooked)
+                .ToList()
+                .Where(a => a.BranchId == branchId && a.AppointmentDate.Date > today && !a.IsBooked)
+                .GroupBy(a => a.AppointmentDate.Date)
+                .Select(a => a.Key)
                 .ToList();
         }
 

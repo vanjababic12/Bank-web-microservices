@@ -1,0 +1,29 @@
+<div class="branch-appointments-container">
+    <p-progressSpinner *ngIf="loading"></p-progressSpinner>
+
+    <div *ngIf="!loading" class="card">
+        <div class="dropdown-container">
+            <p-dropdown [options]="branches" [(ngModel)]="selectedBranch" placeholder="Izaberite filijalu"
+                (onChange)="onBranchSelect()"></p-dropdown>
+        </div>
+
+        <div *ngIf="selectedBranch && !noAvailableDates" class="dropdown-container">
+            <p-dropdown [options]="availableDates" [(ngModel)]="selectedDate" placeholder="Izaberite datum"
+                (onChange)="onDateChange()"></p-dropdown>
+        </div>
+
+        <div *ngIf="noAvailableDates" class="no-available-dates">
+            Nema dostupnih termina.
+        </div>
+
+        <div class="appointments-grid">
+            <div *ngFor="let appointment of appointments" class="appointment-item"
+                [class.selected]="selectedAppointment === appointment" (click)="selectAppointment(appointment)">
+                <p>{{ appointment.appointmentDate | date:'shortTime' }}</p>
+            </div>
+        </div>
+
+        <button *ngIf="selectedAppointment" pButton type="button" label="Zakaži" (click)="bookAppointment()"
+            [disabled]="bookingInProgress"></button>
+    </div>
+</div>

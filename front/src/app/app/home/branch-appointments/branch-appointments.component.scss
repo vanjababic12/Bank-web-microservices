@@ -1,0 +1,61 @@
+.branch-appointments-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; // Menjamo u flex-start da bi kartica bila na vrhu
+    padding: 20px; // Dodat padding za spoljni kontejner
+
+    .card {
+        width: 100%;
+        max-width: 400px; // Maksimalna širina kartice
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+
+        ::ng-deep .p-dropdown {
+            width: 100% !important;
+
+            .p-dropdown-panel {
+                width: 100% !important;
+            }
+        }
+
+        .dropdown-container {
+            margin-bottom: 15px; // Razmak između dropdown menija
+        }
+
+        .no-available-dates {
+            margin-bottom: 15px; // Razmak za poruku "nema dostupnih termina"
+        }
+
+        .appointments {
+            margin-top: 20px; // Razmak iznad liste termina
+        }
+    }
+
+    button {
+        margin-top: 20px;
+        width: 100%;
+    }
+}
+
+.appointments-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); // 4 kolone
+    gap: 10px; // Razmak između termina
+    margin-top: 20px; // Razmak iznad mreže
+
+    .appointment-item {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &.selected {
+            background-color: #cce5ff; // Boja za selektovane termine
+        }
+    }
+}

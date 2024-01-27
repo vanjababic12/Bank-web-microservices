@@ -28,8 +28,20 @@
 }
 
 .branch-card {
-    /* Dodatni stilovi po potrebi */
+    position: relative;
+
+    .p-card {
+        height: 100%;
+    }
+
+    .view-appointments-button {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        padding-top: 10px; // Dodavanje gornjeg razmaka
+    }
 }
+
 
 .branch-details {
     padding: 10px;
@@ -38,4 +50,9 @@
 p-paginator {
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.p-button-success {
+    margin-top: 20px; // Dodajte razmak iznad dugmeta
+    // Ostali stilovi po potrebi
 }
