@@ -11,3 +11,9 @@ export class ExchangeRate {
         this.date = date;
     }
 }
+
+export interface ExchangeRateDisplays {
+    id: number;
+    currency: string;
+    rate: number;
+};

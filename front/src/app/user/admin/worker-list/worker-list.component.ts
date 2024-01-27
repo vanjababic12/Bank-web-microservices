@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { UserDto } from 'src/app/Shared/models/user.models';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
+import { UserDisplayDto, UserDto } from 'src/app/Shared/models/user.models';
 import { UserService } from '../../shared/user.service';
 import { Router } from '@angular/router';
+import { roleGetter } from 'src/app/app.module';
 
 @Component({
   selector: 'app-worker-list',
@@ -11,58 +12,85 @@ import { Router } from '@angular/router';
 })
 export class WorkerListComponent implements OnInit {
 
-  users: UserDto[] = [];
-  displayedUsers: UserDto[] = [];
+  users: UserDisplayDto[] = [];
+  displayedUsers: UserDisplayDto[] = [];
+  searchTerm: string = '';
+  sortField: string = 'name';
+  role = roleGetter();
+  ascending: boolean = true;
+  sortOptions: SelectItem[]; // Za dropdown meni
+
   rowsPerPage = 10;
   totalRecords = 0;
   currentPage = 1;
 
-  constructor(private userService: UserService, private confirmationService: ConfirmationService,
-              private messageService: MessageService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.getAllWorkers();
+  constructor(private router: Router, private userService: UserService,
+    private confirmationService: ConfirmationService, private messageService: MessageService,) {
+    this.sortOptions = [
+      { label: 'Username', value: 'username' },
+      { label: 'FirsT Name', value: 'fistname' },
+      { label: 'Last Name', value: 'lastname' },
+      { label: 'Email', value: 'email' },
+    ];
   }
 
-  getAllWorkers(): void {
-    this.userService.getAllWorkers().subscribe(data => {
-      this.users = data;
-      this.totalRecords = data.length;
-      this.updateDisplayedUsers();
+  ngOnInit(): void {
+    this.search();
+  }
+
+  search(): void {
+    this.userService.searchWorkers(this.searchTerm, this.sortField, this.ascending)
+      .subscribe(workers => {
+        console.log(workers);
+        this.users = workers;
+        this.totalRecords = workers.length;
+        this.updateDisplayedWorkers();
     });
   }
 
-  updateDisplayedUsers(): void {
+  toggleSortOrder(): void {
+    this.ascending = !this.ascending;
+    this.search();
+  }
+
+  sortWorkers(): void {
+    this.search()
+  }
+
+  updateDisplayedWorkers(): void {
     const startIndex = (this.currentPage - 1) * this.rowsPerPage;
     const endIndex = startIndex + this.rowsPerPage;
     this.displayedUsers = this.users.slice(startIndex, endIndex);
   }
 
   onPageChange(event: any): void {
-    this.currentPage = event.page + 1;
+    this.currentPage = event.page + 1; // PrimeNG paginator počinje od 0
     this.rowsPerPage = event.rows;
-    this.updateDisplayedUsers();
+    this.updateDisplayedWorkers();
   }
 
-  confirmDeletion(user: UserDto): void {
+  confirmDelete(workerUsername: string): void {
+    console.log(this.users);
+    let worker = this.users.find(i => i.userName == workerUsername);
     this.confirmationService.confirm({
-      message: `Are you sure that you want to delete ${user.firstName} ${user.lastName} account?`,
+      message: `Are you sure that you want to delete this worker <b>${worker.firstName}</b>?`,
       accept: () => {
-        this.userService.deleteWorker(user.username).subscribe(
-          data => {
-            if (data) {
-              this.messageService.add({ severity: 'success', summary: 'Success', detail: `Worker ${user.username} deleted successfully` });
-              this.getAllWorkers();
-            } else {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Bad request' });
-            }
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successfull' });
-          },
-          error => {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message });
-          }
-        );
+        this.deleteWorker(worker.userName);
+        this.search();
       }
+    });
+  }
+
+  deleteWorker(workerUsername: string): void {
+    this.userService.deleteWorker(workerUsername).subscribe(
+    (response: any) => {
+      console.log('Delete worker response:', response);
+      this.messageService.add({ severity: 'success', summary: 'Success!', detail: 'Worker is deleted.' });
+      this.search(); // Ponovo učitajte listu workera-ova
+    },
+    (error: any) => {
+      console.error('Error during worker deletion:', error);
+      this.messageService.add({ severity: 'error', summary: 'Error!', detail: 'Error while trying to delete worker..' });
     });
   }
 }

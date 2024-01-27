@@ -24,6 +24,7 @@ import { LoanRequestsComponent } from './loan/loan-requests/loan-requests.compon
 import { LoanRequestComponent } from './app/home/create-loan-request/create-loan-request.component';
 import { BranchAppointmentsComponent } from './app/home/branch-appointments/branch-appointments.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
+import { ExhangeListComponent } from './exhange-list/exhange-list.component';
 
 const routes: Routes = [
   { path: '', pathMatch: "full", redirectTo: 'home' },
@@ -48,7 +49,8 @@ const routes: Routes = [
   { path: 'loans/create-loan-type', component: CreateLoanTypeComponent, canActivate: [AdminGuard] },
   { path: 'exchange/create-exchange-rates', component: CreateExchangeRatesComponent, canActivate: [AdminGuard] },
   { path: 'branches/create-branch', component: CreateBranchComponent, canActivate: [AdminGuard] },
-  { path: 'users/add-worker', component: AddWorkerComponent, canActivate: [AdminGuard] }
+  { path: 'users/add-worker', component: AddWorkerComponent, canActivate: [AdminGuard] },
+  { path: 'exchange-list', component: ExhangeListComponent }
 ];
 
 @NgModule({

@@ -1,0 +1,29 @@
+<div>
+    <p-table [value]="displayExchangeRates" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem', 'margin-top': '50px' }">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-right justify-content-between">
+                DATE: {{currentDate}}
+            </div>
+            <div class="flex align-items-right justify-content-between">
+                <button pButton pRipple type="button" icon="pi pi-refresh"
+                class="p-button-rounded p-button-info p-button-outlined" (click)="refresh()"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>#</th>
+                <th>Currency</th>
+                <th>Value</th>
+                <th>RSD</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-displayExchangeRates>
+            <tr>
+                <td><b>{{ displayExchangeRates.id + 1 }}</b></td>
+                <td>{{ displayExchangeRates.currency }}</td>
+                <td>1</td>
+                <td>{{ displayExchangeRates.rate }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

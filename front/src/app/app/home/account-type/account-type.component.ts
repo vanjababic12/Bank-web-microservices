@@ -27,9 +27,9 @@ export class AccountTypeComponent implements OnInit {
   constructor(private router: Router, private accountTypeService: BackAccountService,
     private confirmationService: ConfirmationService, private messageService: MessageService,) {
     this.sortOptions = [
-      { label: 'Ime', value: 'name' },
-      { label: 'Opis', value: 'description' },
-      { label: 'Valuta', value: 'currency' },
+      { label: 'Name', value: 'name' },
+      { label: 'Description', value: 'description' },
+      { label: 'Currency', value: 'currency' },
     ];
   }
 
@@ -69,9 +69,9 @@ export class AccountTypeComponent implements OnInit {
   }
 
   confirmDelete(accountTypeId: number): void {
-    var accountType = this.accountTypes.find(i => i.id == accountTypeId);
+    let accountType = this.accountTypes.find(i => i.id == accountTypeId);
     this.confirmationService.confirm({
-      message: `Da li ste sigurni da želite da obrišete tip racuna <b>${accountType.name}</b>?`,
+      message: `Are you sure that you want to delete this account type <b>${accountType.name}</b>?`,
       accept: () => {
         this.deleteAccountType(accountTypeId);
         this.search();
@@ -81,16 +81,16 @@ export class AccountTypeComponent implements OnInit {
 
   deleteAccountType(accountTypeId: number): void {
     this.accountTypeService.deleteAccountType(accountTypeId).subscribe(() => {
-      this.messageService.add({ severity: 'success', summary: 'Uspešno!', detail: 'AccountType je obrisan.' });
+      this.messageService.add({ severity: 'success', summary: 'Success!', detail: 'Account type is deleted.' });
       this.search(); // Ponovo učitajte listu AccountType-ova
     }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Greška!', detail: 'Došlo je do greške pri brisanju.' });
+      this.messageService.add({ severity: 'error', summary: 'Error!', detail: 'Error while trying to delete account type..' });
     });
   }
 
   confirmAccountRequest(accountType: AccountTypeDto): void {
     this.confirmationService.confirm({
-      message: `Da li ste sigurni da želite da podnesete zahtev za tip racuna <b>${accountType.name}</b>?`,
+      message: `Are you sure that you want to send the request for this account type <b>${accountType.name}</b>?`,
       accept: () => {
         this.createAccountRequest(accountType);
       }
@@ -100,12 +100,10 @@ export class AccountTypeComponent implements OnInit {
   createAccountRequest(accountType: AccountTypeDto): void {
     const createAccountRequestDto = { accountTypeId: accountType.id };
     this.accountTypeService.createAccountRequest(createAccountRequestDto).subscribe(response => {
-      this.messageService.add({ severity: 'success', summary: 'Zahtev poslat!', detail: 'Zahtev za izdavanje računa je uspešno poslat.' });
+      this.messageService.add({ severity: 'success', summary: 'Request sent!', detail: 'Request successfully issued.' });
       // Opcionalno: Osvežite podatke ili preduzmite dodatne akcije
     }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Greška!', detail: 'Došlo je do greške pri podnošenju zahteva.' });
+      this.messageService.add({ severity: 'error', summary: 'Error!', detail: 'Maximum of two account request are allowed.' });
     });
   }
-
-
 }

@@ -69,7 +69,7 @@ export class CreateAppointmentComponent implements OnInit {
           this.router.navigateByUrl("/loanTypes");
         },
         error => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message });
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill out the form correctly.' });
         }
       );
     } else {
@@ -144,9 +144,11 @@ export class CreateAppointmentComponent implements OnInit {
     }
     return null;
   }
+
   formatTime(date: Date): string {
     return date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
   }
+  
   private isFutureDate(control: FormControl) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);

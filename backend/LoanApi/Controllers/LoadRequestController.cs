@@ -1,4 +1,5 @@
-﻿using LoanApi.Dto;
+﻿using System;
+using LoanApi.Dto;
 using LoanApi.Interfaces;
 using LoanApi.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -44,9 +45,16 @@ namespace LoanApi.Controllers
         [Authorize]
         public async Task<ActionResult<LoanRequest>> CreateLoanRequest([FromBody] LoanRequestDto loanRequestDto)
         {
-            var customerUsername = GetUserEmail(); // Pretpostavka da imamo metodu za dobijanje korisničkog imena
-            var loanRequest = await _loanService.CreateLoanRequest(customerUsername, loanRequestDto);
-            return CreatedAtAction(nameof(GetAllLoanRequests), new { id = loanRequest.Id }, loanRequest);
+            try
+            {
+                var customerUsername = GetUserEmail(); // Pretpostavka da imamo metodu za dobijanje korisničkog imena
+                var loanRequest = await _loanService.CreateLoanRequest(customerUsername, loanRequestDto);
+                return CreatedAtAction(nameof(GetAllLoanRequests), new { id = loanRequest.Id }, loanRequest);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("{requestId}")]

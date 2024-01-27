@@ -1,13 +1,41 @@
-<p-toast></p-toast>
 <div>
-    <ul>
-      <li *ngFor="let user of displayedUsers">
-        {{ user.firstName }} {{ user.lastName }} - {{ user.email }}
-        <button (click)="confirmDeletion(user)">
-          <i class="pi pi-trash"></i>
-        </button>
-      </li>
-    </ul>
-    <p-confirmDialog></p-confirmDialog>
-    <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>
+  <!-- Kontejner za Pretragu, Sortiranje i Dropdown -->
+  <div class="search-sort-container">
+      <!-- Pretraga -->
+      <input type="text" pInputText placeholder="Search..." (input)="searchTerm=$event.target.value; search()">
+
+      <!-- Dropdown meni za izbor polja za sortiranje -->
+      <p-dropdown [options]="sortOptions" [(ngModel)]="sortField" placeholder="Sort by"
+          (onChange)="sortWorkers()"></p-dropdown>
+
+      <!-- Ikonice za uzlazni i silazni redosled -->
+      <button pButton (click)="toggleSortOrder()">
+          <i class="pi" [ngClass]="{'pi-sort-amount-up-alt': ascending, 'pi-sort-amount-down': !ascending}"></i>
+      </button>
+      <button [routerLink]="'/users/add-worker'" pButton pRipple type="button"
+          icon="pi pi-plus" label="Add New Worker" class="p-button-outlined p-button-info"></button>
+  </div>
+
+  <p-confirmDialog></p-confirmDialog>
+
+  <!-- Lista Workers -->
+  <div *ngFor="let user of displayedUsers" class="worker-type-item">
+      <p-card>
+          <div class="card-content">
+              <div class="card-details">
+                  <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+                  <p class="sub-text"> Username: <b>{{ user.userName }}</b></p>
+                  <p>Email: <b>{{ user.email }}</b></p>
+              </div>
+              <div class="card-actions">
+                  <button pButton type="button" icon="pi pi-trash" class="p-button-danger" label="Delete"
+                      (click)="confirmDelete(user.userName)"></button>
+              </div>
+          </div>
+      </p-card>
+  </div>
+
+
+  <!-- Paginator -->
+  <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>
 </div>

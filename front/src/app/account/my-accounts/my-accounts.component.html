@@ -22,7 +22,7 @@
                     </div>
                     <div *ngIf="!account.isClosed">
                         <button pButton type="button" icon="pi pi-power-off" class="p-button-warning"
-                            label="Ugasi Nalog" (click)="confirmCloseAccount(account.id)"></button>
+                            label="Close An Account" (click)="confirmCloseAccount(account.id)"></button>
                     </div>
                 </div>
             </p-card>
@@ -36,16 +36,16 @@
 
 <ng-template #noAccountsTemplate>
     <div class="no-accounts-message">
-        <p>Nemate nijedan nalog. Ako već niste, idite na</p>
+        <p>No approved account yet.</p>
         <div>
             <button pButton type="button" (click)="navigateToAccountTypes()"
-                label="Podnesite zahtev za otvaranje"></button>
+                label="Make A Request"></button>
             <button pButton type="button" (click)="navigateToRequests()" label="My Requests"></button>
         </div>
     </div>
 </ng-template>
 
 <div class="error-message" *ngIf="loadingError">
-    <p>Učitavanje nije uspelo, pokušajte ponovo.</p>
+    <p>Loading failed. Please try again.</p>
     <button pButton type="button" (click)="reloadAccounts()" label="Refresh"></button>
 </div>

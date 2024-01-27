@@ -2,10 +2,10 @@
     <!-- Kontejner za Pretragu, Sortiranje i Dropdown -->
     <div class="search-sort-container">
         <!-- Pretraga -->
-        <input type="text" pInputText placeholder="Pretraži..." (input)="searchTerm=$event.target.value; search()">
+        <input type="text" pInputText placeholder="Search..." (input)="searchTerm=$event.target.value; search()">
 
         <!-- Dropdown meni za izbor polja za sortiranje -->
-        <p-dropdown [options]="sortOptions" [(ngModel)]="sortField" placeholder="Sortiraj po"
+        <p-dropdown [options]="sortOptions" [(ngModel)]="sortField" placeholder="Sort by"
             (onChange)="sortAccountTypes()"></p-dropdown>
 
         <!-- Ikonice za uzlazni i silazni redosled -->
@@ -16,15 +16,30 @@
             icon="pi pi-plus" label="Create Loan Type" class="p-button-outlined p-button-info"></button>
     </div>
 
+    <p-confirmDialog></p-confirmDialog>
 
     <!-- Lista Loan Types -->
     <div *ngFor="let loanType of displayedLoanTypes" class="loan-type-item">
-        <p-card [header]="loanType.name" [subheader]="loanType.interestRate + '%'">
-            <p>{{ loanType.description }}</p>
-            <button pButton type="button" icon="pi pi-check-square" class="p-button-success" label="Podnesi Zahtev"
-                (click)="openLoanRequestDialog(loanType)"></button>
+        <p-card>
+            <div class="card-content">
+                <div class="card-details">
+                    <h3>{{ loanType.name }}</h3>
+                    <p class="sub-text">{{ loanType.interestRate + '%' }}</p>
+                    <p>{{ loanType.description }}</p>
+                </div>
+                <div *ngIf="role === 'ADMIN'" class="card-actions">
+                    <button pButton type="button" icon="pi pi-trash" class="p-button-danger" label="Delete"
+                        (click)="confirmDelete(loanType.id)"></button>
+                </div>
+                <!-- Dugme za podnošenje zahteva -->
+                <div *ngIf="role === 'USER'" class="card-actions">
+                    <button pButton type="button" icon="pi pi-check-square" class="p-button-success"
+                        label="Make A Request" (click)="openLoanRequestDialog(loanType)"></button>
+                </div>
+            </div>
         </p-card>
     </div>
+
     <!-- Paginator -->
     <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>
 </div>

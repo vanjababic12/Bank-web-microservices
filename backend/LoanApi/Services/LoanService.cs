@@ -19,7 +19,7 @@ namespace LoanApi.Services
         }
         public List<LoanType> SearchAndSortLoanTypes(string searchTerm, string sortField, bool ascending)
         {
-            var query = _dbContext.LoanTypes.AsQueryable();
+            var query = _dbContext.LoanTypes.Where(lt => !lt.IsDeleted).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchTerm))
             {

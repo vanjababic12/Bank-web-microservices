@@ -6,7 +6,7 @@
     </div>
 
     <div class="centered-content" *ngIf="!isLoading && loanRequests.length === 0">
-        <p>Trenutno nema zahteva za kredit.</p>
+        <p>No Loan Requests At The Moment.</p>
     </div>
 
     <div *ngIf="!isLoading">
@@ -14,14 +14,14 @@
             <p-card>
                 <div class="card-body">
                     <div class="request-details">
-                        <h3>Korisnik: {{ request.customerUsername }}</h3>
-                        <p>Tip kredita: {{ request.loanType.name }}</p>
-                        <p>Iznos: {{ request.amount }}</p>
-                        <p>Broj rata: {{ request.numberOfInstallments }}</p>
+                        <h3>Client: {{ request.customerUsername }}</h3>
+                        <p>Type Of A Loan: {{ request.loanType.name }}</p>
+                        <p>Amout: {{ request.amount }}</p>
+                        <p>Number Of Payments: {{ request.numberOfInstallments }}</p>
                         <p>Status:
-                            <span *ngIf="!request.isReviewed">Nije pregledano</span>
-                            <span *ngIf="request.isReviewed && request.isApproved">Prihvaćeno</span>
-                            <span *ngIf="request.isReviewed && !request.isApproved">Odbijeno</span>
+                            <span *ngIf="!request.isReviewed">In Progress</span>
+                            <span *ngIf="request.isReviewed && request.isApproved">Approved</span>
+                            <span *ngIf="request.isReviewed && !request.isApproved">Rejected</span>
                         </p>
                     </div>
                     <div *ngIf="!request.isReviewed && role == 'WORKER'" class="action-buttons">

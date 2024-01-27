@@ -14,14 +14,6 @@
             label="Create Exchange Rates" class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'ADMIN'" [routerLink]="'appointments/create-appointment'" pButton pRipple type="button"
             label="Create New Appointment" class="p-button-outlined p-button-info"></button>
-        <button *ngIf="role == 'ADMIN'" [routerLink]="'users/add-worker'" pButton pRipple type="button"
-            label="Add New Worker" class="p-button-outlined p-button-info"></button>
-        <!-- <button *ngIf="role == 'ADMIN'" [routerLink]="'branches/create-branch'" pButton pRipple type="button"
-            label="Create New Branch" class="p-button-outlined p-button-info"></button> -->
-        <button *ngIf="role == 'ADMIN'" [routerLink]="'users/add-worker'" pButton pRipple type="button"
-            label="Add New Worker" class="p-button-outlined p-button-info"></button>
-        <button *ngIf="role == 'ADMIN'" [routerLink]="'branches/create-branch'" pButton pRipple type="button"
-            label="Create New Branch" class="p-button-outlined p-button-info"></button>
         <button [routerLink]="'/profile'" pButton pRipple type="button" icon="pi pi-user"
             class="p-button-rounded p-button-info p-button-outlined"></button>
         <button pButton pRipple type="button" icon="pi pi-sign-out"
@@ -36,7 +28,7 @@
             class="p-button-outlined p-button-info"></button>
         <button [routerLink]="'/branches'" pButton pRipple type="button" label="Branch"
             class="p-button-outlined p-button-info"></button>
-        <button [routerLink]="'/exchange'" pButton pRipple type="button" icon="pi pi-money-bill" label="Exchange"
+        <button [routerLink]="'/exchange-list'" pButton pRipple type="button" icon="pi pi-money-bill" label="Exchange"
             class="p-button-outlined p-button-info"></button>
         <p-button *ngIf="role == 'ADMIN'" [routerLink]="'/workers'" label="Workers" icon="pi pi-users"
             styleClass="p-button-outlined" badgeClass="p-badge-danger"></p-button>
@@ -48,5 +40,19 @@
             class="p-button-rounded p-button-info p-button-outlined"></button>
         <button [routerLink]="'/login'" pButton pRipple type="button" icon="pi pi-sign-in"
             class="p-button-rounded p-button-info p-button-outlined"></button>
+    </div>
+    <div>
+        <button [routerLink]="'/home'" pButton pRipple type="button" icon="pi pi-home"
+            class="p-button-rounded p-button-info p-button-outlined"></button>
+        <button [routerLink]="'/accountTypes'" pButton pRipple type="button" label="Accounts"
+            class="p-button-outlined p-button-info"></button>
+        <button [routerLink]="'/loanTypes'" pButton pRipple type="button" label="Loans"
+            class="p-button-outlined p-button-info"></button>
+        <button [routerLink]="'/branches'" pButton pRipple type="button" label="Branch"
+            class="p-button-outlined p-button-info"></button>
+        <button [routerLink]="'/exchange-list'" pButton pRipple type="button" icon="pi pi-money-bill" label="Exchange"
+            class="p-button-outlined p-button-info"></button>
+        <p-button *ngIf="role == 'ADMIN'" [routerLink]="'/workers'" label="Workers" icon="pi pi-users"
+            styleClass="p-button-outlined" badgeClass="p-badge-danger"></p-button>
     </div>
 </div>

@@ -49,14 +49,8 @@ export class AddWorkerComponent implements OnInit {
       const registerDto: RegisterDto = this.mapFormToRegisterDto();
       this.userService.addWorker(registerDto).subscribe(
         data => {
-          if (data) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'New worker added successfully' });
-            this.router.navigateByUrl("/home");
-          } else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Bad request' });
-          }
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successfull' });
-          this.router.navigateByUrl("/login")
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'New worker added successfully' });
+          this.router.navigateByUrl("/workers");
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message });

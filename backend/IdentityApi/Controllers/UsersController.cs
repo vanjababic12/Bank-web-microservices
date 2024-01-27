@@ -91,9 +91,17 @@ namespace IdentityApi.Controllers
             }
         }
 
+        [HttpGet("searchAndSort")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult<List<UserDisplayDTO>> SearchLoanTypes(string searchTerm, string sortField = "name", bool ascending = true)
+        {
+            var workers = _userService.SearchAndSortWorkers(searchTerm, sortField, ascending);
+            return Ok(workers);
+        }
+
         [HttpPost("workers")]
         [Authorize(Roles = "Admin")]
-
+            
         public ActionResult AddWorker([FromBody] RegisterDto dto)
         {
             try
@@ -115,7 +123,7 @@ namespace IdentityApi.Controllers
             try
             {
                 _userService.DeleteWorker(username);
-                return Ok("Worker successfully deleted.");
+                return Ok();
             }
             catch (Exception ex)
             {

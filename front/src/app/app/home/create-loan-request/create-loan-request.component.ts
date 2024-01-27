@@ -57,7 +57,7 @@ export class LoanRequestComponent implements OnInit {
         this.router.navigate(['/loans/requests']);
       },
       (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to submit loan request' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Maximum of one lone request is allowed.' });
       }
     );
   }

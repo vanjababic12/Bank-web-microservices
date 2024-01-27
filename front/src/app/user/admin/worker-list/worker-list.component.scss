@@ -1,16 +1,50 @@
-ul {
-    list-style-type: none;
-    padding: 0;
+.search-sort-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-top: 20px;
 }
-  
-li {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+
+.search-sort-container>*:not(input) {
+    /* Ovo primenjuje stilove na sve elemente osim na input */
+    flex-shrink: 0;
+    /* Sprečava smanjivanje ostalih elemenata */
+    margin-right: 10px;
 }
-  
-button {
-    background: none;
-    border: none;
-    cursor: pointer;
+
+.search-sort-container>input[type="text"] {
+    flex-grow: 1;
+    /* Omogućava inputu da raste i popuni dostupan prostor */
+    margin-right: 10px;
+    /* Dodaje malo razmaka između inputa i sledećeg elementa */
+}
+
+p-card {
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+p-paginator {
+    margin-top: 20px;
+}
+
+.worker-type-item {
+    margin-bottom: 1rem;
+    /* Razmak između kartica */
+}
+
+.card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-details {
+    flex-grow: 1;
+    /* Osigurava da sadržaj zauzima dostupan prostor */
+}
+
+.card-actions {
+    margin-left: 10px;
+    /* Razmak između detalja kartice i dugmeta za brisanje */
 }

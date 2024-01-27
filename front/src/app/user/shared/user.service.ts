@@ -1,10 +1,10 @@
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Token } from './token.model';
 import { User } from './user.model';
-import { LoginDto, RegisterDto, SuccessLoginDto, UpdateUserDto, UserDto } from 'src/app/Shared/models/user.models';
+import { LoginDto, RegisterDto, SuccessLoginDto, UpdateUserDto, UserDisplayDto, UserDto } from 'src/app/Shared/models/user.models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,15 @@ export class UserService {
   private apiUrl = environment.serverUrl;
 
   constructor(private http: HttpClient) { }
+
+  searchWorkers(searchTerm?: string, sortField?: string, ascending?: boolean): Observable<UserDisplayDto[]> {
+    let params = new HttpParams();
+    if (searchTerm) params = params.append('searchTerm', searchTerm);
+    if (sortField) params = params.append('sortField', sortField);
+    if (ascending !== undefined) params = params.append('ascending', ascending.toString());
+
+    return this.http.get<UserDisplayDto[]>(`${this.apiUrl}/users/searchAndSort`, { params });
+  }
 
   getUser(): Observable<UserDto> {
     return this.http.get<UserDto>(`${this.apiUrl}/users`);
@@ -39,6 +48,6 @@ export class UserService {
   }
 
   deleteWorker(username: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/users/worker/${username}`);
+    return this.http.delete(`${this.apiUrl}/users/worker/${username}`, {responseType: 'text'});
   }
 }

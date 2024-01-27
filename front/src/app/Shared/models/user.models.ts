@@ -31,6 +31,13 @@ export interface UserDto {
     role: string;
 }
 
+export interface UserDisplayDto {
+    userName: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+}
+
 export interface SuccessLoginDto {
     token: string;
     role: string;

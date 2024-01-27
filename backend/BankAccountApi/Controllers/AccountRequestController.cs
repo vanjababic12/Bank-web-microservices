@@ -1,4 +1,5 @@
-﻿using BankAccountApi.Dto;
+﻿using System;
+using BankAccountApi.Dto;
 using BankAccountApi.Interfaces;
 using BankAccountApi.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -44,9 +45,17 @@ namespace BankAccountApi.Controllers
         [Authorize]
         public async Task<ActionResult<AccountRequest>> CreateAccountRequest([FromBody] AccountRequestDto accountRequestDto)
         {
-            var customerUsername = GetUserEmail(); // Implementirajte metodu za dobijanje korisničkog imena iz tokena
-            var accountRequest = await _accountService.CreateAccountRequest(customerUsername, accountRequestDto);
-            return CreatedAtAction(nameof(GetAllAccountRequests), new { id = accountRequest.Id }, accountRequest);
+            try
+            {
+                var customerUsername = GetUserEmail(); // Implementirajte metodu za dobijanje korisničkog imena iz tokena
+                var accountRequest = await _accountService.CreateAccountRequest(customerUsername, accountRequestDto);
+                return CreatedAtAction(nameof(GetAllAccountRequests), new { id = accountRequest.Id }, accountRequest);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+
         }
 
         [HttpPut("{requestId}")]

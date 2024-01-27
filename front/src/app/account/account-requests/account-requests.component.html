@@ -5,12 +5,12 @@
         <p-card>
             <div class="card-content">
                 <div class="card-details">
-                    <h3>Korisnik: {{ request.customerUsername }}</h3>
-                    <p>Tip racuna: {{ request.accountTypeId }}</p>
+                    <h3>Client: {{ request.customerUsername }}</h3>
+                    <p>Type Of An Account: {{ request.accountTypeId }}</p>
                     <br />
-                    <h5 *ngIf="!request.isReviewed">Status: U Obradi</h5>
-                    <h5 *ngIf="request.isApproved && request.isReviewed">Status: Prihvaćen</h5>
-                    <h5 *ngIf="!request.isApproved && request.isReviewed">Status: Odbijen</h5>
+                    <h5 *ngIf="!request.isReviewed">Status: In Progress</h5>
+                    <h5 *ngIf="request.isApproved && request.isReviewed">Status: Approved</h5>
+                    <h5 *ngIf="!request.isApproved && request.isReviewed">Status: Rejected</h5>
                 </div>
                 <div *ngIf="!request.isReviewed && role == 'WORKER'">
                     <button pButton type="button" icon="pi pi-check" class="p-button-success" label="Prihvati"

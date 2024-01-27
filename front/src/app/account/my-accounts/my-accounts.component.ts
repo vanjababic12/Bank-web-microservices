@@ -60,7 +60,7 @@ export class MyAccountsComponent implements OnInit {
 
   confirmCloseAccount(accountId: number): void {
     this.confirmationService.confirm({
-      message: 'Da li ste sigurni da želite da ugasi nalog?',
+      message: 'Are you sure that u want to close this account?',
       accept: () => {
         this.closeAccount(accountId);
       }
@@ -69,10 +69,10 @@ export class MyAccountsComponent implements OnInit {
 
   closeAccount(accountId: number): void {
     this.accountService.closeAccount(accountId).subscribe(() => {
-      this.messageService.add({ severity: 'success', summary: 'Uspešno!', detail: 'Nalog je zatvoren.' });
+      this.messageService.add({ severity: 'success', summary: 'Success!', detail: 'Account closed successfully..' });
       this.loadAccounts(); // Ponovo učitajte listu naloga
     }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Greška!', detail: 'Nije moguće zatvoriti nalog.' });
+      this.messageService.add({ severity: 'error', summary: 'Error!', detail: `Can't close an account at the moment. Please try again later.` });
     });
   }
 

@@ -129,5 +129,34 @@ namespace IdentityApi.Services
             _dbContext.SaveChanges();
             return _mapper.Map<UserDto>(user);
         }
+
+        public List<UserDisplayDTO> SearchAndSortWorkers(string searchTerm, string sortField, bool ascending)
+        {
+            var query = _dbContext.Users.Where(u => u.Role == EUserRole.WORKER)
+                .Select(u => new UserDisplayDTO
+                {
+                    UserName = u.Username, 
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email
+                }).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(u => u.UserName.Contains(searchTerm) || u.FirstName.Contains(searchTerm) ||
+                                         u.LastName.Contains(searchTerm) || u.Email.Contains(searchTerm));
+            }
+
+            query = sortField switch
+            {
+                "username" => ascending ? query.OrderBy(u => u.UserName) : query.OrderByDescending(u => u.UserName),
+                "fistname" => ascending ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName),
+                "lastname" => ascending ? query.OrderBy(lt => lt.LastName) : query.OrderByDescending(u => u.LastName),
+                "email" => ascending ? query.OrderBy(u => u.Email) : query.OrderByDescending(u => u.Email),
+                _ => query
+            };
+
+            return query.ToList();
+        }
     }
 }

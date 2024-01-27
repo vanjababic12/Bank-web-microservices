@@ -56,8 +56,8 @@ export class CreateBranchComponent implements OnInit {
       this.branchService.createBranch(branchDto).subscribe(
         data => {
           if (data) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'New worker added successfully' });
-            this.router.navigateByUrl("/home");
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'New branch added successfully' });
+            this.router.navigateByUrl("/branches");
           } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Bad request' });
           }

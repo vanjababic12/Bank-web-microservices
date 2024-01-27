@@ -1,21 +1,21 @@
 <div class="loan-application-page">
-    <h2>Podnesi Zahtev za Kredit: {{ loanType?.name }}</h2>
+    <h2>Make A Request for: <b>{{ loanType?.name }}</b></h2>
     <div class="loan-details">
-        <p>Kamata: {{ loanType?.interestRate }}%</p>
-        <p>Opis: {{ loanType?.description }}</p>
+        <p>Interest Rate: <b>{{ loanType?.interestRate }}%</b></p>
+        <p>Description: <b>{{ loanType?.description }}</b></p>
     </div>
     <div class="loan-request-form">
-        <label for="installments">Broj rata:</label>
+        <label for="installments">Number of Payments:</label>
         <p-dropdown [options]="installmentOptions" [(ngModel)]="selectedInstallments"
             (onChange)="calculateMonthlyPayment()"></p-dropdown>
         <br />
-        <label for="amount">Iznos kredita:</label>
+        <label for="amount">Amount:</label>
         <br />
         <p-slider [(ngModel)]="loanAmount" [min]="500" [max]="20000" [step]="100"
             (onChange)="calculateMonthlyPayment()"></p-slider>
         <br />
         <p>{{ loanAmount | currency:'EUR' }}</p>
-        <p class="monthly-payment">Mesečna rata: {{ monthlyPayment | currency:'EUR' }}</p>
-        <button pButton type="button" label="Podnesi Zahtev" (click)="submitLoanRequest()"></button>
+        <p class="monthly-payment">Monthly Payment: {{ monthlyPayment | currency:'EUR' }}</p>
+        <button pButton type="button" label="Confirm" (click)="submitLoanRequest()"></button>
     </div>
 </div>

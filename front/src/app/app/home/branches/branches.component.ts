@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { SelectItem } from 'primeng/api';
 import { Branch } from 'src/app/Shared/models/branch.models';
 import { BranchService } from 'src/app/Shared/services/branch/branch.service';
+import { roleGetter } from 'src/app/app.module';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-branches',
@@ -16,6 +18,7 @@ export class BranchesComponent implements OnInit {
   searchTerm: string = '';
   sortField: string = 'name';
   ascending: boolean = true;
+  role = roleGetter();
   sortOptions: SelectItem[]; // Za dropdown meni
 
   // Dodato za paginaciju
@@ -23,10 +26,11 @@ export class BranchesComponent implements OnInit {
   totalRecords = 0;
   currentPage = 1;
 
-  constructor(private accountTypeService: BranchService, private router: Router) {
+  constructor(private branchService: BranchService, private router: Router,
+    private confirmationService: ConfirmationService, private messageService: MessageService) {
     this.sortOptions = [
-      { label: 'Ime', value: 'name' },
-      { label: 'Adresa', value: 'address' },
+      { label: 'Name', value: 'name' },
+      { label: 'Address', value: 'address' },
       // Dodajte ostale opcije po potrebi
     ];
   }
@@ -36,7 +40,7 @@ export class BranchesComponent implements OnInit {
   }
 
   search(): void {
-    this.accountTypeService.searchBranches(this.searchTerm, this.sortField, this.ascending)
+    this.branchService.searchBranches(this.searchTerm, this.sortField, this.ascending)
       .subscribe(branches => {
         console.log(branches);
         this.branches = branches;
@@ -65,9 +69,28 @@ export class BranchesComponent implements OnInit {
     this.rowsPerPage = event.rows;
     this.updateDisplayedAccountTypes();
   }
-  viewAppointments(branchId: number): void {
-    console.log('Pregled termina za filijalu ID:', branchId);
+
+  viewAppointments(): void {
     this.router.navigate(['/appointments']);
   }
 
+  confirmDelete(branchId:number): void {
+    let branch = this.branches.find(i => i.id == branchId);
+    this.confirmationService.confirm({
+      message: `Are you sure that you want to delete this branch <b>${branch.name}</b>?`,
+      accept: () => {
+        this.deleteBranch(branchId);
+        this.search();
+      }
+    });
+  }
+
+  deleteBranch(branchId: number): void {
+    this.branchService.deleteBranch(branchId).subscribe(() => {
+      this.messageService.add({ severity: 'success', summary: 'Success!', detail: 'Branch is deleted.' });
+      this.search(); // Ponovo učitajte listu AccountType-ova
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error!', detail: 'Error while trying to delete a branch.' });
+    });
+  }
 }
