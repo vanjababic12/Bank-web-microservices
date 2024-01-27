@@ -1,6 +1,7 @@
 ﻿using BranchApi.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace BranchApi.Infrastructure.Configuration
 {
@@ -15,9 +16,10 @@ namespace BranchApi.Infrastructure.Configuration
             builder.Property(a => a.AppointmentDate).IsRequired();
             builder.Property(a => a.CustomerUsername).IsRequired(false); // Ovo polje može biti null
 
-            builder.HasOne<Branch>() // Ako postoji veza sa Branch entitetom
-                .WithMany() // Pretpostavljajući da Branch ima mnogo Appointment-a
-                .HasForeignKey(a => a.BranchId);
+            // Relationship configuration
+            builder.HasOne(a => a.Branch)
+                   .WithMany(b => b.Appointments)
+                   .HasForeignKey(a => a.BranchId);
         }
     }
 }

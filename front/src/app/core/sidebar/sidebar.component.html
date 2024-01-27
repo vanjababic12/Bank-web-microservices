@@ -1,5 +1,7 @@
 <div class="nav-bar" *ngIf="isLoggedIn">
     <div>
+        <button *ngIf="role == 'USER'" [routerLink]="'/appointments/my'" pButton pRipple type="button"
+            label="My appointments" class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'USER'" [routerLink]="'/loans/requests'" pButton pRipple type="button" label="Loans"
             class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'USER'" [routerLink]="'/accounts'" pButton pRipple type="button" label="Accounts"

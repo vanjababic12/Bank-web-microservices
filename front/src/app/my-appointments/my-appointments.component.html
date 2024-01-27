@@ -1,0 +1,15 @@
+<div class="user-appointments-container">
+    <h2>Zakazani termini</h2>
+
+    <div *ngFor="let appointment of appointments" class="appointment-card">
+        <p-card>
+            <div class="appointment-date">
+                Termin: {{ appointment.appointmentDate | date:'fullDate' }}
+            </div>
+            Vreme: {{ appointment.appointmentDate | date:'shortTime' }}
+            <div>Filijala: {{ appointment.branch.name }}</div>
+            <div>Adresa: {{ appointment.branch.address }}</div>
+            <!-- Dodajte ostale informacije o filijali ili terminu ako je potrebno -->
+        </p-card>
+    </div>
+</div>

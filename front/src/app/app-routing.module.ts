@@ -23,6 +23,7 @@ import { MyAccountsComponent } from './account/my-accounts/my-accounts.component
 import { LoanRequestsComponent } from './loan/loan-requests/loan-requests.component';
 import { LoanRequestComponent } from './app/home/create-loan-request/create-loan-request.component';
 import { BranchAppointmentsComponent } from './app/home/branch-appointments/branch-appointments.component';
+import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 
 const routes: Routes = [
   { path: '', pathMatch: "full", redirectTo: 'home' },
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [LoginGuard] },
   { path: 'workers', component: WorkerListComponent, canActivate: [AdminGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard] },
-  { path: 'appointments/:branchId', component: BranchAppointmentsComponent, canActivate: [LoggedInGuard] },
+  { path: 'appointments', component: BranchAppointmentsComponent, canActivate: [LoggedInGuard] },
+  { path: 'appointments/my', component: MyAppointmentsComponent, canActivate: [CustomerGuard] },
   { path: 'accounts/requests', component: AccountRequestsComponent, canActivate: [LoggedInGuard] },
   { path: 'loans/requests', component: LoanRequestsComponent, canActivate: [LoggedInGuard] },
   { path: 'accounts', component: MyAccountsComponent, canActivate: [CustomerGuard] },

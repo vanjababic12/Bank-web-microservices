@@ -52,6 +52,7 @@ import { LoanRequestsComponent } from './loan/loan-requests/loan-requests.compon
 import { LoanRequestComponent } from './app/home/create-loan-request/create-loan-request.component';
 import { SliderModule } from 'primeng/slider';
 import { BranchAppointmentsComponent } from './app/home/branch-appointments/branch-appointments.component';
+import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 
 export function roleGetter() {
   return localStorage.getItem('role');
@@ -84,6 +85,7 @@ export function tokenGetter() {
     LoanRequestsComponent,
     LoanRequestComponent,
     BranchAppointmentsComponent,
+    MyAppointmentsComponent,
   ],
   imports: [
     PaginatorModule,

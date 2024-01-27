@@ -171,6 +171,12 @@ namespace BranchApi.Services
         {
             return _dbContext.Appointments
                 .Where(a => a.CustomerUsername == username)
+                .ToList()
+                .Select(i =>
+                {
+                    i.Branch = _dbContext.Branches.Find(i.BranchId);
+                    return i;
+                })
                 .ToList();
         }
     }

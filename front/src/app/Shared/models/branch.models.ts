@@ -46,17 +46,17 @@ export class Appointment {
     id: number;
     branchId: number;
     appointmentDate: Date; // Datum termina
-    appointmentTime: string; // Vreme termina kao string (npr. "14:00")
     customerUsername: string; // Korisničko ime umesto imena kupca
     isBooked: boolean; // Proverava da li je termin zauzet
+    branch: Branch;
 
-    constructor(id: number, branchId: number, appointmentDate: Date, appointmentTime: string, customerUsername: string) {
+    constructor(id: number, branchId: number, appointmentDate: Date, customerUsername: string, branch: Branch) {
         this.id = id;
         this.branchId = branchId;
         this.appointmentDate = appointmentDate;
-        this.appointmentTime = appointmentTime;
         this.customerUsername = customerUsername;
         this.isBooked = !!(customerUsername && customerUsername.trim().length > 0);
+        this.branch = branch;
     }
 }
 

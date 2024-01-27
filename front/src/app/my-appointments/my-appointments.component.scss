@@ -1,0 +1,23 @@
+.user-appointments-container {
+    margin: 20px auto; // Centrira kontejner na stranici
+    padding: 10px; // Dodaje prostor oko kontejnera
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px; // Dodaje razmak ispod naslova
+    }
+
+    .appointment-card {
+        margin-bottom: 20px; // Povećava razmak između kartica
+
+        p-card {
+            border-radius: 8px; // Zaobljava uglove kartice
+            padding: 15px; // Povećava prostor unutar kartice
+
+            .appointment-date {
+                font-weight: bold; // Čini datum podebljanim
+                margin-bottom: 10px; // Dodaje razmak ispod datuma
+            }
+        }
+    }
+}

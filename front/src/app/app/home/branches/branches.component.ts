@@ -67,7 +67,7 @@ export class BranchesComponent implements OnInit {
   }
   viewAppointments(branchId: number): void {
     console.log('Pregled termina za filijalu ID:', branchId);
-    this.router.navigate(['/appointments', branchId]);
+    this.router.navigate(['/appointments']);
   }
 
 }

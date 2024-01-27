@@ -186,7 +186,7 @@ namespace BranchApi.Controllers
         }
 
         [HttpGet("myappointments")]
-        [Authorize(Roles = "Worker")] // Only workers can cancel appointments
+        [Authorize(Roles = "User")] // Only workers can cancel appointments
         public ActionResult<List<Appointment>> GetUserAppointments()
         {
             var username = GetUserEmail();
