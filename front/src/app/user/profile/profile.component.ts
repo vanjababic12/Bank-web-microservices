@@ -52,7 +52,9 @@ export class ProfileComponent implements OnInit {
       data => {
         console.log(data);
         this.user = new User(data);
-        this.editUserForm.patchValue(data);
+        var patchData: any = data;
+        patchData.birthdayDate = new Date(data.birthday);
+        this.editUserForm.patchValue(patchData);
       }
     )
   }

@@ -31,7 +31,8 @@ export class CreateAppointmentComponent implements OnInit {
         if (data && data.length > 0) {
           this.branches = data;
           this.appointmentForm.get('time')?.setValue(this.convertTimeToHHMM(data[0].openingTime));
-          this.appointmentForm.get('date')?.setValue(Date().toString());
+          // console.log(this.formatDate(Date()));
+          this.appointmentForm.get('date')?.setValue(this.formatDate(Date()));
           console.log(this.appointmentForm.value);
           // this.appointmentForm.patchValue({ time: data[0].openingTime }, { emitEvent: true });
           this.branchOptions = data.map(branch => ({ label: branch.name, value: branch.id }));
@@ -63,6 +64,7 @@ export class CreateAppointmentComponent implements OnInit {
   createAppointment() {
     if (this.appointmentForm.valid) {
       const createAppointmentDto: CreateAppointmentDto = this.mapFormToCreateAppointmentDto();
+      console.log(createAppointmentDto);
       this.branchService.addAppointment(createAppointmentDto).subscribe(
         data => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Appointment created successfully.' });
@@ -83,13 +85,39 @@ export class CreateAppointmentComponent implements OnInit {
     const selectedTime = this.appointmentForm.value.time;
 
     // Formatiranje datuma i vremena u string
-    const appointmentDate = this.formatDateTime(selectedDate, selectedTime);
+    // console.log(selectedDate);
+    // console.log(this.dateToHHMM(selectedTime));
+    const appointmentDate = this.formatDateTime(selectedDate, this.dateToHHMM(selectedTime));
 
     return new CreateAppointmentDto(
       selectedBranchId,
       appointmentDate,
-      // Možete dodati korisničko ime ako je potrebno
     );
+  }
+
+  private dateToHHMM(timestamp: string): string {
+    const date = new Date(timestamp);
+    let hours = date.getHours().toString();
+    let minutes = date.getMinutes().toString();
+
+    // Pad single digit hours and minutes with a leading zero
+    hours = hours.length < 2 ? '0' + hours : hours;
+    minutes = minutes.length < 2 ? '0' + minutes : minutes;
+
+    return `${hours}:${minutes}`;
+  }
+
+  private formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    let day = date.getDate().toString();
+    let month = (date.getMonth() + 1).toString(); // getMonth() returns 0-11
+    let year = date.getFullYear().toString(); // get last two digits of year
+
+    // Pad single digit day and month with a leading zero
+    day = day.length < 2 ? '0' + day : day;
+    month = month.length < 2 ? '0' + month : month;
+
+    return `${day}.${month}.${year}`;
   }
 
   private formatDateTime(date: Date, time: string): string {
@@ -148,7 +176,7 @@ export class CreateAppointmentComponent implements OnInit {
   formatTime(date: Date): string {
     return date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
   }
-  
+
   private isFutureDate(control: FormControl) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
