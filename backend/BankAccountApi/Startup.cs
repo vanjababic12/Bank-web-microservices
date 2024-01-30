@@ -11,6 +11,7 @@ using BankAccountApi.Infrastructure;
 using BankAccountApi.Interfaces;
 using BankAccountApi.Services;
 using System.Text;
+using BankAccountApi.Models;
 
 namespace BankAccountApi
 {
@@ -57,7 +58,7 @@ namespace BankAccountApi
             });
             services.AddDbContext<BankAccountDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
-
+            services.Configure<MicroserviceSettings>(Configuration.GetSection("MicroserviceSettings"));
             //Dodajemo semu autentifikacije i podesavamo da se radi o JWT beareru
             services.AddAuthentication(opt => {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -82,7 +83,9 @@ namespace BankAccountApi
                                       .AllowAnyHeader()
                                       .AllowAnyMethod());
             });
+            services.AddHttpClient();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IExchangeService, ExchangeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

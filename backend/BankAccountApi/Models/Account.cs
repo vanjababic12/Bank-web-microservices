@@ -12,6 +12,7 @@ namespace BankAccountApi.Models
         public string CustomerUsername { get; set; }
         public string Currency { get; set; }
         public bool IsClosed { get; set; }
+        public double Balance { get; set; }
 
         // Veza sa AccountType
         public virtual AccountType AccountType { get; set; }

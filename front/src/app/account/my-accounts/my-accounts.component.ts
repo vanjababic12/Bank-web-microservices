@@ -14,7 +14,7 @@ export class MyAccountsComponent implements OnInit {
   displayedAccounts: AccountDto[] = [];
   isLoading: boolean = true;
   loadingError: boolean = false;
-  rowsPerPage = 2;
+  rowsPerPage = 3;
   totalAccounts = 0;
   currentPage = 1;
 

@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AccountDto, AccountTypeDto as AccountTypeDto, CreateAccountTypeDto } from '../../models/account.models';
+import { AccountDto, AccountTypeDto as AccountTypeDto, CreateAccountTypeDto, ExchangeTransferDto } from '../../models/account.models';
 import { Observable } from 'rxjs';
 import { AccountRequestDto, AccountResponse, AccountTypeResponse, CreateAccountRequestDto } from '../../models/account-response.models';
 
@@ -36,6 +36,10 @@ export class BackAccountService {
 
   createAccountRequest(accountRequestDto: CreateAccountRequestDto): Observable<AccountRequestDto> {
     return this.http.post<AccountRequestDto>(`${this.apiUrl}/accounts/requests`, accountRequestDto);
+  }
+
+  exchangeTransfer(exchangeTransferDto: ExchangeTransferDto): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/accounts/exchange`, exchangeTransferDto);
   }
 
   reviewAccountRequest(requestId: number, isApproved: boolean): Observable<any> {

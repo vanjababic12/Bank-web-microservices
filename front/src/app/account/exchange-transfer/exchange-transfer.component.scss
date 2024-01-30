@@ -1,0 +1,18 @@
+/* In your exchange-transfer.component.scss or .css */
+.error {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.form-row {
+    display: flex;
+    /* Enables Flexbox */
+    flex-direction: row;
+    /* Aligns children horizontally */
+    align-items: start;
+    /* Distributes space between and around content items */
+    gap: 10px;
+    /* Optional: Adds space between children */
+    /* Add other styling as needed */
+}

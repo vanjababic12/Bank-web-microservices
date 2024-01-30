@@ -61,16 +61,16 @@
             "UpstreamHttpMethod": [ "Get" ]
         },
         {
-          "DownstreamPathTemplate": "/api/users/searchAndSort",
-          "DownstreamScheme": "https",
-          "DownstreamHostAndPorts": [
-            {
-              "Host": "localhost",
-              "Port": 5001
-            }
-          ],
-          "UpstreamPathTemplate": "/users/searchAndSort",
-          "UpstreamHttpMethod": [ "Get" ]
+            "DownstreamPathTemplate": "/api/users/searchAndSort",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5001
+                }
+            ],
+            "UpstreamPathTemplate": "/users/searchAndSort",
+            "UpstreamHttpMethod": [ "Get" ]
         },
         {
             "DownstreamPathTemplate": "/api/users/workers",
@@ -97,28 +97,28 @@
             "UpstreamHttpMethod": [ "Delete" ]
         },
         {
-          "DownstreamPathTemplate": "/api/exchange-rates",
-          "DownstreamScheme": "https",
-          "DownstreamHostAndPorts": [
-            {
-              "Host": "localhost",
-              "Port": 5012
-            }
-          ],
-          "UpstreamPathTemplate": "/exchange-rates",
-          "UpstreamHttpMethod": [ "Post" ]
+            "DownstreamPathTemplate": "/api/exchange-rates",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5012
+                }
+            ],
+            "UpstreamPathTemplate": "/exchange-rates",
+            "UpstreamHttpMethod": [ "Post" ]
         },
         {
-          "DownstreamPathTemplate": "/api/exchange-rates/latest",
-          "DownstreamScheme": "https",
-          "DownstreamHostAndPorts": [
-            {
-              "Host": "localhost",
-              "Port": 5012
-            }
-          ],
-          "UpstreamPathTemplate": "/exchange-rates/latest",
-          "UpstreamHttpMethod": [ "Get" ]
+            "DownstreamPathTemplate": "/api/exchange-rates/latest",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5012
+                }
+            ],
+            "UpstreamPathTemplate": "/exchange-rates/latest",
+            "UpstreamHttpMethod": [ "Get" ]
         },
         // #region Account Type Controller
         {
@@ -220,6 +220,18 @@
             ],
             "UpstreamPathTemplate": "/accounts/{accountId}/close",
             "UpstreamHttpMethod": [ "Put" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/accounts/exchange",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/accounts/exchange",
+            "UpstreamHttpMethod": [ "Post" ]
         },
         //#endregion
         // #region Loan Types Controller

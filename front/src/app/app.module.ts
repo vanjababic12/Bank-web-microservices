@@ -54,6 +54,7 @@ import { SliderModule } from 'primeng/slider';
 import { BranchAppointmentsComponent } from './app/home/branch-appointments/branch-appointments.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 import { ExhangeListComponent } from './exhange-list/exhange-list.component';
+import { ExchangeTransferComponent } from './account/exchange-transfer/exchange-transfer.component';
 
 export function roleGetter() {
   return localStorage.getItem('role');
@@ -88,6 +89,7 @@ export function tokenGetter() {
     BranchAppointmentsComponent,
     MyAppointmentsComponent,
     ExhangeListComponent,
+    ExchangeTransferComponent,
   ],
   imports: [
     PaginatorModule,

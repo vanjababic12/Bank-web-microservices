@@ -16,5 +16,6 @@ namespace BankAccountApi.Interfaces
         Task<Account> CreateAccount(string customerUsername, int accountTypeId);
         Task<bool> CloseAccount(int accountId);
         List<Account> GetCustomerAccounts(string customerUsername);
+        void ExchangeTransfer(string customerUsername, int accountFromId, int accountToId, double amount, List<ExchangeRate> exchangeRates);
     }
 }

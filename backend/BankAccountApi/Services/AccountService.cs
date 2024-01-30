@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Exceptions;
+using Microsoft.CodeAnalysis.Operations;
 
 namespace BankAccountApi.Services
 {
@@ -112,7 +113,8 @@ namespace BankAccountApi.Services
                 AccountTypeId = accountType.Id,
                 CustomerUsername = customerUsername,
                 Currency = accountType.Currency,
-                IsClosed = false
+                IsClosed = false,
+                Balance = 0.0,
             };
             _dbContext.Accounts.Add(account);
             await _dbContext.SaveChangesAsync();
@@ -153,6 +155,42 @@ namespace BankAccountApi.Services
             accountType.IsDeleted = true;
             await _dbContext.SaveChangesAsync();
             return true;
+        }
+
+        public void ExchangeTransfer(string customerUsername, int accountFromId, int accountToId, double amount, List<ExchangeRate> exchangeRates)
+        {
+            using (var dbContextTransaction = _dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var fromAccount = _dbContext.Accounts.Find(accountFromId);
+                    var toAccount = _dbContext.Accounts.Find(accountToId);
+                    if (fromAccount == null || toAccount == null)
+                    {
+                        throw new InvalidOperationException("Account doesn't exist");
+                    }
+                    if (toAccount.CustomerUsername.ToLower() != customerUsername.ToLower() || fromAccount.CustomerUsername.ToLower() != customerUsername.ToLower())
+                    {
+                        throw new InvalidOperationException("Account must belongs to request user.");
+                    }
+                    if (fromAccount.Balance < amount) { throw new InvalidOperationException("Balance"); }
+                    var fromCurrencyRate = exchangeRates.Find(i => i.Currency == fromAccount.Currency);
+                    var toCurrencyRate = exchangeRates.Find(i => i.Currency == toAccount.Currency);
+                    if (fromCurrencyRate == null || toCurrencyRate == null) { throw new InvalidOperationException("Exchange rate not available"); }
+                    var rate = fromCurrencyRate.Rate / toCurrencyRate.Rate;
+                    fromAccount.Balance = fromAccount.Balance - amount;
+                    var transferAmoount = amount * rate;
+                    toAccount.Balance = toAccount.Balance + transferAmoount;
+                    // Commit transaction if all operations succeed
+                    _dbContext.SaveChanges();
+                    dbContextTransaction.Commit();
+                } catch (Exception ex)
+                {
+                    // Rollback transaction if any operation fails
+                    dbContextTransaction.Rollback();
+                    throw;
+                }
+            }
         }
 
     }

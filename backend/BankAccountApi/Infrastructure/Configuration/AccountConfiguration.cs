@@ -13,6 +13,7 @@ namespace BankAccountApi.Infrastructure.Configuration
             builder.Property(a => a.CustomerUsername).IsRequired();
             builder.Property(a => a.Currency).IsRequired();
             builder.Property(a => a.IsClosed).IsRequired();
+            builder.Property(a => a.Balance).IsRequired();
 
             builder.HasOne(a => a.AccountType)
                 .WithMany()

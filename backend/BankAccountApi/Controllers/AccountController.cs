@@ -22,10 +22,12 @@ namespace BankAccountApi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
+        private readonly IExchangeService _exchangeService;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IExchangeService exchangeService)
         {
             _accountService = accountService;
+            _exchangeService = exchangeService;
         }
 
         [HttpGet("my")]
@@ -50,14 +52,27 @@ namespace BankAccountApi.Controllers
             return Ok();
         }
 
+        [HttpPost("exchange")]
+        [Authorize]
+        public async Task<ActionResult> ExchangeTrasnfer([FromBody] ExchangeTransferDto dto)
+        {
+            try
+            {
+                List<ExchangeRate> exchangeRates = await _exchangeService.GetExchangeRatesAsync();
+                _accountService.ExchangeTransfer(GetUserEmail(), dto.AccountFromId, dto.AccountToId, dto.Amount, exchangeRates);
+                return Ok();
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [NonAction]
         private string GetUserEmail()
         {
             var claimsIdentity = this.User.Identity as ClaimsIdentity;
             return claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
         }
-
-        
 
     }
 }

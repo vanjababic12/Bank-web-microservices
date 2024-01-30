@@ -1,0 +1,60 @@
+<!-- exchange-transfer.component.html -->
+<p-panel header="Transfer Funds">
+    <form *ngIf="!allAccountsZeroBalance; else noBalanceMessage" [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div>
+                <!-- Source Account Dropdown -->
+                <p-dropdown [options]="sourceAccounts" formControlName="sourceAccount" optionLabel="label"
+                    placeholder="Select Source Account">
+                </p-dropdown>
+                <div *ngIf="sourceAccountBalance >= 0">
+                    Current Balance: {{ sourceAccountBalance | currency:
+                    transferForm.get('sourceAccount').value?.value?.currency }}
+                    <br>
+                    New Balance: {{ newSourceAccountBalance | currency:
+                    transferForm.get('sourceAccount').value?.value?.currency }}
+                </div>
+            </div>
+
+            <div *ngIf="(transferForm.get('sourceAccount').value?.value?.balance ?? -1) == 0">
+
+            </div>
+
+            <div *ngIf="transferForm.get('sourceAccount').value?.value?.balance ?? -1 > 0">
+                <!-- Destination Account Dropdown -->
+                <p-dropdown [options]="destinationAccounts" formControlName="destinationAccount" optionLabel="label"
+                    placeholder="Select Destination Account">
+                </p-dropdown>
+                <div *ngIf="destinationAccountBalance >= 0">
+                    Current Balance: {{ destinationAccountBalance | currency:
+                    transferForm.get('destinationAccount').value?.value?.currency }}
+                    <br>
+                    New Balance: {{ newDestinationAccountBalance | currency:
+                    transferForm.get('destinationAccount').value?.value?.currency }}
+                </div>
+            </div>
+
+            <div *ngIf="transferForm.get('sourceAccount').value?.value?.balance ?? -1 > 0">
+                <!-- Amount Input -->
+                <input type="number" pInputText formControlName="amount" placeholder="Amount" />
+                <div *ngIf="transferForm.get('amount').errors">
+                    <small class="error" *ngIf="transferForm.get('amount').errors['min']">
+                        Amount must be greater than 0.001.
+                    </small>
+                    <small class="error" *ngIf="transferForm.get('amount').errors['max']">
+                        Amount cannot exceed the account balance.
+                    </small>
+                </div>
+            </div>
+            <!-- Submit Button -->
+            <button pButton type="submit" label="Transfer" [disabled]="!transferForm.valid"></button>
+        </div>
+
+    </form>
+</p-panel>
+<p-confirmDialog></p-confirmDialog>
+
+<!-- Template for No Balance Message -->
+<ng-template #noBalanceMessage>
+    <p>All accounts currently have a balance of 0.</p>
+</ng-template>

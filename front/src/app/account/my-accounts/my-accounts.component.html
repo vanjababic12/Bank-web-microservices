@@ -17,6 +17,7 @@
                         <h3>Customer: {{ account.customerUsername }}</h3>
                         <p>Account Type: {{ account.accountType.name }}</p>
                         <p>Currency: {{ account.currency }}</p>
+                        <h6>Balance: {{ account.balance | currency: account.currency }}</h6>
                         <h5 *ngIf="account.isClosed">Status: Closed</h5>
                         <h5 *ngIf="!account.isClosed">Status: Active</h5>
                     </div>
@@ -38,8 +39,7 @@
     <div class="no-accounts-message">
         <p>No approved account yet.</p>
         <div>
-            <button pButton type="button" (click)="navigateToAccountTypes()"
-                label="Make A Request"></button>
+            <button pButton type="button" (click)="navigateToAccountTypes()" label="Make A Request"></button>
             <button pButton type="button" (click)="navigateToRequests()" label="My Requests"></button>
         </div>
     </div>

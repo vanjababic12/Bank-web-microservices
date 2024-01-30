@@ -1,4 +1,7 @@
 <div style="margin-top: 20px;">
+    <app-exchange-transfer *ngIf="role == 'USER'">
+
+    </app-exchange-transfer>
     <p-table [value]="displayedExchangeRates" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem'}">
         <ng-template pTemplate="caption">
             <div class="d-flex align-items-center justify-content-between">
@@ -12,7 +15,7 @@
                 </div>
             </div>
         </ng-template>
-        
+
         <ng-template pTemplate="header">
             <tr>
                 <th>#</th>
