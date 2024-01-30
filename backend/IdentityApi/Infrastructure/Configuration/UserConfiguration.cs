@@ -22,6 +22,7 @@ namespace Backend.Infrastructure.Configurations
                    .IsRequired();
             builder.Property(s => s.LastName)
                    .IsRequired();
+            builder.Property(s => s.BranchId);
             builder.Property(s => s.Role)
                    .IsRequired();
         }

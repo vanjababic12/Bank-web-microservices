@@ -30,7 +30,6 @@ namespace BranchApi.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public ActionResult<Branch> GetBranch(int id)
         {
             try
@@ -177,7 +176,7 @@ namespace BranchApi.Controllers
                 {
                     return NotFound("Appointment not found or already canceled.");
                 }
-                return Ok("Appointment has been successfully canceled.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -186,12 +185,41 @@ namespace BranchApi.Controllers
         }
 
         [HttpGet("myappointments")]
-        [Authorize(Roles = "User")] // Only workers can cancel appointments
+        [Authorize(Roles = "Worker, User")]
         public ActionResult<List<Appointment>> GetUserAppointments()
         {
-            var username = GetUserEmail();
-            var appointments = _branchService.GetUserAppointments(username);
-            return Ok(appointments);
+            var role = GetUserRole();
+            try
+            {
+                if (role == "Worker")
+                {
+                    var branchId = int.Parse(GetWorkerBranchId());
+                    var appointments = _branchService.GetBookedAppointmentsByBranch(branchId);
+                    return Ok(appointments);
+                }
+                if (role == "User")
+                {
+                    var username = GetUserEmail();
+                    var appointments = _branchService.GetUserAppointments(username);
+                    return Ok(appointments);
+                }
+                return Ok();
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [NonAction]
+        private string GetUserRole()
+        {
+            var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            return claimsIdentity.FindFirst(ClaimTypes.Role)?.Value;
+        }
+        [NonAction]
+        private string GetWorkerBranchId()
+        {
+            var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            return claimsIdentity.FindFirst(ClaimTypes.UserData)?.Value;
         }
 
         [NonAction]

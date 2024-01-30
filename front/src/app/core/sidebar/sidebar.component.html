@@ -1,7 +1,7 @@
 <div class="nav-bar" *ngIf="isLoggedIn">
     <div>
-        <button *ngIf="role == 'USER'" [routerLink]="'/appointments/my'" pButton pRipple type="button"
-            label="My appointments" class="p-button-outlined p-button-info"></button>
+        <button *ngIf="role == 'USER' || role == 'WORKER'" [routerLink]="'/appointments/my'" pButton pRipple
+            type="button" label="Appointments" class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'USER'" [routerLink]="'/loans/requests'" pButton pRipple type="button" label="Loans"
             class="p-button-outlined p-button-info"></button>
         <button *ngIf="role == 'USER'" [routerLink]="'/accounts'" pButton pRipple type="button" label="Accounts"
@@ -28,8 +28,8 @@
             class="p-button-outlined p-button-info"></button>
         <button [routerLink]="'/branches'" pButton pRipple type="button" label="Branch"
             class="p-button-outlined p-button-info"></button>
-        <button [routerLink]="'/exchange-list'" pButton pRipple type="button" icon="pi pi-money-bill" label="Exchange Rates"
-            class="p-button-outlined p-button-info"></button>
+        <button [routerLink]="'/exchange-list'" pButton pRipple type="button" icon="pi pi-money-bill"
+            label="Exchange Rates" class="p-button-outlined p-button-info"></button>
         <p-button *ngIf="role == 'ADMIN'" [routerLink]="'/workers'" label="Workers" icon="pi pi-users"
             styleClass="p-button-outlined" badgeClass="p-badge-danger"></p-button>
     </div>
@@ -50,8 +50,8 @@
             class="p-button-outlined p-button-info"></button>
         <button [routerLink]="'/branches'" pButton pRipple type="button" label="Branch"
             class="p-button-outlined p-button-info"></button>
-        <button [routerLink]="'/exchange-list'" pButton pRipple type="button" icon="pi pi-money-bill" label="Exchange Rates"
-            class="p-button-outlined p-button-info"></button>
+        <button [routerLink]="'/exchange-list'" pButton pRipple type="button" icon="pi pi-money-bill"
+            label="Exchange Rates" class="p-button-outlined p-button-info"></button>
         <p-button *ngIf="role == 'ADMIN'" [routerLink]="'/workers'" label="Workers" icon="pi pi-users"
             styleClass="p-button-outlined" badgeClass="p-badge-danger"></p-button>
     </div>

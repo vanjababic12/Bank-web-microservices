@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'workers', component: WorkerListComponent, canActivate: [AdminGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard] },
   { path: 'appointments', component: BranchAppointmentsComponent, canActivate: [LoggedInGuard] },
-  { path: 'appointments/my', component: MyAppointmentsComponent, canActivate: [CustomerGuard] },
+  { path: 'appointments/my', component: MyAppointmentsComponent, canActivate: [LoggedInGuard] },
   { path: 'accounts/requests', component: AccountRequestsComponent, canActivate: [LoggedInGuard] },
   { path: 'loans/requests', component: LoanRequestsComponent, canActivate: [LoggedInGuard] },
   { path: 'accounts', component: MyAccountsComponent, canActivate: [CustomerGuard] },

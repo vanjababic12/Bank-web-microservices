@@ -20,4 +20,17 @@
             }
         }
     }
+
+    .appointment-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .appointment-status {
+        font-weight: bold;
+        color: #333;
+        /* Additional styling */
+    }
+
 }

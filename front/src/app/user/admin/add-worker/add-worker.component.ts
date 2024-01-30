@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { RegisterDto } from 'src/app/Shared/models/user.models';
+import { MessageService, SelectItem } from 'primeng/api';
+import { RegisterDto, RegisterWorkerDto } from 'src/app/Shared/models/user.models';
 import { UserService } from '../../shared/user.service';
+import { Branch } from 'src/app/Shared/models/branch.models';
+import { BranchService } from 'src/app/Shared/services/branch/branch.service';
 
 @Component({
   selector: 'app-add-worker',
@@ -12,7 +14,7 @@ import { UserService } from '../../shared/user.service';
 })
 
 export class AddWorkerComponent implements OnInit {
-
+  branches: SelectItem<Branch>[]; // Lista svih filijala
   isLoading = false;
   addWorkerForm = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
@@ -21,18 +23,28 @@ export class AddWorkerComponent implements OnInit {
     firstname: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
     lastname: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
     birthdayDate: new FormControl('', Validators.required),
+    branch: new FormControl<Branch>(null, Validators.required),
     address: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
   });
 
-  constructor(private userService: UserService, private messageService: MessageService, private router: Router) { }
+  constructor(private userService: UserService, private branchService: BranchService, private messageService: MessageService, private router: Router) { }
 
   ngOnInit(): void {
+    this.branchService.searchBranches().subscribe(branches => {
+      this.branches = branches.map(i => {
+        return {
+          label: i.name,
+          value: i
+        }
+      });
+    });
   }
 
-  mapFormToRegisterDto(): RegisterDto {
+  mapFormToRegisterDto(): RegisterWorkerDto {
     const formValue = this.addWorkerForm.value;
     const birthdayTimestamp = new Date(formValue.birthdayDate).getTime();
 
+    console.log(formValue);
     return {
       username: formValue.username,
       email: formValue.email,
@@ -40,9 +52,11 @@ export class AddWorkerComponent implements OnInit {
       firstName: formValue.firstname,
       lastName: formValue.lastname,
       birthday: birthdayTimestamp,
-      address: formValue.address
+      address: formValue.address,
+      branchId: formValue.branch.id // Assuming the branch object has an 'id' property
     };
   }
+
 
   addWorker() {
     if (this.addWorkerForm.valid) {

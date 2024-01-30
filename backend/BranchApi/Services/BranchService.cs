@@ -157,12 +157,11 @@ namespace BranchApi.Services
         {
             var appointment = _dbContext.Appointments.Find(appointmentId);
 
-            if (appointment == null || !appointment.IsBooked)
+            if (appointment == null || !appointment.IsBooked || appointment.IsCanceled)
             {
                 return false; // Termin ne postoji ili nije zauzet
             }
-
-            appointment.CustomerUsername = null; // Oslobađanje termina
+            appointment.IsCanceled = true;
             await _dbContext.SaveChangesAsync();
             return true;
         }
@@ -171,6 +170,19 @@ namespace BranchApi.Services
         {
             return _dbContext.Appointments
                 .Where(a => a.CustomerUsername == username)
+                .ToList()
+                .Select(i =>
+                {
+                    i.Branch = _dbContext.Branches.Find(i.BranchId);
+                    return i;
+                })
+                .ToList();
+        }
+
+        public List<Appointment> GetBookedAppointmentsByBranch(int branchId)
+        {
+            return _dbContext.Appointments
+                .Where(a => a.BranchId == branchId && a.CustomerUsername != String.Empty && a.CustomerUsername != null)
                 .ToList()
                 .Select(i =>
                 {

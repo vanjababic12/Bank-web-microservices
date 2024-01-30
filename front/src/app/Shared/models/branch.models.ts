@@ -48,6 +48,7 @@ export class Appointment {
     appointmentDate: Date; // Datum termina
     customerUsername: string; // Korisničko ime umesto imena kupca
     isBooked: boolean; // Proverava da li je termin zauzet
+    isCanceled: boolean; // Proverava da li je termin otkazan
     branch: Branch;
 
     constructor(id: number, branchId: number, appointmentDate: Date, customerUsername: string, branch: Branch) {

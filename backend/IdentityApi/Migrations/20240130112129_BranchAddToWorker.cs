@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace IdentityApi.Migrations
 {
-    public partial class Base : Migration
+    public partial class BranchAddToWorker : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,6 +19,7 @@ namespace IdentityApi.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Birthday = table.Column<long>(type: "bigint", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BranchId = table.Column<int>(type: "int", nullable: true),
                     Role = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

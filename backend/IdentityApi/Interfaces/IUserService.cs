@@ -11,7 +11,8 @@ namespace IdentityApi.Interfaces
         UserDto GetUserByUsername(string username);
         List<UserDto> GetAllWorkers();
         void DeleteWorker(string username);
-        UserDto AddUser(RegisterDto registerDto, bool isWorker);
+        UserDto AddUser(RegisterDto registerDto);
+        UserDto AddWorker(RegisterWorkerDto dto);
         UserDto UpdateUser(string email, UpdateUserDto dto);
         SuccessLoginDto LoginUser(LoginDto loginDto);
         List<UserDisplayDTO> SearchAndSortWorkers(string searchTerm, string sortField, bool ascending);

@@ -3,15 +3,32 @@
 
     <div *ngFor="let appointment of displayedappointments" class="appointment-card">
         <p-card>
-            <div class="appointment-date">
-                Date: {{ appointment.appointmentDate | date:'fullDate' }}
+            <div class="appointment-content">
+                <!-- Appointment Details -->
+                <div class="appointment-details">
+                    <div class="appointment-date">
+                        Date: {{ appointment.appointmentDate | date:'fullDate' }}
+                    </div>
+                    Time: {{ appointment.appointmentDate | date:'shortTime' }}
+                    <div>Branch: {{ appointment.branch.name }}</div>
+                    <div *ngIf="role === 'WORKER'">Customer: {{ appointment.customerUsername }}</div>
+                    <div>Address: {{ appointment.branch.address }}</div>
+                    <!-- Appointment Status -->
+                    <div class="appointment-status">
+                        Status:
+                        <span *ngIf="appointment.isBooked && !appointment.isCanceled">Booked</span>
+                        <span *ngIf="appointment.isCanceled">Canceled</span>
+                        <span *ngIf="!appointment.isBooked && !appointment.isCanceled">Available</span>
+                    </div>
+                </div>
+
+                <!-- Cancel Button -->
+                <button *ngIf="role === 'WORKER' && isFutureDate(appointment.appointmentDate)"
+                    [disabled]="appointment.isCanceled" pButton type="button" label="Cancel" class="cancel-button"
+                    (click)="confirmCancellation(appointment)"></button>
             </div>
-            Time: {{ appointment.appointmentDate | date:'shortTime' }}
-            <div>Branch: {{ appointment.branch.name }}</div>
-            <div>Address: {{ appointment.branch.address }}</div>
-            <!-- Dodajte ostale informacije o filijali ili terminu ako je potrebno -->
         </p-card>
     </div>
-
     <p-paginator [rows]="rowsPerPage" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>
 </div>
+<p-confirmDialog></p-confirmDialog>

@@ -31,13 +31,13 @@ namespace IdentityApi.Services
             _mapper = mapper;
             _dbContext = dbContext;
         }
-        public UserDto AddUser(RegisterDto registerDto, bool isWorker)
+        public UserDto AddUser(RegisterDto registerDto)
         {
             User user = _dbContext.Users.ToList().Find(x => x.Username.ToLower() == registerDto.Username.ToLower() || x.Email == registerDto.Email);
             if (user != null) throw new Exception("User with same username-email already exists.");
 
             user = _mapper.Map<User>(registerDto);
-            user.Role = (isWorker) ? EUserRole.WORKER : EUserRole.USER;
+            user.Role = EUserRole.USER;
             user.Password = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
             user.Username = user.Username;
 
@@ -45,6 +45,23 @@ namespace IdentityApi.Services
             _dbContext.SaveChanges();
 
             var retVal = _mapper.Map<UserDto>(_dbContext.Users.ToList().Find(x => x.Username.ToLower() == registerDto.Username.ToLower()));
+
+            return retVal;
+        }
+        public UserDto AddWorker(RegisterWorkerDto dto)
+        {
+            User user = _dbContext.Users.ToList().Find(x => x.Username.ToLower() == dto.Username.ToLower() || x.Email == dto.Email);
+            if (user != null) throw new Exception("User with same username-email already exists.");
+
+            user = _mapper.Map<User>(dto);
+            user.Role = EUserRole.WORKER;
+            user.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            user.Username = user.Username;
+
+            _dbContext.Add(user);
+            _dbContext.SaveChanges();
+
+            var retVal = _mapper.Map<UserDto>(_dbContext.Users.ToList().Find(x => x.Username.ToLower() == dto.Username.ToLower()));
 
             return retVal;
         }
@@ -106,6 +123,10 @@ namespace IdentityApi.Services
 
             claims.Add(new Claim(ClaimTypes.Role, userRole)); //Add user type to claim
             claims.Add(new Claim(ClaimTypes.Name, user.Email));
+            if (user.Role == EUserRole.WORKER)
+            {
+                claims.Add(new Claim(ClaimTypes.UserData, user.BranchId.ToString()));
+            }
             //Kreiramo kredencijale za potpisivanje tokena. Token mora biti potpisan privatnim kljucem
             //kako bi se sprecile njegove neovlascene izmene
             SymmetricSecurityKey secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey.Value));

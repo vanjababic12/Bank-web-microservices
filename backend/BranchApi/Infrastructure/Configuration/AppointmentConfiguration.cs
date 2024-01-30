@@ -13,6 +13,7 @@ namespace BranchApi.Infrastructure.Configuration
             builder.Property(a => a.Id).ValueGeneratedOnAdd();
 
             builder.Property(a => a.BranchId).IsRequired();
+            builder.Property(a => a.IsCanceled).IsRequired().HasDefaultValue(false);
             builder.Property(a => a.AppointmentDate).IsRequired();
             builder.Property(a => a.CustomerUsername).IsRequired(false); // Ovo polje može biti null
 

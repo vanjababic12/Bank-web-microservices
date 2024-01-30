@@ -8,6 +8,17 @@ export interface RegisterDto {
     address?: string;
 }
 
+export interface RegisterWorkerDto {
+    username: string;
+    email: string;
+    password: string;
+    firstName?: string;
+    lastName?: string;
+    birthday?: number;
+    branchId?: number;
+    address?: string;
+}
+
 export interface LoginDto {
     username: string;
     password: string;

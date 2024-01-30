@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Token } from './token.model';
 import { User } from './user.model';
-import { LoginDto, RegisterDto, SuccessLoginDto, UpdateUserDto, UserDisplayDto, UserDto } from 'src/app/Shared/models/user.models';
+import { LoginDto, RegisterDto, RegisterWorkerDto, SuccessLoginDto, UpdateUserDto, UserDisplayDto, UserDto } from 'src/app/Shared/models/user.models';
 
 @Injectable({
   providedIn: 'root'
@@ -43,11 +43,11 @@ export class UserService {
     return this.http.get<UserDto[]>(`${this.apiUrl}/users/workers`);
   }
 
-  addWorker(registerDto: RegisterDto): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/workers`, registerDto);
+  addWorker(dto: RegisterWorkerDto): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/workers`, dto);
   }
 
   deleteWorker(username: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/users/worker/${username}`, {responseType: 'text'});
+    return this.http.delete(`${this.apiUrl}/users/worker/${username}`, { responseType: 'text' });
   }
 }

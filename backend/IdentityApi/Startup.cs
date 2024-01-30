@@ -1,5 +1,6 @@
 using AutoMapper;
 using Backend.Infrastructure;
+using BankAccountApi.Models;
 using IdentityApi.Infrastructure;
 using IdentityApi.Interfaces;
 using IdentityApi.Mapping;
@@ -70,7 +71,8 @@ namespace IdentityApi
             services.AddDbContext<IdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
 
-
+            
+            services.Configure<MicroserviceSettings>(Configuration.GetSection("MicroserviceSettings"));
             //Dodajemo semu autentifikacije i podesavamo da se radi o JWT beareru
             services.AddAuthentication(opt => {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -96,7 +98,9 @@ namespace IdentityApi
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+            services.AddHttpClient();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBranchService, BranchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

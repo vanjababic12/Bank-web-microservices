@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace IdentityApi.Controllers
 {
@@ -14,12 +15,14 @@ namespace IdentityApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IBranchService _branchService;
         private readonly IConfiguration _config;
 
-        public UsersController(IUserService userService, IConfiguration configuration)
+        public UsersController(IUserService userService, IBranchService branchService, IConfiguration configuration)
         {
             _userService = userService;
             _config = configuration;
+            _branchService = branchService;
         }
 
         [HttpGet]
@@ -49,7 +52,7 @@ namespace IdentityApi.Controllers
         {
             try
             {
-                _userService.AddUser(dto, isWorker: false);
+                _userService.AddUser(dto);
             }
             catch (Exception ex)
             {
@@ -102,11 +105,13 @@ namespace IdentityApi.Controllers
         [HttpPost("workers")]
         [Authorize(Roles = "Admin")]
             
-        public ActionResult AddWorker([FromBody] RegisterDto dto)
+        public async Task<ActionResult> AddWorker([FromBody] RegisterWorkerDto dto)
         {
             try
             {
-                _userService.AddUser(dto, isWorker: true);
+                // Get branch if it exists
+                var branch = await _branchService.GetBranchAsync(dto.BranchId);
+                _userService.AddWorker(dto);
             }
             catch (Exception ex)
             {

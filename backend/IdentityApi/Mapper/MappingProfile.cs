@@ -10,6 +10,7 @@ namespace IdentityApi.Mapping
         {
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, RegisterDto>().ReverseMap();
+            CreateMap<User, RegisterWorkerDto>().ReverseMap();
             CreateMap<User, LoginDto>().ReverseMap();
             CreateMap<User, UpdateUserDto>().ReverseMap();
         }
