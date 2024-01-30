@@ -2,31 +2,33 @@
 <p-card class="center-div margin-4em" header="Register" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
     <form [formGroup]="registerForm" class="center-div" style="flex-direction:column;">
         <span class="p-float-label">
-            <input id="float-input" type="text" pInputText formControlName="username"> 
+            <input id="float-input" type="text" pInputText formControlName="username">
             <label for="float-input">Username</label>
         </span>
         <span class="p-float-label">
-            <input id="float-input" type="password" pInputText formControlName="password"> 
+            <input id="float-input" type="password" pInputText formControlName="password">
             <label for="float-input">Password</label>
         </span>
         <span class="p-float-label">
-            <input id="float-input" type="email" pInputText formControlName="email"> 
+            <input id="float-input" type="email" pInputText formControlName="email">
             <label for="float-input">Email</label>
         </span>
         <span class="p-float-label">
-            <p-calendar formControlName="birthdayDate"></p-calendar>
+            <p-calendar formControlName="birthdayDate" [minDate]="minDate" [maxDate]="maxDate"
+                [readonlyInput]="true"></p-calendar>
             <label for="float-input">Birthday</label>
         </span>
+
         <span class="p-float-label">
-            <input id="float-input" type="text" pInputText formControlName="firstname"> 
+            <input id="float-input" type="text" pInputText formControlName="firstname">
             <label for="float-input">First Name</label>
         </span>
         <span class="p-float-label">
-            <input id="float-input" type="text" pInputText formControlName="lastname"> 
+            <input id="float-input" type="text" pInputText formControlName="lastname">
             <label for="float-input">Last Name</label>
         </span>
         <span class="p-float-label">
-            <input id="float-input" type="text" pInputText formControlName="address"> 
+            <input id="float-input" type="text" pInputText formControlName="address">
             <label for="float-input">Address</label>
         </span>
         <button pButton type="button" label="Register" [loading]="isLoading" (click)="register()"></button>

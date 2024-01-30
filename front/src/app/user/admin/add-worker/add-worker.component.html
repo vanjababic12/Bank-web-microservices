@@ -19,7 +19,8 @@
             <label for="float-input">Email</label>
         </span>
         <span class="p-float-label">
-            <p-calendar formControlName="birthdayDate"></p-calendar>
+            <p-calendar formControlName="birthdayDate" [minDate]="minDate" [maxDate]="maxDate"
+                [readonlyInput]="true"></p-calendar>
             <label for="float-input">Birthday</label>
         </span>
         <span class="p-float-label">

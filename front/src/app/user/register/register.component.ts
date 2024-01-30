@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { UserService } from '../shared/user.service';
 import { RegisterDto } from 'src/app/Shared/models/user.models';
+import { minimumAgeValidator } from 'src/app/Shared/validation/age.validation';
+import { min } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +13,8 @@ import { RegisterDto } from 'src/app/Shared/models/user.models';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
+  minDate = new Date(new Date().getFullYear() - 120, 0, 1); // 120 years ago
+  maxDate = new Date(new Date().getFullYear() - 18, new Date().getDay(), new Date().getMonth()); // 18 years ago
   isLoading = false;
   registerForm = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
@@ -19,7 +22,7 @@ export class RegisterComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
     firstname: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]),
     lastname: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]),
-    birthdayDate: new FormControl('', Validators.required),
+    birthdayDate: new FormControl(this.maxDate, [Validators.required, minimumAgeValidator(18)]),
     address: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
   });
 

@@ -14,13 +14,30 @@ export class CreateExchangeRatesComponent implements OnInit {
   isLoading = false;
   exchangeRates: ExchangeRateListDto = new ExchangeRateListDto(this.currentDateToString(), []);
   newRate: ExchangeRateDto = new ExchangeRateDto('', 0);
+  constructor(private exchangeRatesService: ExchangeRatesService, private messageService: MessageService, private router: Router) { }
 
-  constructor( private exchangeRatesService: ExchangeRatesService, private messageService: MessageService, private router: Router) { }
+  ngOnInit(): void { }
 
-  ngOnInit(): void {}
+
+  // Getter
+  get currencyInput(): string {
+    console.log("read" + this.newRate.currency);
+    return this.newRate.currency;
+  }
+
+  // Setter
+  set currencyInput(value: string) {
+    const onlyLetters = value.replace(/[^a-zA-Z]/g, ''); // Remove non-letter characters
+    console.log(onlyLetters);
+    this.newRate.currency = onlyLetters.toUpperCase();
+  }
 
   addRate() {
     if (this.newRate.currency && this.newRate.rate) {
+      if (this.exchangeRates.rates.find(i => i.currency == this.newRate.currency) != null) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Currency with same name already exists' });
+        return;
+      }
       this.exchangeRates.rates.push(this.newRate);
       this.newRate = new ExchangeRateDto('', 0);
     }
@@ -30,7 +47,7 @@ export class CreateExchangeRatesComponent implements OnInit {
     this.exchangeRates.rates.splice(index, 1);
   }
 
-  createRates():void {
+  createRates(): void {
     if (this.exchangeRates.rates.length === 0) return;
 
     this.exchangeRatesService.createExchangeRateList(this.exchangeRates).subscribe(
@@ -48,11 +65,11 @@ export class CreateExchangeRatesComponent implements OnInit {
     );
   }
 
-  currentDateToString():string {
+  currentDateToString(): string {
     const currentDate = new Date();
 
     const year = currentDate.getFullYear();
-    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2); 
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
     const day = ('0' + currentDate.getDate()).slice(-2);
 
     const isoDateString = `${year}-${month}-${day}`;

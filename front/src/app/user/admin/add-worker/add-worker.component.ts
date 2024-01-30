@@ -6,6 +6,7 @@ import { RegisterDto, RegisterWorkerDto } from 'src/app/Shared/models/user.model
 import { UserService } from '../../shared/user.service';
 import { Branch } from 'src/app/Shared/models/branch.models';
 import { BranchService } from 'src/app/Shared/services/branch/branch.service';
+import { minimumAgeValidator } from 'src/app/Shared/validation/age.validation';
 
 @Component({
   selector: 'app-add-worker',
@@ -14,6 +15,8 @@ import { BranchService } from 'src/app/Shared/services/branch/branch.service';
 })
 
 export class AddWorkerComponent implements OnInit {
+  minDate = new Date(new Date().getFullYear() - 120, 0, 1); // 120 years ago
+  maxDate = new Date(new Date().getFullYear() - 18, new Date().getDay(), new Date().getMonth()); // 18 years ago
   branches: SelectItem<Branch>[]; // Lista svih filijala
   isLoading = false;
   addWorkerForm = new FormGroup({
@@ -22,7 +25,7 @@ export class AddWorkerComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
     firstname: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
     lastname: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
-    birthdayDate: new FormControl('', Validators.required),
+    birthdayDate: new FormControl(this.maxDate, [Validators.required, minimumAgeValidator(18)]),
     branch: new FormControl<Branch>(null, Validators.required),
     address: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
   });
